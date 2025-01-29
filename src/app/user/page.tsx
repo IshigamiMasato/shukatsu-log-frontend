@@ -1,50 +1,26 @@
 "use client";
 
+import useAuthInit from "@/hooks/useAuthInit";
+import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-
-type User = {
-    name: string,
-    email: string,
-}
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const User: React.FC = () => {
-    const [ user, setUser ] = useState<User | null>(null);
-    const [ error, setError ] = useState(null);
+    useAuthInit();
+    const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
+
     const router = useRouter();
 
     useEffect(() => {
-        getUser()
-            .then(user => {
-                setUser(user);
-
-            })
-            .catch(error => {
-                setError(error.message);
-
-            });
-
-    }, []);
-
-    const getUser = async () => {
-        const jwt = localStorage.getItem("access_token");
-
-        const res = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/user`, {
-            method: "GET",
-            headers: {
-                "Content-Type"  : "application/json",
-                "Authorization" : `Bearer ${jwt}`
+        if (authStatusChecked) {
+            // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
+            if ( ! isAuthenticated ) {
+                router.push("/login");
             }
-        });
-
-        const data = await res.json();
-
-        if ( ! res.ok ) {
-            throw new Error( data.message );
         }
 
-        return data;
-    }
+    }, [authStatusChecked]);
 
     const handleLogout = () => {
         logout()
@@ -78,12 +54,6 @@ const User: React.FC = () => {
         }
 
         return data;
-    }
-
-    if ( error ) {
-        return (
-            <p>エラー: { error }</p>
-        )
     }
 
     return (
