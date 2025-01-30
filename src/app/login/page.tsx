@@ -14,32 +14,25 @@ const Login: React.FC = () => {
 
         setError(null);
 
-        login()
-            .then(res => {
-                localStorage.setItem("access_token", res.access_token);
+        const form = e.target as HTMLFormElement;
+        const formData = new FormData(form);
+
+        fetch('api/login', {method: 'POST', body: formData}).then(res => {
+            if ( ! res.ok ) {
+                res.json().then(data => {
+                    setError(data.msg);
+
+                    return;
+                });
+            }
+
+            res.json().then(data => {
+                localStorage.setItem("access_token", data.access_token);
                 router.push("/user");
 
-            })
-            .catch(error => {
-                setError(error.message);
-
+                return;
             });
-    }
-
-    const login = async () => {
-        const res = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await res.json();
-
-        if ( ! res.ok ) {
-            throw new Error( data.message );
-        }
-
-        return data;
+        })
     }
 
     return (
@@ -51,6 +44,7 @@ const Login: React.FC = () => {
                     <label>メールアドレス</label>
                     <input
                         type="text"
+                        name="email"
                         value={email}
                         onChange={ (e) => { setEmail(e.target.value) } }
                         required
@@ -60,6 +54,7 @@ const Login: React.FC = () => {
                     <label>パスワード</label>
                     <input
                         type="text"
+                        name="password"
                         value={password}
                         onChange={ (e) => { setPassword(e.target.value) } }
                         required
