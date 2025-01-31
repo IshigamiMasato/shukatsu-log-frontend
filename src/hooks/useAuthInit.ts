@@ -7,38 +7,60 @@ import { useDispatch } from 'react-redux';
 const useAuthInit = () => {
     const dispatch = useDispatch();
 
+    const loadUserToken = async (jwt: string) => {
+        const res  = await fetch( '/api/user', { method: "GET", headers: { Authorization: jwt}} );
+        const data = await res.json();
+
+        if ( ! res.ok ) {
+            if ( data.code === "EXPIRED_TOKEN" ) {
+                return "REFRESH";
+            }
+
+            throw new Error( "ユーザー情報取得に失敗しました。" );
+        }
+
+        return data;
+    };
+
+    const refreshToken = async (jwt: string) => {
+        const res  = await fetch( '/api/token/refresh', {method: "POST", headers: { Authorization: jwt }} );
+        const data = await res.json();
+
+        if ( ! res.ok ) {
+            throw new Error('トークンリフレッシュに失敗しました。');
+        }
+
+        return data;
+    };
+
     useEffect(() => {
         const initializeAuth = async () => {
             try {
                 const jwt = localStorage.getItem("access_token");
-                const res = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/user`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type"  : "application/json",
-                        "Authorization" : `Bearer ${jwt}`
-                    }
-                });
 
-                // ユーザ情報を取得できた場合は、ログイン状態とする
-                if ( res.ok ) {
-                    const userInfo = await res.json();
-                    dispatch( loggedIn(userInfo) );
-
+                // JWT が無ければログアウト状態とする
+                if (! jwt) {
+                    dispatch( loggedOut({}) );
                     return;
                 }
 
-                const data = await res.json();
+                let userData = await loadUserToken(jwt);
 
-                // TODO: トークンの有効期限が切れている場合リフレッシュ
-                // TODO: トークンの有効期限が切れている場合リフレッシュ
-                // TODO: トークンの有効期限が切れている場合リフレッシュ
-                if ( data.code === "EXPIRED_TOKEN" ) {
+                // トークンリフレッシュが必要な場合
+                if ( userData == 'REFRESH' ) {
+                    const refreshData = await refreshToken(jwt);
+                    localStorage.setItem("access_token", refreshData.access_token);
+
+                    // リフレッシュしたトークンで再取得
+                    userData = await loadUserToken(refreshData.access_token);
                 }
 
-                dispatch( loggedOut({}) );
+                // 成功した場合はログイン状態にする
+                dispatch( loggedIn(userData) );
 
             } catch ( error ) {
                 dispatch( loggedOut({}) );
+                localStorage.removeItem("access_token");
 
             }
         }
