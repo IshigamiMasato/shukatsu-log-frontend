@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type User = {
+  user_id: number,
   name: string,
   email: string,
 }
