@@ -5,11 +5,24 @@ import useAuthInit from "@/hooks/useAuthInit";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from '@fullcalendar/daygrid';
+
+type Event = {
+    event_id: number,
+    user_id: number,
+    title: string,
+    type: number,
+    start_at: string,
+    end_at: string,
+}
 
 const Calender = () => {
     useAuthInit();
     const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
     const router = useRouter();
+
+    const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
         if (authStatusChecked) {
@@ -17,6 +30,20 @@ const Calender = () => {
             if ( ! isAuthenticated ) {
                 router.push("/login");
             }
+
+            const getEvents = async () => {
+                const jwt = localStorage.getItem("access_token") ?? "";
+                const res = await fetch('/api/event', {method: 'GET', headers: {Authorization: jwt}});
+
+                if ( ! res.ok ) {
+                    // イベント情報が取得できなかった場合
+                }
+
+                const data = await res.json();
+                setEvents(data);
+            }
+
+            getEvents();
         }
     }, [authStatusChecked]);
 
@@ -38,7 +65,16 @@ const Calender = () => {
 
         const jwt = localStorage.getItem("access_token") ?? "";
 
-        fetch('/api/event', {method: "POST", headers: {Authorization: jwt},  body: formData} )
+        fetch('/api/event', {method: "POST", headers: {Authorization: jwt},  body: formData})
+            .then(res => {
+                if( ! res.ok ) {
+                    return;
+                }
+
+                res.json().then(newEvent => {
+                    setEvents([ ...events, newEvent ]);
+                });
+            })
     }
 
     return (
@@ -54,11 +90,7 @@ const Calender = () => {
                         {EVENT_TYPES.map((value) => {
                             return (
                             <label key={ value.id }>
-                                <input
-                                    name="type"
-                                    type="radio"
-                                    value={ value.id }
-                                />
+                                <input name="type" type="radio" value={ value.id } />
                                 { value.name }
                             </label>
                             );
@@ -79,6 +111,35 @@ const Calender = () => {
                     <button>登録</button>
                 </form>
             </div>
+
+            {/* 予定表示 */}
+            <div>
+                {
+                    events.map(event => {
+                        return (
+                            <div key={event.event_id}>
+                                <h3>予定ID: { event.event_id }</h3>
+                                <h3>ユーザID: { event.user_id }</h3>
+                                <h3>題名: { event.title }</h3>
+                                <p>タイプ: { event.type }</p>
+                                <p>開始日時: { event.start_at }</p>
+                                <p>終了日時: { event.end_at }</p>
+                            </div>
+                        );
+                    })
+                }
+            </div>
+
+            <FullCalendar
+                plugins={[ dayGridPlugin ]}
+                initialView="dayGridMonth"
+                events={
+                    events.map(event => {
+                        return { id: String(event.event_id), title: event.title, start: event.start_at, end: event.end_at };
+                    })
+                }
+                locale="ja"
+            />
         </>
     )
 }
