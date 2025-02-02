@@ -7,15 +7,7 @@ import { RootState } from "@/store";
 import { useRouter } from "next/navigation";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
-
-type Event = {
-    event_id: number,
-    user_id: number,
-    title: string,
-    type: number,
-    start_at: string,
-    end_at: string,
-}
+import { Event } from "@/types";
 
 const Calender = () => {
     useAuthInit();
