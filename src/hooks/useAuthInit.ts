@@ -36,7 +36,7 @@ const useAuthInit = () => {
     useEffect(() => {
         const initializeAuth = async () => {
             try {
-                const jwt = localStorage.getItem("access_token");
+                const jwt = localStorage.getItem("access_token") ?? "";
 
                 // JWT が無ければログアウト状態とする
                 if (! jwt) {
