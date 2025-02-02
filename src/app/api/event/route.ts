@@ -43,8 +43,14 @@ export async function POST(request: Request) {
     const endAt   = formData.get('end_at');
     const memo    = formData.get('memo');
 
-    if ( title === '' || type === '' || startAt === '' || endAt === '' ) {
-        return Response.json( { msg: '入力フィールドが空です。' }, { status: 400 } );
+    if ( !title || !type || !startAt || !endAt ) {
+        let items = [];
+        if ( ! title ) items.push("タイトル");
+        if ( ! type ) items.push("カテゴリ");
+        if ( ! startAt ) items.push("開始");
+        if ( ! endAt ) items.push("終了");
+
+        return Response.json( { msg: `次の項目を入力してください：${items.join("、")}` }, { status: 400 } );
     }
 
     try {
@@ -63,11 +69,11 @@ export async function POST(request: Request) {
 
         const data = await res.json();
 
-        return Response.json( data, {status: res.status} );
+        return Response.json( data, { status: res.status } );
 
     } catch ( error: any ) {
         console.error(error);
-        return Response.json( {msg: 'サーバーエラー'}, {status: 500} );
+        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
 
     }
 }

@@ -6,12 +6,9 @@ export async function POST(request: Request) {
     }
 
     try {
-        const res = await fetch('http://backend/api/token/refresh', {
+        const res = await fetch('http://backend/api/logout', {
             method: "POST",
-            headers: {
-                "Content-Type"  : "application/json",
-                "Authorization" : `Bearer ${jwt}`
-            }
+            headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });
 
         const data = await res.json();

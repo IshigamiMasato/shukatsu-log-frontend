@@ -1,13 +1,15 @@
-// サーバサイドで実行される
-
 export async function POST(request: Request) {
     const formData = await request.formData();
 
     const email    = formData.get('email');
     const password = formData.get('password');
 
-    if ( email === '' || password === '' ) {
-        return Response.json( { msg: '入力フィールドが空です。' }, { status: 400 } );
+    if ( !email || !password ) {
+        let items = [];
+        if ( ! email ) items.push("メールアドレス");
+        if ( ! password ) items.push("パスワード");
+
+        return Response.json( { msg: `次の項目を入力してください：${items.join("、")}` }, { status: 400 } );
     }
 
     try {
@@ -20,13 +22,14 @@ export async function POST(request: Request) {
         const data = await res.json();
 
         if ( ! res.ok ) {
-            throw new Error( data.message );
+            throw new Error( JSON.stringify(data) );
         }
 
         return Response.json( data );
 
     } catch ( error: any ) {
-        return Response.json({ msg: 'ログインに失敗しました。' }, { status: 401 });
+        console.error(error.message);
+        return Response.json( { msg: 'ログインに失敗しました。' }, { status: 401 } );
 
     }
 }
