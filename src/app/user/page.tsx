@@ -9,51 +9,33 @@ import { useSelector } from "react-redux";
 const User: React.FC = () => {
     useAuthInit();
     const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-
     const router = useRouter();
 
     useEffect(() => {
-        if (authStatusChecked) {
+        if ( authStatusChecked ) {
             // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
             if ( ! isAuthenticated ) {
                 router.push("/login");
             }
         }
-
     }, [authStatusChecked]);
 
     const handleLogout = () => {
-        logout()
-            .catch(error => {
-                console.error(error.message);
+        const jwt = localStorage.getItem("access_token") ?? "";
 
-            })
-            .finally(() => {
+        fetch('/api/logout', {method: "POST", headers: {Authorization: jwt}})
+            .then(res => {
+                if ( ! res.ok ) {
+                    res.json().then(data => {
+                        console.error(data);
+                    })
+                }
+
                 localStorage.removeItem("access_token");
                 router.push("/login");
 
+                return;
             });
-
-    }
-
-    const logout = async () => {
-        const jwt = localStorage.getItem("access_token");
-
-        const res = await fetch( `${process.env.NEXT_PUBLIC_API_URL}/api/logout`, {
-            method: "POST",
-            headers: {
-                "Content-Type"  : "application/json",
-                "Authorization" : `Bearer ${jwt}`
-            }
-        });
-
-        const data = await res.json();
-
-        if ( ! res.ok ) {
-            throw new Error( data.message );
-        }
-
-        return data;
     }
 
     return (

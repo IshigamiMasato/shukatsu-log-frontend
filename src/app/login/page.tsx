@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const Login: React.FC = () => {
-    const [ email, setEmail ] = useState("");
-    const [ password, setPassword ] = useState("");
     const [ error, setError ] = useState(null);
     const router = useRouter();
 
@@ -42,23 +40,11 @@ const Login: React.FC = () => {
             <form onSubmit={handleLogin}>
                 <div>
                     <label>メールアドレス</label>
-                    <input
-                        type="text"
-                        name="email"
-                        value={email}
-                        onChange={ (e) => { setEmail(e.target.value) } }
-                        required
-                    />
+                    <input type="text" name="email" required />
                 </div>
                 <div>
                     <label>パスワード</label>
-                    <input
-                        type="text"
-                        name="password"
-                        value={password}
-                        onChange={ (e) => { setPassword(e.target.value) } }
-                        required
-                    />
+                    <input type="text" name="password" required />
                 </div>
                 <button>送信</button>
             </form>
