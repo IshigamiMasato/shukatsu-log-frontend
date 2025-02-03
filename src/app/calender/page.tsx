@@ -41,12 +41,10 @@ const Calender = () => {
                 const jwt = localStorage.getItem("access_token") ?? "";
                 const res = await fetch('/api/event', {method: 'GET', headers: {Authorization: jwt}});
 
-                if ( ! res.ok ) {
-                    // イベント情報が取得できなかった場合
+                if ( res.ok ) {
+                    const data = await res.json();
+                    setEvents(data);
                 }
-
-                const data = await res.json();
-                setEvents(data);
             }
 
             getEvents();
