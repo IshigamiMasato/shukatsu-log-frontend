@@ -2,20 +2,20 @@
 
 import useAuthInit from "@/hooks/useAuthInit";
 import { RootState } from "@/store";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const User: React.FC = () => {
+    /* 認証 */
     useAuthInit();
     const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-    const router = useRouter();
 
     useEffect(() => {
         if ( authStatusChecked ) {
             // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
             if ( ! isAuthenticated ) {
-                router.push("/login");
+                redirect("/login");
             }
         }
     }, [authStatusChecked]);
@@ -32,9 +32,7 @@ const User: React.FC = () => {
                 }
 
                 localStorage.removeItem("access_token");
-                router.push("/login");
-
-                return;
+                redirect("/login");
             });
     }
 
