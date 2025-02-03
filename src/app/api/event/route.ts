@@ -43,16 +43,6 @@ export async function POST(request: Request) {
     const endAt   = formData.get('end_at');
     const memo    = formData.get('memo');
 
-    if ( !title || !type || !startAt || !endAt ) {
-        let items = [];
-        if ( ! title ) items.push("タイトル");
-        if ( ! type ) items.push("カテゴリ");
-        if ( ! startAt ) items.push("開始");
-        if ( ! endAt ) items.push("終了");
-
-        return Response.json( { msg: `次の項目を入力してください：${items.join("、")}` }, { status: 400 } );
-    }
-
     try {
         const res = await fetch('http://backend/api/event', {
             method: "POST",
