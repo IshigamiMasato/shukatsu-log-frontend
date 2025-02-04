@@ -2,6 +2,7 @@
 
 import useAuthInit from "@/hooks/useAuthInit";
 import { RootState } from "@/store";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -18,7 +19,7 @@ const User: React.FC = () => {
                 redirect("/login");
             }
         }
-    }, [authStatusChecked]);
+    }, [authStatusChecked, isAuthenticated]);
 
     const handleLogout = () => {
         const jwt = localStorage.getItem("access_token") ?? "";
@@ -47,6 +48,7 @@ const User: React.FC = () => {
                             <p>名前： { user.name }</p>
                             <p>メールアドレス： { user.email }</p>
                             <button onClick={ handleLogout }>ログアウト</button>
+                            <Link href="/calender">カレンダー</Link>
                         </div>
                     )
             }

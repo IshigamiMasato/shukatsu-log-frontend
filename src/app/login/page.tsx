@@ -22,7 +22,7 @@ const Login: React.FC = () => {
                 redirect("/user");
             }
         }
-    }, [authStatusChecked]);
+    }, [authStatusChecked, isAuthenticated]);
 
     const handleLogin = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
 
             res.json().then(data => {
                 localStorage.setItem("access_token", data.access_token);
-                redirect("/user");
+                window.location.href = '/user';
             });
         })
     }
