@@ -31,6 +31,9 @@ const Calender = () => {
     const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
+        console.log(`calender.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
+        console.log(`calender.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
+
         if ( authStatusChecked ) {
             // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
             if ( ! isAuthenticated ) {
@@ -49,7 +52,7 @@ const Calender = () => {
 
             getEvents();
         }
-    }, [authStatusChecked]);
+    }, [authStatusChecked, isAuthenticated]);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
