@@ -5,4 +5,5 @@ export type Event = {
     type: number,
     start_at: string,
     end_at: string,
+    memo?: string,
 }
