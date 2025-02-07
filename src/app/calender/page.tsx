@@ -9,6 +9,12 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Event, Msg } from "@/types";
 import { EVENT_TYPES } from "@/constants/eventConstants";
+import { createPortal } from "react-dom";
+import Modal from "@/components/Modal";
+
+type ModalPortalProps = {
+    children: React.ReactNode
+}
 
 const Calender = () => {
     /* 認証 */
@@ -29,6 +35,7 @@ const Calender = () => {
     const clearForm = () => { setTitle(""); setType(""); setStartAt(""); setEndAt(""); setMemo(""); }
 
     const [events, setEvents] = useState<Event[]>([]);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
     useEffect(() => {
         console.log(`calender.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
@@ -87,8 +94,49 @@ const Calender = () => {
             })
     }
 
+    const handleEventClick = (info: any) => {
+        setModalOpen(true);
+        const eventId = info.event.id;
+        const selectedEvent = events.find(event => event.event_id == eventId);
+
+        if ( ! selectedEvent ) {
+            return;
+        }
+
+        setSelectedEvent(selectedEvent);
+    }
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const ModalPortal: React.FC<ModalPortalProps> = ( {children} ) => {
+        const target = document.querySelector('.modal-wrapper');
+
+        if ( ! target ) {
+            return;
+        }
+
+        return createPortal(children, target);
+    }
+
     return (
         <>
+            {/* モーダル表示域 */}
+            <div className="modal-wrapper"></div>
+            <button
+                type="button"
+                onClick={() => setModalOpen(true)}
+                disabled={modalOpen}
+            >
+                モーダルを表示する
+            </button>
+            {
+                modalOpen
+                &&
+                <ModalPortal>
+                   <Modal handleCloseClick={() => setModalOpen(false)} event={selectedEvent} events={events} setEvents={setEvents} setModalOpen={setModalOpen} />
+                </ModalPortal>
+            }
+
             {/* 予定登録フォーム */}
             <div>
                 <form method="POST" onSubmit={onSubmit}>
@@ -129,7 +177,7 @@ const Calender = () => {
             </div>
 
             {/* 予定表示 */}
-            <div>
+            {/* <div>
                 {
                     events.map(event => {
                         return (
@@ -144,7 +192,7 @@ const Calender = () => {
                         );
                     })
                 }
-            </div>
+            </div> */}
 
             <FullCalendar
                 plugins={[ dayGridPlugin ]}
@@ -155,6 +203,7 @@ const Calender = () => {
                     })
                 }
                 locale="ja"
+                eventClick={handleEventClick}
             />
         </>
     )
