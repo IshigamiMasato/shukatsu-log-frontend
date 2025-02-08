@@ -68,6 +68,30 @@ const Modal: React.FC<Props> = ({ handleCloseClick, event, events, setEvents, se
             })
     }
 
+    const handleDeleteEvent = (eventId: number|undefined) => {
+        if ( ! eventId ) {
+            return;
+        }
+
+        const jwt = localStorage.getItem("access_token") ?? "";
+
+        fetch(`/api/event/${event?.event_id}`, {
+            method: "DELETE",
+            headers: {Authorization: jwt},
+            body: JSON.stringify({ "user_id": user?.user_id })
+
+        }).then(res => {
+            res.json().then(deletedEvent => {
+                console.log(deletedEvent);
+                const newEvents = events.filter(event => event.event_id != deletedEvent.event_id);
+                setEvents(newEvents);
+                setModalOpen(false);
+                return;
+
+            });
+        });
+    }
+
     return (
         <div className="modal">
             <div className="modal-content">
@@ -110,6 +134,10 @@ const Modal: React.FC<Props> = ({ handleCloseClick, event, events, setEvents, se
 
                 <button type="button" onClick={handleCloseClick}>
                     閉じる
+                </button>
+
+                <button type="button" onClick={() => handleDeleteEvent(event?.event_id)}>
+                    削除
                 </button>
 
             </div>
