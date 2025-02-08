@@ -53,10 +53,8 @@ const Login: React.FC = () => {
                 return;
             }
 
-            res.json().then(data => {
-                localStorage.setItem("access_token", data.access_token);
-                router.push('/user');
-            });
+            // ログイン成功時ユーザ画面へ遷移
+            router.push('/user');
         })
     }
 

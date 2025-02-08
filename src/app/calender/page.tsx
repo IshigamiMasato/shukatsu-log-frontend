@@ -39,8 +39,7 @@ const Calender = () => {
             }
 
             const getEvents = async () => {
-                const jwt = localStorage.getItem("access_token") ?? "";
-                const res = await fetch('/api/event', {method: 'GET', headers: {Authorization: jwt}});
+                const res = await fetch('/api/event', {method: 'GET'});
 
                 if ( res.ok ) {
                     const data = await res.json();
@@ -79,11 +78,8 @@ const Calender = () => {
         const formData = new FormData(form);
         formData.append( "user_id", String(user?.user_id) );
 
-        const jwt = localStorage.getItem("access_token") ?? "";
-
         fetch('/api/event', {
             method: "POST",
-            headers: {Authorization: jwt},
             body: formData
         }).then(res => {
             if( ! res.ok ) {

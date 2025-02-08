@@ -33,11 +33,8 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
         const formData = new FormData(form);
         formData.append("user_id", String(user?.user_id));
 
-        const jwt = localStorage.getItem("access_token") ?? "";
-
         fetch(`/api/event/${event?.event_id}`, {
             method: "PUT",
-            headers: {Authorization: jwt},
             body: formData
         }).then(res => {
             if ( ! res.ok ) {
@@ -68,11 +65,8 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     const deleteEventHandler = (eventId: number) => {
         if ( ! eventId ) return;
 
-        const jwt = localStorage.getItem("access_token") ?? "";
-
         fetch(`/api/event/${event?.event_id}`, {
             method: "DELETE",
-            headers: {Authorization: jwt},
             body: JSON.stringify({ "user_id": user?.user_id })
         }).then(res => {
             res.json().then(deletedEvent => {
