@@ -2,20 +2,20 @@
 
 import useAuthInit from "@/hooks/useAuthInit";
 import { RootState } from "@/store";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Login: React.FC = () => {
-    /* 認証 */
-    useAuthInit();
-    const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-
-    const [error, setError] = useState<string | null>(null);
-    // バリデーションエラー用
-    const [errors, setErrors] = useState<{ email?: []; password?: []; }>({});
+    /************ 認証 ************/
+    useAuthInit(); // 状態を保持した状態でページ遷移後、再度認証をしているかチェック
+    const { isAuthenticated, authStatusChecked } = useSelector( (state: RootState) => state.auth );
+    /************ 認証 ************/
 
     useEffect(() => {
+        console.log(`login.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
+        console.log(`login.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
+
         if ( authStatusChecked ) {
             // 認証状態確認後、認証済だった場合はユーザ画面へリダイレクト
             if ( isAuthenticated ) {
@@ -24,50 +24,57 @@ const Login: React.FC = () => {
         }
     }, [authStatusChecked, isAuthenticated]);
 
-    const handleLogin = (e: FormEvent<HTMLFormElement>) => {
+    const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
+    const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
+
+    const router = useRouter();
+
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        setError(null);
-        setErrors({});
+        setLoginErrorMsg("");
+        setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch('api/login', {method: 'POST', body: formData}).then(res => {
+        fetch('api/login', {
+            method: 'POST',
+            body: formData
+        }).then(res => {
             if ( ! res.ok ) {
                 res.json().then(res => {
                     // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
-                        setErrors(res.errors);
+                        setValidationErrors(res.errors);
                     }
                 });
-                setError("ログインに失敗しました。");
+                setLoginErrorMsg("ログインに失敗しました。");
                 return;
             }
 
             res.json().then(data => {
                 localStorage.setItem("access_token", data.access_token);
-                window.location.href = '/user';
+                router.push('/user');
             });
         })
     }
 
     return (
         <div>
-            <h1>ログイン</h1>
-            { error && ( <div className="bg-red-100">{ error }</div> ) }
-            <form onSubmit={handleLogin}>
+            { loginErrorMsg && ( <div className="bg-red-100">{ loginErrorMsg }</div> ) }
+            <form onSubmit={onSubmit}>
                 <div>
                     <label>メールアドレス</label>
                     <input type="text" name="email" required />
-                    { errors.email && <p className="text-red-500">{ errors.email.join(',') }</p>}
+                    { validationErrors.email && <p className="text-red-500">{ validationErrors.email.join(',') }</p> }
                 </div>
                 <div>
                     <label>パスワード</label>
                     <input type="text" name="password" required />
-                    { errors.password && <p className="text-red-500">{ errors.password.join(',') }</p>}
+                    { validationErrors.password && <p className="text-red-500">{ validationErrors.password.join(',') }</p> }
                 </div>
-                <button>送信</button>
+                <button>ログイン</button>
             </form>
         </div>
     );
