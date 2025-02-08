@@ -7,8 +7,8 @@ import { useDispatch } from 'react-redux';
 const useAuthInit = () => {
     const dispatch = useDispatch();
 
-    const loadUserToken = async (jwt: string) => {
-        const res  = await fetch( '/api/user', { method: "GET", headers: { Authorization: jwt}} );
+    const loadUserToken = async () => {
+        const res  = await fetch( '/api/user', { method: "GET"} );
         const data = await res.json();
 
         if ( ! res.ok ) {
@@ -22,8 +22,8 @@ const useAuthInit = () => {
         return data;
     };
 
-    const refreshToken = async (jwt: string) => {
-        const res  = await fetch( '/api/token/refresh', {method: "POST", headers: { Authorization: jwt }} );
+    const refreshToken = async () => {
+        const res  = await fetch( '/api/token/refresh', {method: "POST"} );
         const data = await res.json();
 
         if ( ! res.ok ) {
@@ -36,23 +36,14 @@ const useAuthInit = () => {
     useEffect(() => {
         const initializeAuth = async () => {
             try {
-                const jwt = localStorage.getItem("access_token") ?? "";
-
-                // JWT が無ければログアウト状態とする
-                if (! jwt) {
-                    dispatch( loggedOut({}) );
-                    return;
-                }
-
-                let userData = await loadUserToken(jwt);
+                let userData = await loadUserToken();
 
                 // トークンリフレッシュが必要な場合
                 if ( userData == 'REFRESH' ) {
-                    const refreshData = await refreshToken(jwt);
-                    localStorage.setItem("access_token", refreshData.access_token);
+                    await refreshToken();
 
                     // リフレッシュしたトークンで再取得
-                    userData = await loadUserToken(refreshData.access_token);
+                    userData = await loadUserToken();
                 }
 
                 // 成功した場合はログイン状態にする
@@ -60,7 +51,6 @@ const useAuthInit = () => {
 
             } catch ( error ) {
                 dispatch( loggedOut({}) );
-                localStorage.removeItem("access_token");
 
             }
         }

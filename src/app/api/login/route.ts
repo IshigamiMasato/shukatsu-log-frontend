@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 export async function POST(request: Request) {
     const formData = await request.formData();
 
@@ -12,6 +14,16 @@ export async function POST(request: Request) {
         });
 
         const data = await res.json();
+
+        // ログイン成功時にCookieにJWTを保存
+        if ( res.ok ) {
+            const cookieStore = await cookies();
+            cookieStore.set({
+                name: 'jwt',
+                value: data.access_token,
+                httpOnly: true,
+            });
+        }
 
         return Response.json( data, { status: res.status } );
 

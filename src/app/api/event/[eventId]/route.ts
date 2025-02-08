@@ -1,8 +1,12 @@
+import { cookies } from "next/headers";
+
 export async function PUT( request: Request, { params } : {params: Promise<{ eventId: string }>} ) {
     const eventId = (await params).eventId;
 
-    // フロント側で JWT を設定できなかった場合、空文字 が設定
-    const jwt = request.headers.get('Authorization');
+    const cookieStore = await cookies();
+    const jwtCookie = cookieStore.get('jwt');
+    const jwt = jwtCookie?.value;
+
     if ( ! jwt ) {
         return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
     }
@@ -49,8 +53,10 @@ export async function PUT( request: Request, { params } : {params: Promise<{ eve
 export async function DELETE( request: Request, { params } : {params: Promise<{ eventId: string }>} ) {
     const eventId = (await params).eventId;
 
-    // フロント側で JWT を設定できなかった場合、空文字 が設定
-    const jwt = request.headers.get('Authorization');
+    const cookieStore = await cookies();
+    const jwtCookie = cookieStore.get('jwt');
+    const jwt = jwtCookie?.value;
+
     if ( ! jwt ) {
         return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
     }

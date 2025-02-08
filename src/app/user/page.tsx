@@ -26,11 +26,8 @@ const User: React.FC = () => {
     }, [authStatusChecked, isAuthenticated]);
 
     const handleLogout = () => {
-        const jwt = localStorage.getItem("access_token") ?? "";
-
         fetch('/api/logout', {
             method: "POST",
-            headers: {Authorization: jwt}
         }).then(res => {
             if ( ! res.ok ) {
                 res.json().then(data => {
@@ -38,7 +35,6 @@ const User: React.FC = () => {
                 })
             }
 
-            localStorage.removeItem("access_token");
             redirect("/login");
         });
     }
