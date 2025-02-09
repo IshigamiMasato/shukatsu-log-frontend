@@ -41,6 +41,7 @@ const CompanyPage: React.FC = () => {
 
     return (
         <>
+            <Link href='/company/create'>企業登録</Link>
             <table>
                 <thead>
                     <tr>
