@@ -3,8 +3,9 @@ import { Event } from "@/types";
 import "./EventModal.css";
 import { EVENT_TYPES } from "@/constants/eventConstants";
 import { FormEvent, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { dispToast } from "@/store/modules/toast";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
@@ -20,9 +21,11 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     const [type, setType]       = useState<number>(event.type);
     const [startAt, setStartAt] = useState<string>(event.start_at);
     const [endAt, setEndAt]     = useState<string>(event.end_at);
-    const [memo, setMemo]       = useState<string>(event.memo);
+    const [memo, setMemo]       = useState<string>(event.memo ? event.memo : "");
 
     const [validationErrors, setValidationErrors] = useState<{ title?: []; type?: []; start_at?: []; end_at?: []; memo?: []; }>({});
+
+    const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -42,6 +45,9 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                     // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
+                    } else {
+                        setModalOpen(false);
+                        dispatch( dispToast({ status: "error", message: `予定の更新に失敗しました。もう一度お試しください。` }) );
                     }
                 })
                 return;
@@ -58,6 +64,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
 
                 setEvents(newEvents);
                 setModalOpen(false);
+                dispatch( dispToast({ status: "success", message: `予定を更新しました。` }) );
             });
         })
     }
@@ -65,14 +72,21 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     const deleteEventHandler = (eventId: number) => {
         if ( ! eventId ) return;
 
-        fetch(`/api/event/${event?.event_id}`, {
+        fetch(`/api/event/${event.event_id}`, {
             method: "DELETE",
             body: JSON.stringify({ "user_id": user?.user_id })
         }).then(res => {
+            if ( ! res.ok ) {
+                setModalOpen(false);
+                dispatch( dispToast({ status: "error", message: `予定の削除に失敗しました。もう一度お試しください。` }) );
+                return;
+            }
+
             res.json().then(deletedEvent => {
                 const newEvents = events.filter(event => event.event_id != deletedEvent.event_id);
                 setEvents(newEvents);
                 setModalOpen(false);
+                dispatch( dispToast({ status: "success", message: `予定を削除しました。` }) );
             });
         });
     }
