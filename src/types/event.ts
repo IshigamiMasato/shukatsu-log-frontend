@@ -5,7 +5,7 @@ export type Event = {
     type: number,
     start_at: string,
     end_at: string,
-    memo: string,
-    created_at: string,
-    updated_at: string,
+    memo: string|null,
+    created_at: string|null,
+    updated_at: string|null,
 }
