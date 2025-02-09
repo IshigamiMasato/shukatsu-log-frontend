@@ -2,7 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import useAuthInit from "@/hooks/useAuthInit";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { redirect } from "next/navigation";
 import FullCalendar from "@fullcalendar/react";
@@ -13,6 +13,7 @@ import { createPortal } from "react-dom";
 import moment from "moment";
 import { EventClickArg } from "@fullcalendar/core/index.js";
 import EventModal from "@/components/event/EventModal";
+import { dispToast } from "@/store/modules/toast";
 
 const ModalPortal = ({ children } : { children: React.ReactNode }) => {
     const target = document.querySelector('.modal-wrapper');
@@ -51,6 +52,8 @@ const Calender = () => {
         }
     }, [authStatusChecked, isAuthenticated]);
 
+    const dispatch = useDispatch();
+
     /************ イベント登録 ************/
     const [title, setTitle]     = useState<string>("");
     const [type, setType]       = useState<number|null>(null);
@@ -59,7 +62,6 @@ const Calender = () => {
     const [memo, setMemo]       = useState<string>("");
 
     const [validationErrors, setValidationErrors] = useState<{ title?: []; type?: []; start_at?: []; end_at?: []; memo?: []; }>({});
-    const [storeEventResultMsg, setStoreEventResultMsg] = useState<{ status: string, content: string } | undefined>(undefined);
 
     const clearForm = () => {
         setTitle("");
@@ -89,13 +91,13 @@ const Calender = () => {
                         setValidationErrors(res.errors);
                     }
                 })
-                setStoreEventResultMsg({ status: "error", content: "予定登録に失敗しました。もう一度お試しください。" });
+                dispatch( dispToast({ status: "error", message: `予定登録に失敗しました。もう一度お試しください。` }) );
                 return;
             }
 
             res.json().then(newEvent => {
                 setEvents([ ...events, newEvent ]);
-                setStoreEventResultMsg({ status: "info", content: `タイトル：${newEvent.title}の登録が完了しました。` });
+                dispatch( dispToast({ status: "success", message: `タイトル：${newEvent.title} の登録が完了しました。` }) );
                 clearForm();
             });
         })
@@ -137,12 +139,6 @@ const Calender = () => {
 
             {/* 予定登録フォーム */}
             <div>
-                { storeEventResultMsg && (
-                    <div className={ `${ storeEventResultMsg.status == "error" && "bg-red-100" } ${ storeEventResultMsg.status == "info" && "bg-green-100" }` }>
-                        { storeEventResultMsg.content }
-                    </div>
-                )}
-
                 <form method="POST" onSubmit={onSubmit}>
                     <div>
                         <label>タイトル</label>
