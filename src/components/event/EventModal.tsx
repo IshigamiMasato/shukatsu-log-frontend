@@ -3,8 +3,7 @@ import { Event } from "@/types";
 import "./EventModal.css";
 import { EVENT_TYPES } from "@/constants/eventConstants";
 import { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { useDispatch } from "react-redux";
 import { dispToast } from "@/store/modules/toast";
 
 type Props = {
@@ -15,8 +14,6 @@ type Props = {
 }
 
 const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents }) => {
-    const { user } = useSelector( (state: RootState) => state.auth );
-
     const [title, setTitle]     = useState<string>(event.title);
     const [type, setType]       = useState<number>(event.type);
     const [startAt, setStartAt] = useState<string>(event.start_at);
@@ -34,9 +31,8 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        formData.append("user_id", String(user?.user_id));
 
-        fetch(`/api/event/${event?.event_id}`, {
+        fetch(`/api/event/${event.event_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -70,25 +66,26 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     }
 
     const deleteEventHandler = (eventId: number) => {
-        if ( ! eventId ) return;
+        const isConfirmed = window.confirm("本当に削除しますか？");
 
-        fetch(`/api/event/${event.event_id}`, {
-            method: "DELETE",
-            body: JSON.stringify({ "user_id": user?.user_id })
-        }).then(res => {
-            if ( ! res.ok ) {
-                setModalOpen(false);
-                dispatch( dispToast({ status: "error", message: `予定の削除に失敗しました。もう一度お試しください。` }) );
-                return;
-            }
+        if ( isConfirmed ) {
+            fetch(`/api/event/${eventId}`, {
+                method: "DELETE",
+            }).then(res => {
+                if ( ! res.ok ) {
+                    setModalOpen(false);
+                    dispatch( dispToast({ status: "error", message: `予定の削除に失敗しました。もう一度お試しください。` }) );
+                    return;
+                }
 
-            res.json().then(deletedEvent => {
-                const newEvents = events.filter(event => event.event_id != deletedEvent.event_id);
-                setEvents(newEvents);
-                setModalOpen(false);
-                dispatch( dispToast({ status: "success", message: `予定を削除しました。` }) );
+                res.json().then(deletedEvent => {
+                    const newEvents = events.filter(event => event.event_id != deletedEvent.event_id);
+                    setEvents(newEvents);
+                    setModalOpen(false);
+                    dispatch( dispToast({ status: "success", message: `予定を削除しました。` }) );
+                });
             });
-        });
+        }
     }
 
     return (
