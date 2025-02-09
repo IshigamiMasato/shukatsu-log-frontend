@@ -78,7 +78,6 @@ const Calender = () => {
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
-        formData.append( "user_id", String(user?.user_id) );
 
         fetch('/api/event', {
             method: "POST",

@@ -13,12 +13,6 @@ export async function PUT( request: Request, { params } : {params: Promise<{ eve
 
     const formData = await request.formData();
 
-    // フロント側で user_id が設定されなかった場合、undifined が設定
-    const userId  = formData.get('user_id');
-    if ( ! userId ) {
-        return Response.json( { msg: '会員IDが取得できませんでした。' }, { status: 401 } );
-    }
-
     const title   = formData.get('title');
     const type    = formData.get('type');
     const startAt = formData.get('start_at');
@@ -30,7 +24,6 @@ export async function PUT( request: Request, { params } : {params: Promise<{ eve
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
-                user_id: userId,
                 title: title,
                 type: type,
                 start_at: startAt,
@@ -59,14 +52,6 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
 
     if ( ! jwt ) {
         return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
-    }
-
-    const body = await request.json();
-
-    // フロント側で user_id が設定されなかった場合、undifined が設定
-    const userId  = body.user_id;
-    if ( ! userId ) {
-        return Response.json( { msg: '会員IDが取得できませんでした。' }, { status: 401 } );
     }
 
     try {
