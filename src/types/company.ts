@@ -1,0 +1,15 @@
+export type Company = {
+    company_id: number,
+    user_id: number,
+    name: string,
+    url: string|null,
+    president: string|null,
+    address: string|null,
+    establish_date: string|null,
+    employee_number: number|null,
+    listing_class: string|null,
+    benefit: string|null,
+    memo: string|null,
+    created_at: string|null,
+    updated_at: string|null,
+}

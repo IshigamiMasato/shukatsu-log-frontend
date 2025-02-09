@@ -1,3 +1,3 @@
 export * from "./event";
 export * from "./user";
-export * from "./msg";
+export * from "./company";
