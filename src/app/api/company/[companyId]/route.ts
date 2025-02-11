@@ -1,11 +1,9 @@
-import { cookies } from "next/headers";
+import { getJWT } from "@/helper";
 
 export async function GET(request: Request, { params } : {params: Promise<{ companyId: string }>}) {
     const companyId = (await params).companyId;
 
-    const cookieStore = await cookies();
-    const jwtCookie = cookieStore.get('jwt');
-    const jwt = jwtCookie?.value;
+    const jwt = await getJWT();
 
     if ( ! jwt ) {
         return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
@@ -31,9 +29,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ comp
 export async function DELETE( request: Request, { params } : {params: Promise<{ companyId: string }>} ) {
     const companyId = (await params).companyId;
 
-    const cookieStore = await cookies();
-    const jwtCookie = cookieStore.get('jwt');
-    const jwt = jwtCookie?.value;
+    const jwt = await getJWT();
 
     if ( ! jwt ) {
         return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
