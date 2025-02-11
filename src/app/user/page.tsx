@@ -2,7 +2,7 @@ import LogoutButton from "@/components/LogoutButton";
 import { getJWT } from "@/helper";
 import Link from "next/link";
 
-const User: React.FC = async () => {
+const UserPage: React.FC = async () => {
     const jwt = await getJWT();
 
     const res = await fetch(`http://backend/api/user`, {
@@ -27,4 +27,4 @@ const User: React.FC = async () => {
     );
 }
 
-export default User;
+export default UserPage;
