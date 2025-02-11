@@ -31,6 +31,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: st
             <p>福利厚生: { company.benefit }</p>
             <p>備考: { company.memo }</p>
             <CompanyDeleteButton companyId={Number(companyId)}/>
+            <Link href={`/company/${companyId}/edit`}>編集</Link>
             <Link href="/company">企業一覧へ</Link>
         </div>
     );
