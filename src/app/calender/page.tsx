@@ -1,10 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import useAuthInit from "@/hooks/useAuthInit";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/store";
-import { redirect } from "next/navigation";
+import { useDispatch } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Event } from "@/types";
@@ -24,33 +21,18 @@ const ModalPortal = ({ children } : { children: React.ReactNode }) => {
 }
 
 const Calender = () => {
-    /************ 認証 ************/
-    useAuthInit(); // 状態を保持した状態でページ遷移後、再度認証をしているかチェック
-    const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-    /************ 認証 ************/
-
     useEffect(() => {
-        console.log(`calender.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
-        console.log(`calender.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
+        const getEvents = async () => {
+            const res = await fetch('/api/event', {method: 'GET'});
 
-        if ( authStatusChecked ) {
-            // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
-            if ( ! isAuthenticated ) {
-                redirect("/login");
+            if ( res.ok ) {
+                const data = await res.json();
+                setEvents(data);
             }
-
-            const getEvents = async () => {
-                const res = await fetch('/api/event', {method: 'GET'});
-
-                if ( res.ok ) {
-                    const data = await res.json();
-                    setEvents(data);
-                }
-            }
-
-            getEvents();
         }
-    }, [authStatusChecked, isAuthenticated]);
+
+        getEvents();
+    }, []);
 
     const dispatch = useDispatch();
 

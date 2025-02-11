@@ -1,43 +1,20 @@
-"use client";
-
-import useAuthInit from "@/hooks/useAuthInit";
-import { RootState } from "@/store";
+import { getJWT } from "@/helper";
 import { Company } from "@/types";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
-const CompanyPage: React.FC = () => {
-    /************ 認証 ************/
-    useAuthInit(); // 状態を保持した状態でページ遷移後、再度認証をしているかチェック
-    const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-    /************ 認証 ************/
+const CompanyPage: React.FC = async () => {
+    const jwt = await getJWT();
 
-    useEffect(() => {
-        console.log(`company.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
-        console.log(`company.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
+    const res = await fetch(`http://backend/api/company`, {
+        method: "GET",
+        headers: {Authorization: `Bearer ${jwt}`}
+    });
 
-        if ( authStatusChecked ) {
-            // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
-            if ( ! isAuthenticated ) {
-                redirect("/login");
-            }
+    if ( ! res.ok ) {
+        throw new Error(`Failed fetch companies. (status=${res.status})`);
+    }
 
-            const getCompanies = async () => {
-                const res = await fetch('/api/company', {method: 'GET'});
-
-                if ( res.ok ) {
-                    const data = await res.json();
-                    setCompanies(data);
-                }
-            }
-
-            getCompanies();
-        }
-    }, [authStatusChecked, isAuthenticated]);
-
-    const [companies, setCompanies] = useState<Company[]>([]);
+    const companies = await res.json();
 
     return (
         <>
@@ -52,7 +29,7 @@ const CompanyPage: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {companies.map(company => {
+                    {companies.map((company: Company) => {
                         return (
                             <tr key={ company.company_id }>
                                 <td>{ company.company_id }</td>

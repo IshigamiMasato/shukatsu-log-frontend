@@ -1,32 +1,11 @@
 "use client";
 
-import useAuthInit from "@/hooks/useAuthInit";
-import { RootState } from "@/store";
-import { redirect, useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
 
 const Login: React.FC = () => {
-    /************ 認証 ************/
-    useAuthInit(); // 状態を保持した状態でページ遷移後、再度認証をしているかチェック
-    const { isAuthenticated, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-    /************ 認証 ************/
-
-    useEffect(() => {
-        console.log(`login.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
-        console.log(`login.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
-
-        if ( authStatusChecked ) {
-            // 認証状態確認後、認証済だった場合はユーザ画面へリダイレクト
-            if ( isAuthenticated ) {
-                redirect("/user");
-            }
-        }
-    }, [authStatusChecked, isAuthenticated]);
-
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
-
     const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {

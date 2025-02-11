@@ -1,30 +1,11 @@
 "use client";
 
-import useAuthInit from "@/hooks/useAuthInit";
-import { RootState } from "@/store";
 import { dispToast } from "@/store/modules/toast";
-import { redirect, useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 
 const CompanyCreatePage: React.FC = () => {
-    /************ 認証 ************/
-    useAuthInit(); // 状態を保持した状態でページ遷移後、再度認証をしているかチェック
-    const { isAuthenticated, user, authStatusChecked } = useSelector( (state: RootState) => state.auth );
-    /************ 認証 ************/
-
-    useEffect(() => {
-        console.log(`calender_create.tsx:authStatusChecked ${ authStatusChecked ? 'true' : 'false' }`)
-        console.log(`calender_create.tsx:isAuthenticated ${ isAuthenticated ? 'true' : 'false' }`)
-
-        if ( authStatusChecked ) {
-            // 認証状態確認後、未認証だった場合はログイン画面へリダイレクト
-            if ( ! isAuthenticated ) {
-                redirect("/login");
-            }
-        }
-    }, [authStatusChecked, isAuthenticated]);
-
     const [name, setName]                     = useState<string>("");
     const [url, setURL]                       = useState<string>("");
     const [president, setPresident]           = useState<string>("");
