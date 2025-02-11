@@ -2,13 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { User } from "@/types";
 
 type AuthState = {
-  authStatusChecked: boolean;
   isAuthenticated: boolean;
   user: User | null;
 }
 
 const initialState: AuthState = {
-  authStatusChecked: false,
   isAuthenticated: false,
   user: null,
 };
@@ -18,12 +16,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     loggedIn( state, {type, payload} ) {
-      state.authStatusChecked = true;
       state.isAuthenticated = true;
       state.user = payload;
     },
     loggedOut( state, {type, payload} ) {
-      state.authStatusChecked = true;
       state.isAuthenticated = false;
       state.user = null;
     }
