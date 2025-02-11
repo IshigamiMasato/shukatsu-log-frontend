@@ -2,7 +2,7 @@
 
 import { Event } from "@/types";
 import "./EventModal.css";
-import { EVENT_TYPES } from "@/constants/eventConstants";
+import { EVENT_TYPES } from "@/constants/const";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { dispToast } from "@/store/modules/toast";

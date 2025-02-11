@@ -1,3 +1,4 @@
+import { SERVER_ERROR } from "@/constants/api";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
 
     } catch ( error: any ) {
         console.error(error);
-        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
+        return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
     }
 }

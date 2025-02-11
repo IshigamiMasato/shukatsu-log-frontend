@@ -1,3 +1,4 @@
+import { SERVER_ERROR, UNSET_TOKEN } from "@/constants/api";
 import { getJWT } from "@/helper";
 import { cookies } from "next/headers";
 
@@ -7,7 +8,7 @@ export async function POST(request: Request) {
     const jwt = await getJWT();
 
     if ( ! jwt ) {
-        return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
+        return Response.json( { message: UNSET_TOKEN }, { status: 401 } );
     }
 
     try {
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
         // CookieからJWTを削除
         cookieStore.delete('jwt');
 
-        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
+        return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
     }
 }
