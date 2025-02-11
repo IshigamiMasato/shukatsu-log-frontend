@@ -12,7 +12,7 @@ import EventModal from "@/components/event/EventModal";
 import { dispToast } from "@/store/modules/toast";
 import ModalPortal from "@/components/ModalPortal";
 
-const Calender = () => {
+const CalenderPage = () => {
     useEffect(() => {
         const getEvents = async () => {
             const res = await fetch('/api/event', {method: 'GET'});
@@ -193,4 +193,4 @@ const Calender = () => {
     )
 }
 
-export default Calender;
+export default CalenderPage;

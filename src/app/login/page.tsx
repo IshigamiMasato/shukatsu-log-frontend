@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
     const router = useRouter();
@@ -57,4 +57,4 @@ const Login: React.FC = () => {
     );
 }
 
-export default Login;
+export default LoginPage;
