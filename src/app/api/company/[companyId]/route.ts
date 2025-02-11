@@ -1,3 +1,4 @@
+import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
 import { getJWT } from "@/helper";
 
 export async function GET(request: Request, { params } : {params: Promise<{ companyId: string }>}) {
@@ -6,7 +7,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ comp
     const jwt = await getJWT();
 
     if ( ! jwt ) {
-        return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
+        return Response.json( { message: UNSET_TOKEN_ERROR }, { status: 401 } );
     }
 
     try {
@@ -21,7 +22,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ comp
 
     } catch ( error: any ) {
         console.error(error);
-        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
+        return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
     }
 };
@@ -32,7 +33,7 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
     const jwt = await getJWT();
 
     if ( ! jwt ) {
-        return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
+        return Response.json( { message: UNSET_TOKEN_ERROR }, { status: 401 } );
     }
 
     try {
@@ -47,7 +48,7 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
 
     } catch ( error: any ) {
         console.error(error);
-        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
+        return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
     }
 }

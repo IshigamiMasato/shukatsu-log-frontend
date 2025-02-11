@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Event } from "@/types";
-import { EVENT_TYPES } from "@/constants/eventConstants";
+import { EVENT_TYPES } from "@/constants/const";
 import moment from "moment";
 import { EventClickArg } from "@fullcalendar/core/index.js";
 import EventModal from "@/components/event/EventModal";

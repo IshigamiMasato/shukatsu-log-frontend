@@ -1,10 +1,11 @@
+import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
 import { getJWT } from "@/helper";
 
 export async function GET(request: Request) {
     const jwt = await getJWT();
 
     if ( ! jwt ) {
-        return Response.json( { msg: 'トークンが設定されていません。' }, { status: 401 } );
+        return Response.json( { message: UNSET_TOKEN_ERROR }, { status: 401 } );
     }
 
     try {
@@ -22,7 +23,7 @@ export async function GET(request: Request) {
 
     } catch ( error: any ) {
         console.error(error);
-        return Response.json( { msg: 'サーバーエラー' }, { status: 500 } );
+        return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
     }
 }
