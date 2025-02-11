@@ -1,3 +1,4 @@
+"use client";
 
 import { Event } from "@/types";
 import "./EventModal.css";

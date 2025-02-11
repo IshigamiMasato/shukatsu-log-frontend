@@ -6,19 +6,11 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { Event } from "@/types";
 import { EVENT_TYPES } from "@/constants/eventConstants";
-import { createPortal } from "react-dom";
 import moment from "moment";
 import { EventClickArg } from "@fullcalendar/core/index.js";
 import EventModal from "@/components/event/EventModal";
 import { dispToast } from "@/store/modules/toast";
-
-const ModalPortal = ({ children } : { children: React.ReactNode }) => {
-    const target = document.querySelector('.modal-wrapper');
-
-    if ( ! target ) return;
-
-    return createPortal(children, target);
-}
+import ModalPortal from "@/components/ModalPortal";
 
 const Calender = () => {
     useEffect(() => {
@@ -104,9 +96,6 @@ const Calender = () => {
 
     return (
         <>
-            {/* 予定モーダル表示域 */}
-            <div className="modal-wrapper"></div>
-
             { modalOpen && selectedEvent && (
                 <ModalPortal>
                     <EventModal
