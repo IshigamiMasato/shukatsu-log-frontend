@@ -73,8 +73,14 @@ const Auth: React.FC<Props> = ({ children, path }) => {
         initializeAuth().then(result => {
             setIsAuthChecked(true);
 
+            // 認証状態を確認しログアウト状態であればログイン画面へ遷移
             if ( result === "loggedOut" ) {
                 redirect("/login");
+            }
+
+            // ログインページに遷移時 かつ 認証状態を確認しログイン状態 であればユーザ画面へ遷移
+            if ( result === "loggedIn" && path === "/login" ) {
+                redirect("/user");
             }
         });
 
