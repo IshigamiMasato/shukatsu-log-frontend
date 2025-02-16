@@ -36,7 +36,9 @@ const ApplyPage = async () => {
                     {applies.map((apply: Apply) => {
                         return (
                             <tr key={ apply.apply_id }>
-                                <td>{ apply.apply_id }</td>
+                                <td>
+                                    <Link href={`/apply/${apply.apply_id}`}>{ apply.apply_id }</Link>
+                                </td>
                                 <td>
                                     <Link href={`/company/${apply.company_id}`}>{ apply.company.name }</Link>
                                 </td>
