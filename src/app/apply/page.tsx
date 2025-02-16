@@ -19,6 +19,7 @@ const ApplyPage = async () => {
 
     return (
         <>
+            <Link href='/apply/create'>応募登録</Link>
             <table>
                 <thead>
                     <tr>
