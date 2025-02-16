@@ -35,6 +35,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
             </div>
 
             <ApplyDeleteButton applyId={Number(applyId)}/>
+            <Link href={`/apply/${applyId}/edit`}>編集</Link>
             <Link href="/apply">応募一覧へ</Link>
         </div>
     );
