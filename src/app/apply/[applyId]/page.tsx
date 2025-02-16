@@ -1,3 +1,4 @@
+import ApplyDeleteButton from "@/components/ApplyDeleteButton";
 import { APPLY_STATUS } from "@/constants/const";
 import { getJWT } from "@/helper";
 import Link from "next/link";
@@ -33,6 +34,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
                 <p>メモ：{ apply.memo }</p>
             </div>
 
+            <ApplyDeleteButton applyId={Number(applyId)}/>
             <Link href="/apply">応募一覧へ</Link>
         </div>
     );
