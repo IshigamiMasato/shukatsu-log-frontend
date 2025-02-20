@@ -13,7 +13,7 @@ export async function POST(request: Request, { params } : {params: Promise<{ app
     const formData = await request.formData();
 
     const submissionDate = formData.get('submission_date');
-    const base64File = formData.get('base64_file');
+    const files = formData.getAll('files[]');
     const memo = formData.get('memo');
 
     try {
@@ -22,7 +22,7 @@ export async function POST(request: Request, { params } : {params: Promise<{ app
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
                 submission_date: submissionDate,
-                base64_file: base64File ? base64File : null,
+                files: files,
                 memo: memo ? memo : null,
             })
         });

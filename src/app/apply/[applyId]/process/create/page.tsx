@@ -22,10 +22,12 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: string }> 
 
     const [status, setStatus] = useState<number>();
 
+    const FILE_COUNT = 5;
+
     /* 書類 */
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
     const [memo, setMemo] = useState<string>("");
-    const [file, setFile] = useState<File|undefined>(undefined);
+    const [files, setFiles] = useState<(File|undefined)[]>([]);
 
     const [validationErrors, setValidationErrors] = useState<{ status?: []; submission_date?: []; file?: []; memo?: []; }>({});
 
@@ -39,14 +41,18 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: string }> 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        if ( file ) {
+        for (let i = 1; i <= FILE_COUNT; i++) {
             try {
-                const base64File = await fileToBase64(file);
-                formData.append('base64_file', base64File);
+                const file = files[i];
+
+                if ( file ) {
+                    const base64File = await fileToBase64(file);
+                    formData.append(`files[]`, base64File);
+                }
 
             } catch ( error ) {
                 console.error(error);
-                dispatch( dispToast({ status: "error", message: "ファイルの変換に失敗しました。" }) );
+                dispatch( dispToast({ status: "error", message: "ファイルのアップロードに失敗しました。" }) );
                 return;
             }
         }
@@ -71,13 +77,6 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: string }> 
                 dispatch( dispToast({ status: "success", message: `書類の登録が完了しました。` }) );
             })
         }
-    }
-
-    const handleFileChange = ( file: File|undefined ) => {
-        if ( ! file ) {
-            setFile(undefined);
-        }
-        setFile(file);
     }
 
     return (
@@ -113,14 +112,26 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: string }> 
                         />
                         { validationErrors.submission_date && <p className="text-red-500">{ validationErrors.submission_date.join(',') }</p> }
                     </div>
-                    <div>
-                        <label>提出書類</label>
-                        <input
-                            type="file"
-                            name="file"
-                            onChange={ (e) => handleFileChange(e.target.files?.[0]) }
-                        />
-                    </div>
+                    {
+                        [...Array(FILE_COUNT)].map((v, i) => {
+                            const index = i + 1; // indexを1スタートとする
+
+                            return (
+                                <div key={`file_${index}`}>
+                                    <label>提出書類</label>
+                                    <input
+                                        type="file"
+                                        name={`file_${index}`}
+                                        onChange={ (e) => {
+                                            const newFiles = [...files];
+                                            newFiles[index] = e.target.files?.[0];
+                                            setFiles(newFiles);
+                                        }}
+                                    />
+                                </div>
+                            )
+                        })
+                    }
                     <div>
                         <label>メモ</label>
                         <input
