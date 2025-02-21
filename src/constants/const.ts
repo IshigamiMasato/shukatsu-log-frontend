@@ -14,3 +14,9 @@ export const APPLY_STATUS = [
     { id: 4, name: "内定" },
     { id: 5, name: "選考終了" },
 ];
+
+export const DOCUMENT_SELECTION  = 1;
+export const EXAM_SELECTION = 2;
+export const INTERVIER_SELECTION = 3;
+export const OFFER = 4;
+export const FINAL = 5;
