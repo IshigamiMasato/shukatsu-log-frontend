@@ -1,7 +1,8 @@
 "use client";
 
 import DocumentForm from "@/components/DocumentForm";
-import { APPLY_STATUS, DOCUMENT_SELECTION } from "@/constants/const";
+import ExamForm from "@/components/ExamForm";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION } from "@/constants/const";
 import { use, useState } from "react";
 
 const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> }) => {
@@ -29,10 +30,7 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> 
             </div>
 
             { status == DOCUMENT_SELECTION  && <DocumentForm applyId={applyId}/> }
-
-            {status == 2  && (
-                <div>筆記試験選考中</div>
-            )}
+            { status == EXAM_SELECTION  && <ExamForm applyId={applyId}/> }
 
             {status == 3  && (
                 <div>面接選考中</div>

@@ -11,7 +11,7 @@ const DocumentForm = ({ applyId } : { applyId : number }) => {
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
     const [files, setFiles] = useState<(File|undefined)[]>([]);
     const [memo, setMemo] = useState<string>("");
-    const [validationErrors, setValidationErrors] = useState<{ status?: []; submission_date?: []; file?: []; memo?: []; }>({});
+    const [validationErrors, setValidationErrors] = useState<{ submission_date?: []; memo?: []; }>({});
 
     const dispatch = useDispatch();
 
