@@ -2,3 +2,8 @@ export * from "./event";
 export * from "./user";
 export * from "./company";
 export * from "./apply";
+export * from "./document";
+export * from "./exam";
+export * from "./final_result";
+export * from "./interview";
+export * from "./offer";

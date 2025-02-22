@@ -38,6 +38,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
             <Link href={`/apply/${applyId}/edit`}>編集</Link>
             <Link href="/apply">応募一覧へ</Link>
             <Link href={`/apply/${applyId}/process/create`}>選考プロセス登録</Link>
+            <Link href={`/apply/${applyId}/process`}>選考プロセス一覧</Link>
         </div>
     );
 }
