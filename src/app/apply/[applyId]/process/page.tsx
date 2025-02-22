@@ -1,5 +1,6 @@
 import DocumentDeleteButton from "@/components/DocumentDeleteButton";
 import ExamDeleteButton from "@/components/ExamDeleteButton";
+import InterviewDeleteButton from "@/components/InterviewDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
@@ -74,6 +75,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ interview.memo }</p>
                             <p>作成日時：{ interview.created_at }</p>
                             <p>更新日時：{ interview.updated_at }</p>
+                            <InterviewDeleteButton applyId={Number(applyId)} interviewId={Number(interview.interview_id)} />
                         </div>
                     )
                 }
