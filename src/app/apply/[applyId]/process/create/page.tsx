@@ -3,7 +3,8 @@
 import DocumentForm from "@/components/DocumentForm";
 import ExamForm from "@/components/ExamForm";
 import InterviewForm from "@/components/InterviewForm";
-import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION } from "@/constants/const";
+import OfferForm from "@/components/OfferForm";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { use, useState } from "react";
 
 const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> }) => {
@@ -33,10 +34,7 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> 
             { status == DOCUMENT_SELECTION  && <DocumentForm applyId={applyId}/> }
             { status == EXAM_SELECTION  && <ExamForm applyId={applyId}/> }
             { status == INTERVIEW_SELECTION  && <InterviewForm applyId={applyId}/> }
-
-            {status == 4  && (
-                <div>内定</div>
-            )}
+            { status == OFFER  && <OfferForm applyId={applyId} /> }
 
             {status == 5  && (
                 <div>選考終了</div>
