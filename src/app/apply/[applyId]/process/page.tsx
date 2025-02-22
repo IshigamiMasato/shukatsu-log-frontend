@@ -1,3 +1,8 @@
+import DocumentDeleteButton from "@/components/DocumentDeleteButton";
+import ExamDeleteButton from "@/components/ExamDeleteButton";
+import FinalResultDeleteButton from "@/components/FinalResultDeleteButton";
+import InterviewDeleteButton from "@/components/InterviewDeleteButton";
+import OfferDeleteButton from "@/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
@@ -42,6 +47,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                                     )
                                 })}
                             </div>
+                            <DocumentDeleteButton applyId={Number(applyId)} documentId={Number(document.document_id)} />
                         </div>
                     )
                 }
@@ -56,6 +62,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ exam.memo }</p>
                             <p>作成日時：{ exam.created_at }</p>
                             <p>更新日時：{ exam.updated_at }</p>
+                            <ExamDeleteButton applyId={Number(applyId)} examId={Number(exam.exam_id)} />
                         </div>
                     )
                 }
@@ -70,6 +77,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ interview.memo }</p>
                             <p>作成日時：{ interview.created_at }</p>
                             <p>更新日時：{ interview.updated_at }</p>
+                            <InterviewDeleteButton applyId={Number(applyId)} interviewId={Number(interview.interview_id)} />
                         </div>
                     )
                 }
@@ -85,6 +93,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ offer.memo }</p>
                             <p>作成日時：{ offer.created_at }</p>
                             <p>更新日時：{ offer.updated_at }</p>
+                            <OfferDeleteButton applyId={Number(applyId)} offerId={Number(offer.offer_id)} />
                         </div>
                     )
                 }
@@ -98,6 +107,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ finalResult.memo }</p>
                             <p>作成日時：{ finalResult.created_at }</p>
                             <p>更新日時：{ finalResult.updated_at }</p>
+                            <FinalResultDeleteButton applyId={Number(applyId)} finalResultId={Number(finalResult.final_result_id)} />
                         </div>
                     )
                 }
