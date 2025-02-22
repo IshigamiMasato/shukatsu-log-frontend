@@ -1,5 +1,6 @@
 import DocumentDeleteButton from "@/components/DocumentDeleteButton";
 import ExamDeleteButton from "@/components/ExamDeleteButton";
+import FinalResultDeleteButton from "@/components/FinalResultDeleteButton";
 import InterviewDeleteButton from "@/components/InterviewDeleteButton";
 import OfferDeleteButton from "@/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
@@ -106,6 +107,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>メモ：{ finalResult.memo }</p>
                             <p>作成日時：{ finalResult.created_at }</p>
                             <p>更新日時：{ finalResult.updated_at }</p>
+                            <FinalResultDeleteButton applyId={Number(applyId)} finalResultId={Number(finalResult.final_result_id)} />
                         </div>
                     )
                 }
