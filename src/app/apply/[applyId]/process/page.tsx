@@ -1,3 +1,4 @@
+import DocumentDeleteButton from "@/components/DocumentDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
@@ -42,6 +43,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                                     )
                                 })}
                             </div>
+                            <DocumentDeleteButton applyId={Number(applyId)} documentId={Number(document.document_id)} />
                         </div>
                     )
                 }
