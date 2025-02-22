@@ -15,8 +15,14 @@ export const APPLY_STATUS = [
     { id: 5, name: "選考終了" },
 ];
 
+export const FINAL_RESULT_STATUS = [
+    { id: 1, name: "合格" },
+    { id: 2, name: "不採用" },
+    { id: 3, name: "辞退" },
+];
+
 export const DOCUMENT_SELECTION  = 1;
 export const EXAM_SELECTION = 2;
 export const INTERVIEW_SELECTION = 3;
 export const OFFER = 4;
-export const FINAL = 5;
+export const FINAL_RESULT = 5;
