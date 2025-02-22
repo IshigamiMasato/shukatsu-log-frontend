@@ -17,6 +17,6 @@ export const APPLY_STATUS = [
 
 export const DOCUMENT_SELECTION  = 1;
 export const EXAM_SELECTION = 2;
-export const INTERVIER_SELECTION = 3;
+export const INTERVIEW_SELECTION = 3;
 export const OFFER = 4;
 export const FINAL = 5;
