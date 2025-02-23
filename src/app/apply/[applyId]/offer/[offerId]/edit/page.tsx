@@ -9,7 +9,7 @@ const OfferEditPage = ({ params } : { params : Promise<{ applyId: number, offerI
     const { applyId, offerId } = use(params);
 
     const [offerDate, setOfferDate] = useState<string>("");
-    const [salary , setSalary] = useState<number>();
+    const [salary , setSalary] = useState<number>(0);
     const [condition, setCondition] = useState<string>("");
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ offer_date?: []; salary?: []; condition?: []; memo?: []; }>({});

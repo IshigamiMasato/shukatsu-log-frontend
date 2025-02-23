@@ -113,6 +113,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>作成日時：{ finalResult.created_at }</p>
                             <p>更新日時：{ finalResult.updated_at }</p>
                             <FinalResultDeleteButton applyId={Number(applyId)} finalResultId={Number(finalResult.final_result_id)} />
+                            <Link href={`/apply/${applyId}/final_result/${finalResult.final_result_id}/edit`}>編集</Link>
                         </div>
                     )
                 }
