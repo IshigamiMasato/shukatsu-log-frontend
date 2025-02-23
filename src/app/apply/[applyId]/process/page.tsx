@@ -98,6 +98,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>作成日時：{ offer.created_at }</p>
                             <p>更新日時：{ offer.updated_at }</p>
                             <OfferDeleteButton applyId={Number(applyId)} offerId={Number(offer.offer_id)} />
+                            <Link href={`/apply/${applyId}/offer/${offer.offer_id}/edit`}>編集</Link>
                         </div>
                     )
                 }
