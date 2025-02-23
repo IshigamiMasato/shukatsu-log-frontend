@@ -6,6 +6,7 @@ import OfferDeleteButton from "@/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
+import Link from "next/link";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> }) => {
     const applyId = (await params).applyId;
@@ -48,6 +49,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                                 })}
                             </div>
                             <DocumentDeleteButton applyId={Number(applyId)} documentId={Number(document.document_id)} />
+                            <Link href={`/apply/${applyId}/document/${document.document_id}/edit`}>編集</Link>
                         </div>
                     )
                 }
