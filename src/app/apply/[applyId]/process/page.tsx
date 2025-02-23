@@ -65,6 +65,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
                             <p>作成日時：{ exam.created_at }</p>
                             <p>更新日時：{ exam.updated_at }</p>
                             <ExamDeleteButton applyId={Number(applyId)} examId={Number(exam.exam_id)} />
+                            <Link href={`/apply/${applyId}/exam/${exam.exam_id}/edit`}>編集</Link>
                         </div>
                     )
                 }
