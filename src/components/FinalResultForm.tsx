@@ -4,6 +4,11 @@ import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormItem from "./containers/FormItem";
+import Label from "./elements/Label";
+import ValidationErrorMsg from "./elements/ValidationErrorMsg";
+import Input from "./elements/Input";
+import Button from "./elements/Button";
 
 const FinalResultForm = ({ applyId } : { applyId : number }) => {
     const [status, setStatus] = useState<number>();
@@ -40,8 +45,8 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>ステータス</label>
+            <FormItem>
+                <Label label="ステータス" />
                 <select
                     name="status"
                     value={ status }
@@ -56,19 +61,20 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
                         )
                     })}
                 </select>
-                { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>登録</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
         </form>
     )
 }
