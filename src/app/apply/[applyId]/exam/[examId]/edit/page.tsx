@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { Exam } from "@/types";
 import { FormEvent, use, useEffect, useState } from "react";
@@ -68,38 +73,40 @@ const ExamEditPage = ({ params } : { params : Promise<{ applyId: number, examId:
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>試験日</label>
-                <input
+            <FormItem>
+                <Label label="試験日" />
+                <Input
                     type="date"
                     name="exam_date"
                     value={ examDate }
                     onChange={ e => setExamDate(e.target.value) }
+                    errors={validationErrors.exam_date}
                 />
-                { validationErrors.exam_date && <p className="text-red-500">{ validationErrors.exam_date.join(',') }</p> }
-            </div>
-            <div>
-                <label>試験内容</label>
-                <input
+                { validationErrors.exam_date && <ValidationErrorMsg errors={validationErrors.exam_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="試験内容" />
+                <Input
                     type="text"
                     name="content"
                     value={ content }
                     onChange={ e => setContent(e.target.value) }
-
+                    errors={validationErrors.content}
                 />
-                { validationErrors.content && <p className="text-red-500">{ validationErrors.content.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.content && <ValidationErrorMsg errors={validationErrors.content} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>更新</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="更新" />
         </form>
     )
 }
