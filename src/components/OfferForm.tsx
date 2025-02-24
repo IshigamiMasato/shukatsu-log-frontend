@@ -4,6 +4,11 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormItem from "./containers/FormItem";
+import Label from "./elements/Label";
+import Input from "./elements/Input";
+import ValidationErrorMsg from "./elements/ValidationErrorMsg";
+import Button from "./elements/Button";
 
 const OfferForm = ({ applyId } : { applyId : number }) => {
     const [offerDate, setOfferDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -42,48 +47,51 @@ const OfferForm = ({ applyId } : { applyId : number }) => {
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>内定通知日</label>
-                <input
+            <FormItem>
+                <Label label="内定通知日" />
+                <Input
                     type="date"
                     name="offer_date"
                     value={ offerDate }
                     onChange={ e => setOfferDate(e.target.value) }
+                    errors={validationErrors.offer_date}
                 />
-                { validationErrors.offer_date && <p className="text-red-500">{ validationErrors.offer_date.join(',') }</p> }
-            </div>
-            <div>
-                <label>年収</label>
-                <input
+                { validationErrors.offer_date && <ValidationErrorMsg errors={validationErrors.offer_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="年収" />
+                <Input
                     type="number"
                     name="salary"
                     value={ salary }
                     onChange={ e => setSalary(Number(e.target.value)) }
-
+                    errors={validationErrors.salary}
                 />
-                { validationErrors.salary && <p className="text-red-500">{ validationErrors.salary.join(',') }</p> }
-            </div>
-            <div>
-                <label>条件</label>
-                <input
+                { validationErrors.salary && <ValidationErrorMsg errors={validationErrors.salary} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="条件" />
+                <Input
                     type="text"
                     name="condition"
                     value={ condition }
                     onChange={ e => setCondition(e.target.value) }
+                    errors={validationErrors.condition}
                 />
-                { validationErrors.condition && <p className="text-red-500">{ validationErrors.condition.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.condition && <ValidationErrorMsg errors={validationErrors.condition} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>登録</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
         </form>
     )
 }

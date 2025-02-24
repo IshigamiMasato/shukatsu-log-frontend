@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FinalResult } from "@/types";
@@ -66,8 +71,8 @@ const FinalResultEditPage = ({ params } : { params : Promise<{ applyId: number, 
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>ステータス</label>
+            <FormItem>
+                <Label label="ステータス" />
                 <select
                     name="status"
                     value={ status }
@@ -82,19 +87,20 @@ const FinalResultEditPage = ({ params } : { params : Promise<{ applyId: number, 
                         )
                     })}
                 </select>
-                { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>更新</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
         </form>
     )
 }

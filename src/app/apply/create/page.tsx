@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { Company } from "@/types";
@@ -66,13 +71,14 @@ const ApplyCreatePage = () => {
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>企業</label>
+            <FormItem>
+                <Label label="企業" />
                 <select
                     name="company_id"
                     value={ companyId }
                     onChange={ (e) => setCompanyId(Number(e.target.value)) }
                 >
+                    <option value="">選択してください</option>
                     {companies.map(company => {
                         return (
                             <option key={ company.company_id } value={ company.company_id }>
@@ -81,15 +87,16 @@ const ApplyCreatePage = () => {
                         )
                     })}
                 </select>
-                { validationErrors.company_id && <p className="text-red-500">{ validationErrors.company_id.join(',') }</p> }
-            </div>
-            <div>
-                <label>ステータス</label>
+                { validationErrors.company_id && <ValidationErrorMsg errors={validationErrors.company_id} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="ステータス" />
                 <select
                     name="status"
                     value={ status }
                     onChange={ (e) => setStatus( Number(e.target.value) ) }
                 >
+                    <option value="">選択してください</option>
                     {APPLY_STATUS.map(apply => {
                         return (
                             <option key={ apply.id } value={ apply.id }>
@@ -98,39 +105,42 @@ const ApplyCreatePage = () => {
                         )
                     })}
                 </select>
-                { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
-            </div>
-            <div>
-                <label>職種</label>
-                <input
+                { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="職種" />
+                <Input
                     type="text"
                     name="occupation"
                     value={ occupation }
                     onChange={ e => setOccupation(e.target.value) }
+                    errors={validationErrors.occupation}
                 />
-                { validationErrors.occupation && <p className="text-red-500">{ validationErrors.occupation.join(',') }</p> }
-            </div>
-            <div>
-                <label>応募経路</label>
-                <input
+                { validationErrors.occupation && <ValidationErrorMsg errors={validationErrors.occupation} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="応募経路" />
+                <Input
                     type="text"
                     name="apply_route"
                     value={ applyRoute }
                     onChange={ e => setApplyRoute(e.target.value) }
+                    errors={validationErrors.apply_route}
                 />
-                { validationErrors.apply_route && <p className="text-red-500">{ validationErrors.apply_route.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.apply_route && <ValidationErrorMsg errors={validationErrors.apply_route} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>登録</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
         </form>
     )
 }

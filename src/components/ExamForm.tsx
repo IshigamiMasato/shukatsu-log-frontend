@@ -4,6 +4,11 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormItem from "./containers/FormItem";
+import Label from "./elements/Label";
+import Input from "./elements/Input";
+import ValidationErrorMsg from "./elements/ValidationErrorMsg";
+import Button from "./elements/Button";
 
 const ExamForm = ({ applyId } : { applyId : number }) => {
     const [examDate, setExamDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -40,42 +45,42 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
     }
 
     return (
-        <>
-            <form method="POST" onSubmit={onSubmit}>
-                <div>
-                    <label>試験日</label>
-                    <input
-                        type="date"
-                        name="exam_date"
-                        value={ examDate }
-                        onChange={ e => setExamDate(e.target.value) }
-                    />
-                    { validationErrors.exam_date && <p className="text-red-500">{ validationErrors.exam_date.join(',') }</p> }
-                </div>
-                <div>
-                    <label>試験内容</label>
-                    <input
-                        type="text"
-                        name="content"
-                        value={ content }
-                        onChange={ e => setContent(e.target.value) }
-
-                    />
-                    { validationErrors.content && <p className="text-red-500">{ validationErrors.content.join(',') }</p> }
-                </div>
-                <div>
-                    <label>メモ</label>
-                    <input
-                        type="textarea"
-                        name="memo"
-                        value={ memo }
-                        onChange={ e => setMemo(e.target.value) }
-                    />
-                    { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-                </div>
-                <button>登録</button>
-            </form>
-        </>
+        <form method="POST" onSubmit={onSubmit}>
+            <FormItem>
+                <Label label="試験日" />
+                <Input
+                    type="date"
+                    name="exam_date"
+                    value={ examDate }
+                    onChange={ e => setExamDate(e.target.value) }
+                    errors={validationErrors.exam_date}
+                />
+                { validationErrors.exam_date && <ValidationErrorMsg errors={validationErrors.exam_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="試験内容" />
+                <Input
+                    type="text"
+                    name="content"
+                    value={ content }
+                    onChange={ e => setContent(e.target.value) }
+                    errors={validationErrors.content}
+                />
+                { validationErrors.content && <ValidationErrorMsg errors={validationErrors.content} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
+                    type="textarea"
+                    name="memo"
+                    value={ memo }
+                    onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
+                />
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
+        </form>
     )
 }
 

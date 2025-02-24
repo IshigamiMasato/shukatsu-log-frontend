@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { Document } from "@/types";
 import { FormEvent, use, useEffect, useState } from "react";
@@ -66,27 +71,29 @@ const DocumentEditPage = ({ params } : { params : Promise<{ applyId: number, doc
 
     return (
         <form onSubmit={onSubmit}>
-            <div>
-                <label>書類提出日</label>
-                <input
+            <FormItem>
+                <Label label="書類提出日" />
+                <Input
                     type="date"
                     name="submission_date"
                     value={ submissionDate }
                     onChange={ (e) => setSubmissionDate(e.target.value) }
+                    errors={validationErrors.submission_date}
                 />
-                { validationErrors.submission_date && <p className="text-red-500">{ validationErrors.submission_date.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.submission_date && <ValidationErrorMsg errors={validationErrors.submission_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>更新</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="更新" />
         </form>
     )
 }

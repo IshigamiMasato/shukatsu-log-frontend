@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, use, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -88,101 +93,108 @@ const CompanyEditPage = ({ params } : { params : Promise<{ companyId: string }> 
     }
 
     return (
-        <div>
-            <form onSubmit={onSubmit}>
-                <div>
-                    <label>企業名</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={ name }
-                        onChange={ e => setName(e.target.value) }
-                    />
-                    { validationErrors.name && <p className="text-red-500">{ validationErrors.name.join(',') }</p> }
-                </div>
-                <div>
-                    <label>企業URL</label>
-                    <input
-                        type="text"
-                        name="url"
-                        value={ url }
-                        onChange={ e => setURL(e.target.value) }
-                    />
-                    { validationErrors.url && <p className="text-red-500">{ validationErrors.url.join(',') }</p> }
-                </div>
-                <div>
-                    <label>社長名</label>
-                    <input
-                        type="text"
-                        name="president"
-                        value={ president }
-                        onChange={ e => setPresident(e.target.value) }
-                    />
-                    { validationErrors.president && <p className="text-red-500">{ validationErrors.president.join(',') }</p> }
-                </div>
-                <div>
-                    <label>住所</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value={ address }
-                        onChange={ e => setAddress(e.target.value) }
-                    />
-                    { validationErrors.address && <p className="text-red-500">{ validationErrors.address.join(',') }</p> }
-                </div>
-                <div>
-                    <label>設立年月日</label>
-                    <input
-                        type="date"
-                        name="establish_date"
-                        value={ establishDate }
-                        onChange={ e => setEstablishDate(e.target.value) }
-                    />
-                    { validationErrors.establish_date && <p className="text-red-500">{ validationErrors.establish_date.join(',') }</p> }
-                </div>
-                <div>
-                    <label>従業員数</label>
-                    <input
-                        type="number"
-                        name="employee_number"
-                        value={ employeeNumber }
-                        onChange={ e => setEmployeeNumber(Number(e.target.value)) }
-                    />
-                    { validationErrors.employee_number && <p className="text-red-500">{ validationErrors.employee_number.join(',') }</p> }
-                </div>
-                <div>
-                    <label>上場区分</label>
-                    <input
-                        type="text"
-                        name="listing_class"
-                        value={ listingClass }
-                        onChange={ e => setListingClass(e.target.value) }
-                    />
-                    { validationErrors.listing_class && <p className="text-red-500">{ validationErrors.listing_class.join(',') }</p> }
-                </div>
-                <div>
-                    <label>福利厚生</label>
-                    <input
-                        type="textarea"
-                        name="benefit"
-                        value={ benefit }
-                        onChange={ e => setBenefit(e.target.value) }
-                    />
-                    { validationErrors.benefit && <p className="text-red-500">{ validationErrors.benefit.join(',') }</p> }
-                </div>
-                <div>
-                    <label>メモ</label>
-                    <input
-                        type="textarea"
-                        name="memo"
-                        value={ memo }
-                        onChange={ e => setMemo(e.target.value) }
-                    />
-                    { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-                </div>
-                <button>登録</button>
-            </form>
-        </div>
+        <form onSubmit={onSubmit}>
+            <FormItem>
+                <Label label="企業名" />
+                <Input
+                    type="text"
+                    name="name"
+                    value={ name }
+                    onChange={ e => setName(e.target.value) }
+                    errors={validationErrors.name}
+                />
+                { validationErrors.name && <ValidationErrorMsg errors={validationErrors.name} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="企業URL" />
+                <Input
+                    type="text"
+                    name="url"
+                    value={ url }
+                    onChange={ e => setURL(e.target.value) }
+                    errors={validationErrors.url}
+                />
+                { validationErrors.url && <ValidationErrorMsg errors={validationErrors.url} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="社長名" />
+                <Input
+                    type="text"
+                    name="president"
+                    value={ president }
+                    onChange={ e => setPresident(e.target.value) }
+                    errors={validationErrors.president}
+                />
+                { validationErrors.president && <ValidationErrorMsg errors={validationErrors.president} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="住所" />
+                <Input
+                    type="text"
+                    name="address"
+                    value={ address }
+                    onChange={ e => setAddress(e.target.value) }
+                    errors={validationErrors.address}
+                />
+                { validationErrors.address && <ValidationErrorMsg errors={validationErrors.address} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="設立年月日" />
+                <Input
+                    type="date"
+                    name="establish_date"
+                    value={ establishDate }
+                    onChange={ e => setEstablishDate(e.target.value) }
+                    errors={validationErrors.establish_date}
+                />
+                { validationErrors.establish_date && <ValidationErrorMsg errors={validationErrors.establish_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="従業員数" />
+                <Input
+                    type="number"
+                    name="employee_number"
+                    value={ employeeNumber }
+                    onChange={ e => setEmployeeNumber(Number(e.target.value)) }
+                    errors={validationErrors.employee_number}
+                />
+                { validationErrors.employee_number && <ValidationErrorMsg errors={validationErrors.employee_number} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="上場区分" />
+                <Input
+                    type="text"
+                    name="listing_class"
+                    value={ listingClass }
+                    onChange={ e => setListingClass(e.target.value) }
+                    errors={validationErrors.listing_class}
+                />
+                { validationErrors.listing_class && <ValidationErrorMsg errors={validationErrors.listing_class} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="福利厚生" />
+                <Input
+                    type="textarea"
+                    name="benefit"
+                    value={ benefit }
+                    onChange={ e => setBenefit(e.target.value) }
+                    errors={validationErrors.benefit}
+                />
+                { validationErrors.benefit && <ValidationErrorMsg errors={validationErrors.benefit} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
+                    type="textarea"
+                    name="memo"
+                    value={ memo }
+                    onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
+                />
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
+        </form>
     );
 }
 

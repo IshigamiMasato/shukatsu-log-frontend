@@ -6,6 +6,11 @@ import { EVENT_TYPES } from "@/constants/const";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { dispToast } from "@/store/modules/toast";
+import FormItem from "../containers/FormItem";
+import Label from "../elements/Label";
+import Input from "../elements/Input";
+import ValidationErrorMsg from "../elements/ValidationErrorMsg";
+import Button from "../elements/Button";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
@@ -94,17 +99,18 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
             <div className="modal-content">
 
                 <form onSubmit={onSubmit}>
-                    <div>
-                        <label>タイトル</label>
-                        <input
+                    <FormItem>
+                        <Label label="タイトル" />
+                        <Input
                             type="text"
                             name="title"
                             value={ title }
                             onChange={ e => setTitle(e.target.value) }
+                            errors={validationErrors.title}
                         />
-                        { validationErrors.title && <p className="text-red-500">{ validationErrors.title.join(',') }</p> }
-                    </div>
-                    <div>
+                        { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
+                    </FormItem>
+                    <FormItem>
                         {
                             EVENT_TYPES.map((value) => {
                                 return (
@@ -120,49 +126,46 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                                 </label>
                             );
                         })}
-                        { validationErrors.type && <p className="text-red-500">{ validationErrors.type.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>開始日時</label>
-                        <input
+                        { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="開始日時" />
+                        <Input
                             type="datetime-local"
                             name="start_at"
                             value={ startAt }
                             onChange={ e => setStartAt(e.target.value) }
+                            errors={validationErrors.start_at}
                         />
-                        { validationErrors.start_at && <p className="text-red-500">{ validationErrors.start_at.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>終了日時</label>
-                        <input
+                        { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="終了日時" />
+                        <Input
                             type="datetime-local"
                             name="end_at"
                             value={ endAt }
                             onChange={ e => setEndAt(e.target.value) }
+                            errors={validationErrors.end_at}
                         />
-                        { validationErrors.end_at && <p className="text-red-500">{ validationErrors.end_at.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>メモ</label>
-                        <input
+                        { validationErrors.end_at && <ValidationErrorMsg errors={validationErrors.end_at} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="メモ" />
+                        <Input
                             type="textarea"
                             name="memo"
                             value={ memo }
                             onChange={ e => setMemo(e.target.value) }
+                            errors={validationErrors.memo}
                         />
-                        { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-                    </div>
-
-                    <button>更新</button>
+                        { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+                    </FormItem>
+                    <Button name="更新" />
                 </form>
 
-                <button type="button" onClick={() => setModalOpen(false)}>
-                    閉じる
-                </button>
-
-                <button type="button" onClick={() => deleteEventHandler(event.event_id)}>
-                    削除
-                </button>
+                <Button name="閉じる" onClick={() => setModalOpen(false)} />
+                <Button name="削除" onClick={() => deleteEventHandler(event.event_id)} />
 
             </div>
         </div>
