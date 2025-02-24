@@ -1,5 +1,10 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { Interview } from "@/types";
 import { FormEvent, use, useEffect, useState } from "react";
@@ -68,38 +73,40 @@ const InterviewEditPage = ({ params } : { params : Promise<{ applyId: number, in
 
     return (
         <form method="POST" onSubmit={onSubmit}>
-            <div>
-                <label>面接日</label>
-                <input
+            <FormItem>
+                <Label label="面接日" />
+                <Input
                     type="date"
                     name="interview_date"
                     value={ interviewDate }
                     onChange={ e => setInterviewDate(e.target.value) }
+                    errors={validationErrors.interview_date}
                 />
-                { validationErrors.interview_date && <p className="text-red-500">{ validationErrors.interview_date.join(',') }</p> }
-            </div>
-            <div>
-                <label>面接官情報</label>
-                <input
+                { validationErrors.interview_date && <ValidationErrorMsg errors={validationErrors.interview_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="面接官情報" />
+                <Input
                     type="text"
                     name="interviewer_info"
                     value={ interviewerInfo }
                     onChange={ e => setInterviewerInfo(e.target.value) }
-
+                    errors={validationErrors.interviewer_info}
                 />
-                { validationErrors.interviewer_info && <p className="text-red-500">{ validationErrors.interviewer_info.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
+                { validationErrors.interviewer_info && <ValidationErrorMsg errors={validationErrors.interviewer_info} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
                     type="textarea"
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
                 />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>登録</button>
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
         </form>
     )
 }
