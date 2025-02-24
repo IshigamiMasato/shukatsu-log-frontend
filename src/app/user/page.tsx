@@ -1,4 +1,3 @@
-import LogoutButton from "@/components/LogoutButton";
 import { getJWT } from "@/helper";
 import Link from "next/link";
 
@@ -21,7 +20,6 @@ const UserPage: React.FC = async () => {
             <h1>ユーザ情報</h1>
             <p>名前： { user.name }</p>
             <p>メールアドレス： { user.email }</p>
-            <LogoutButton />
             <Link href="/calender">カレンダー</Link>
         </div>
     );
