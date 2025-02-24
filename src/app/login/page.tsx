@@ -1,5 +1,11 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import ErrorMsg from "@/components/elements/ErrorMsg";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -39,19 +45,29 @@ const LoginPage: React.FC = () => {
 
     return (
         <div>
-            { loginErrorMsg && ( <div className="bg-red-100">{ loginErrorMsg }</div> ) }
+            { loginErrorMsg && <ErrorMsg error={loginErrorMsg} /> }
             <form onSubmit={onSubmit}>
-                <div>
-                    <label>メールアドレス</label>
-                    <input type="text" name="email" required />
-                    { validationErrors.email && <p className="text-red-500">{ validationErrors.email.join(',') }</p> }
-                </div>
-                <div>
-                    <label>パスワード</label>
-                    <input type="text" name="password" required />
-                    { validationErrors.password && <p className="text-red-500">{ validationErrors.password.join(',') }</p> }
-                </div>
-                <button>ログイン</button>
+                <FormItem>
+                    <Label label="メールアドレス" />
+                    <Input
+                        type="text"
+                        name="email"
+                        required={true}
+                        errors={validationErrors.email}
+                    />
+                    { validationErrors.email && <ValidationErrorMsg errors={validationErrors.email} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="パスワード" />
+                    <Input
+                        type="text"
+                        name="password"
+                        required={true}
+                        errors={validationErrors.password}
+                    />
+                    { validationErrors.password && <ValidationErrorMsg errors={validationErrors.password} /> }
+                </FormItem>
+                <Button name="ログイン"/>
             </form>
         </div>
     );
