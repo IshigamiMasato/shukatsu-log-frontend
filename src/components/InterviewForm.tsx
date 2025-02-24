@@ -4,6 +4,11 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormItem from "./containers/FormItem";
+import Label from "./elements/Label";
+import Input from "./elements/Input";
+import ValidationErrorMsg from "./elements/ValidationErrorMsg";
+import Button from "./elements/Button";
 
 const InterviewForm = ({ applyId } : { applyId : number }) => {
     const [interviewDate, setInterviewDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -40,42 +45,42 @@ const InterviewForm = ({ applyId } : { applyId : number }) => {
     }
 
     return (
-        <>
-            <form method="POST" onSubmit={onSubmit}>
-                <div>
-                    <label>面接日</label>
-                    <input
-                        type="date"
-                        name="interview_date"
-                        value={ interviewDate }
-                        onChange={ e => setInterviewDate(e.target.value) }
-                    />
-                    { validationErrors.interview_date && <p className="text-red-500">{ validationErrors.interview_date.join(',') }</p> }
-                </div>
-                <div>
-                    <label>面接官情報</label>
-                    <input
-                        type="text"
-                        name="interviewer_info"
-                        value={ interviewerInfo }
-                        onChange={ e => setInterviewerInfo(e.target.value) }
-
-                    />
-                    { validationErrors.interviewer_info && <p className="text-red-500">{ validationErrors.interviewer_info.join(',') }</p> }
-                </div>
-                <div>
-                    <label>メモ</label>
-                    <input
-                        type="textarea"
-                        name="memo"
-                        value={ memo }
-                        onChange={ e => setMemo(e.target.value) }
-                    />
-                    { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-                </div>
-                <button>登録</button>
-            </form>
-        </>
+        <form method="POST" onSubmit={onSubmit}>
+            <FormItem>
+                <Label label="面接日" />
+                <Input
+                    type="date"
+                    name="interview_date"
+                    value={ interviewDate }
+                    onChange={ e => setInterviewDate(e.target.value) }
+                    errors={validationErrors.interview_date}
+                />
+                { validationErrors.interview_date && <ValidationErrorMsg errors={validationErrors.interview_date} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="面接官情報" />
+                <Input
+                    type="text"
+                    name="interviewer_info"
+                    value={ interviewerInfo }
+                    onChange={ e => setInterviewerInfo(e.target.value) }
+                    errors={validationErrors.interviewer_info}
+                />
+                { validationErrors.interviewer_info && <ValidationErrorMsg errors={validationErrors.interviewer_info} /> }
+            </FormItem>
+            <FormItem>
+                <Label label="メモ" />
+                <Input
+                    type="textarea"
+                    name="memo"
+                    value={ memo }
+                    onChange={ e => setMemo(e.target.value) }
+                    errors={validationErrors.memo}
+                />
+                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+            </FormItem>
+            <Button name="登録" />
+        </form>
     )
 }
 
