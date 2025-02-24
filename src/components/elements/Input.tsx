@@ -10,7 +10,7 @@ const Input = ({ type, name, errors, ...props } : InputProps) => {
             type={type}
             name={name}
             { ...props }
-            className={ `${errors ? 'border-red-500' : ''}` }
+            className={ `${errors ? 'border-2 border-red-500' : ''}` }
         />
     )
 }
