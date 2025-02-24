@@ -11,6 +11,11 @@ import { EventClickArg } from "@fullcalendar/core/index.js";
 import EventModal from "@/components/event/EventModal";
 import { dispToast } from "@/store/modules/toast";
 import ModalPortal from "@/components/ModalPortal";
+import FormItem from "@/components/containers/FormItem";
+import Label from "@/components/elements/Label";
+import Input from "@/components/elements/Input";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import Button from "@/components/elements/Button";
 
 const CalenderPage = () => {
     useEffect(() => {
@@ -110,18 +115,19 @@ const CalenderPage = () => {
             {/* 予定登録フォーム */}
             <div>
                 <form method="POST" onSubmit={onSubmit}>
-                    <div>
-                        <label>タイトル</label>
-                        <input
+                    <FormItem>
+                        <Label label="タイトル" />
+                        <Input
                             type="text"
                             name="title"
                             value={title}
                             onChange={ e => setTitle(e.target.value) }
-                            required
+                            required={true}
+                            errors={validationErrors.title}
                         />
-                        { validationErrors.title && <p className="text-red-500">{ validationErrors.title.join(',') }</p> }
-                    </div>
-                    <div>
+                        { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
+                    </FormItem>
+                    <FormItem>
                         {
                             EVENT_TYPES.map(value => {
                                 return (
@@ -139,41 +145,44 @@ const CalenderPage = () => {
                                 );
                             })
                         }
-                        { validationErrors.type && <p className="text-red-500">{ validationErrors.type.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>開始</label>
-                        <input
+                        { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="開始" />
+                        <Input
                             type="datetime-local"
                             name="start_at"
                             value={ startAt }
                             onChange={ e => setStartAt(e.target.value) }
-                            required
+                            required={true}
+                            errors={validationErrors.start_at}
                         />
-                        { validationErrors.start_at && <p className="text-red-500">{ validationErrors.start_at.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>終了</label>
-                        <input
+                        { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="終了" />
+                        <Input
                             type="datetime-local"
                             name="end_at"
                             value={ endAt }
                             onChange={ e => setEndAt(e.target.value) }
-                            required
+                            required={true}
+                            errors={validationErrors.end_at}
                         />
-                        { validationErrors.end_at && <p className="text-red-500">{ validationErrors.end_at.join(',') }</p> }
-                    </div>
-                    <div>
-                        <label>メモ</label>
-                        <input
+                        { validationErrors.end_at && <ValidationErrorMsg errors={validationErrors.end_at} /> }
+                    </FormItem>
+                    <FormItem>
+                        <Label label="メモ" />
+                        <Input
                             type="textarea"
                             name="memo"
                             value={ memo }
                             onChange={ e => setMemo(e.target.value) }
+                            errors={validationErrors.memo}
                         />
-                        { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-                    </div>
-                    <button>登録</button>
+                        { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+                    </FormItem>
+                    <Button name="登録" />
                 </form>
             </div>
 
