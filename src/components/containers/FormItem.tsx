@@ -4,7 +4,7 @@ type FormItemProps = {
 
 const FormItem = ({ children } : FormItemProps) => {
     return (
-        <div>
+        <div className="mb-5">
             { children }
         </div>
     )
