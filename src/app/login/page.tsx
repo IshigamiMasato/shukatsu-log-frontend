@@ -44,7 +44,7 @@ const LoginPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto">
             { loginErrorMsg && <ErrorMsg error={loginErrorMsg} /> }
             <form onSubmit={onSubmit}>
                 <FormItem>
@@ -67,7 +67,7 @@ const LoginPage: React.FC = () => {
                     />
                     { validationErrors.password && <ValidationErrorMsg errors={validationErrors.password} /> }
                 </FormItem>
-                <Button name="ログイン"/>
+                <Button name="ログイン" className="bg-blue-600 text-white mt-3" />
             </form>
         </div>
     );
