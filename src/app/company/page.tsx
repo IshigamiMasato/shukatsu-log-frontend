@@ -17,33 +17,33 @@ const CompanyPage: React.FC = async () => {
     const companies = await res.json();
 
     return (
-        <>
-            <Link href='/company/create'>企業登録</Link>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">企業ID</th>
-                        <th scope="col">企業名</th>
-                        <th scope="col">登録日時</th>
-                        <th scope="col">更新日時</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {companies.map((company: Company) => {
-                        return (
-                            <tr key={ company.company_id }>
-                                <td>{ company.company_id }</td>
-                                <td>
-                                    <Link href={`/company/${company.company_id}`}>{ company.name }</Link>
-                                </td>
-                                <td>{ company.created_at }</td>
-                                <td>{ company.updated_at }</td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </>
+        <div className="container mx-auto px-8 py-6">
+            <Link href='/company/create' className="bg-blue-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block mb-3">企業登録</Link>
+            <div className="overflow-x-auto shadow-md rounded-lg">
+                <table className="w-full text-sm text-left">
+                    <thead className="text-xs bg-gray-50">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">企業名</th>
+                            <th scope="col" className="px-6 py-3">登録日時</th>
+                            <th scope="col" className="px-6 py-3">更新日時</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {companies.map((company: Company) => {
+                            return (
+                                <tr key={ company.company_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
+                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                        <Link href={`/company/${company.company_id}`} className="text-blue-500 hover:underline">{ company.name }</Link>
+                                    </td>
+                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
+                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     )
 }
 

@@ -3,6 +3,7 @@
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import Button from "./elements/Button";
 
 const CompanyDeleteButton = ({ companyId } : { companyId : number }) => {
     const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const CompanyDeleteButton = ({ companyId } : { companyId : number }) => {
     }
 
     return (
-        <button onClick={ () => handleCompanyDelete(companyId) }>削除</button>
+        <Button name="削除" onClick={ () => handleCompanyDelete(companyId) } className="bg-red-600 text-white" />
     )
 }
 
