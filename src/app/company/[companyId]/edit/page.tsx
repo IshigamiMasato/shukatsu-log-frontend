@@ -177,8 +177,7 @@ const CompanyEditPage = ({ params } : { params : Promise<{ companyId: string }> 
                 </FormItem>
                 <FormItem>
                     <Label label="福利厚生" />
-                    <Input
-                        type="textarea"
+                    <Textarea
                         name="benefit"
                         value={ benefit }
                         onChange={ e => setBenefit(e.target.value) }
@@ -196,7 +195,7 @@ const CompanyEditPage = ({ params } : { params : Promise<{ companyId: string }> 
                     />
                     { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                 </FormItem>
-                <Button name="更新" className="bg-blue-600 text-white mt-3" />
+                <Button className="bg-blue-600 text-white mt-3">更新</Button>
             </form>
         </div>
     );

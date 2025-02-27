@@ -4,6 +4,8 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import { getJWT } from "@/helper";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: string }> }) => {
@@ -27,7 +29,9 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: st
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-lg font-semibold">企業詳細</h2>
                 <div className="flex text-nowrap space-x-1">
-                    <Link href={`/company/${companyId}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block">編集</Link>
+                    <Link href={`/company/${companyId}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
+                        <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
+                    </Link>
                     <CompanyDeleteButton companyId={Number(companyId)} />
                 </div>
             </div>
