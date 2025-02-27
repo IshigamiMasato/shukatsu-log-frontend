@@ -29,11 +29,11 @@ const Header = () => {
                 { isAuthenticated && (
                     <>
                         <div className="space-x-4 hidden md:flex items-center text-nowrap">
-                            <Link href="/calender">予定</Link>
+                            <Link href="/event">予定</Link>
                             <Link href="/company">企業</Link>
                             <Link href="/apply">応募</Link>
                             <Link href="/user">会員情報</Link>
-                            <Button name="ログアウト" onClick={handleLogout} />
+                            <Button onClick={handleLogout}>ログアウト</Button>
                         </div>
                         <div className="md:hidden">
                             <FontAwesomeIcon icon={faBars} />

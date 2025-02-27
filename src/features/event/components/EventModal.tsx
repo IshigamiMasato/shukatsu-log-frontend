@@ -6,13 +6,13 @@ import { EVENT_TYPES } from "@/constants/const";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { dispToast } from "@/store/modules/toast";
-import FormItem from "../containers/FormItem";
-import Label from "../elements/Label";
-import Input from "../elements/Input";
-import ValidationErrorMsg from "../elements/ValidationErrorMsg";
-import Button from "../elements/Button";
-import RequiredBadge from "../elements/RequiredBadge";
-import Textarea from "../elements/Textarea";
+import FormItem from "@/components/containers/FormItem";
+import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Input from "@/components/elements/Input";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import Textarea from "@/components/elements/Textarea";
+import Button from "@/components/elements/Button";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
