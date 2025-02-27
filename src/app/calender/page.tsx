@@ -16,6 +16,8 @@ import Label from "@/components/elements/Label";
 import Input from "@/components/elements/Input";
 import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import Button from "@/components/elements/Button";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Textarea from "@/components/elements/Textarea";
 
 const CalenderPage = () => {
     useEffect(() => {
@@ -113,10 +115,11 @@ const CalenderPage = () => {
             )}
 
             {/* 予定登録フォーム */}
-            <div>
+            <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
+                <h2 className="text-lg font-semibold mb-5">予定登録フォーム</h2>
                 <form method="POST" onSubmit={onSubmit}>
                     <FormItem>
-                        <Label label="タイトル" />
+                        <Label label="タイトル" /><RequiredBadge />
                         <Input
                             type="text"
                             name="title"
@@ -128,6 +131,7 @@ const CalenderPage = () => {
                         { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                     </FormItem>
                     <FormItem>
+                        <RequiredBadge /><br />
                         {
                             EVENT_TYPES.map(value => {
                                 return (
@@ -148,7 +152,7 @@ const CalenderPage = () => {
                         { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="開始" />
+                        <Label label="開始" /><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="start_at"
@@ -160,7 +164,7 @@ const CalenderPage = () => {
                         { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="終了" />
+                        <Label label="終了" /><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="end_at"
@@ -173,8 +177,7 @@ const CalenderPage = () => {
                     </FormItem>
                     <FormItem>
                         <Label label="メモ" />
-                        <Input
-                            type="textarea"
+                        <Textarea
                             name="memo"
                             value={ memo }
                             onChange={ e => setMemo(e.target.value) }
@@ -182,22 +185,24 @@ const CalenderPage = () => {
                         />
                         { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                     </FormItem>
-                    <Button name="登録" />
+                    <Button className="bg-blue-600 text-white mt-3">登録</Button>
                 </form>
             </div>
 
             {/* 予定カレンダー表示域 */}
-            <FullCalendar
-                plugins={[ dayGridPlugin ]}
-                initialView="dayGridMonth"
-                events={
-                    events.map(event => {
-                        return { id: String(event.event_id), title: event.title, start: event.start_at, end: event.end_at };
-                    })
-                }
-                locale="ja"
-                eventClick={eventClickHandler}
-            />
+            <div className="container mx-auto px-8 py-6">
+                <FullCalendar
+                    plugins={[ dayGridPlugin ]}
+                    initialView="dayGridMonth"
+                    events={
+                        events.map(event => {
+                            return { id: String(event.event_id), title: event.title, start: event.start_at, end: event.end_at };
+                        })
+                    }
+                    locale="ja"
+                    eventClick={eventClickHandler}
+                />
+            </div>
         </>
     )
 }
