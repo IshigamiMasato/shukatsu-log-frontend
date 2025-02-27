@@ -67,7 +67,7 @@ const LoginPage: React.FC = () => {
                     />
                     { validationErrors.password && <ValidationErrorMsg errors={validationErrors.password} /> }
                 </FormItem>
-                <Button name="ログイン" className="bg-blue-600 text-white mt-3" />
+                <Button className="bg-blue-600 text-white mt-3">ログイン</Button>
             </form>
         </div>
     );

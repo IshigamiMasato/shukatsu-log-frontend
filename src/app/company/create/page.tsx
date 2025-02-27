@@ -141,8 +141,7 @@ const CompanyCreatePage: React.FC = () => {
                 </FormItem>
                 <FormItem>
                     <Label label="福利厚生" />
-                    <Input
-                        type="textarea"
+                    <Textarea
                         name="benefit"
                         value={ benefit }
                         onChange={ e => setBenefit(e.target.value) }
@@ -160,7 +159,7 @@ const CompanyCreatePage: React.FC = () => {
                     />
                     { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                 </FormItem>
-                <Button name="登録" className="bg-blue-600 text-white mt-3" />
+                <Button className="bg-blue-600 text-white mt-3">登録</Button>
             </form>
         </div>
     )
