@@ -11,6 +11,8 @@ import Label from "../elements/Label";
 import Input from "../elements/Input";
 import ValidationErrorMsg from "../elements/ValidationErrorMsg";
 import Button from "../elements/Button";
+import RequiredBadge from "../elements/RequiredBadge";
+import Textarea from "../elements/Textarea";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
@@ -100,7 +102,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
 
                 <form onSubmit={onSubmit}>
                     <FormItem>
-                        <Label label="タイトル" />
+                        <Label label="タイトル" /><RequiredBadge />
                         <Input
                             type="text"
                             name="title"
@@ -111,6 +113,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                     </FormItem>
                     <FormItem>
+                        <RequiredBadge /><br />
                         {
                             EVENT_TYPES.map((value) => {
                                 return (
@@ -129,7 +132,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="開始日時" />
+                        <Label label="開始日時" /><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="start_at"
@@ -140,7 +143,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="終了日時" />
+                        <Label label="終了日時" /><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="end_at"
@@ -152,8 +155,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                     </FormItem>
                     <FormItem>
                         <Label label="メモ" />
-                        <Input
-                            type="textarea"
+                        <Textarea
                             name="memo"
                             value={ memo }
                             onChange={ e => setMemo(e.target.value) }
@@ -161,11 +163,11 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         />
                         { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                     </FormItem>
-                    <Button name="更新" />
+                    <Button>更新</Button>
                 </form>
 
-                <Button name="閉じる" onClick={() => setModalOpen(false)} />
-                <Button name="削除" onClick={() => deleteEventHandler(event.event_id)} />
+                <Button onClick={() => deleteEventHandler(event.event_id)}>削除</Button>
+                <Button onClick={() => setModalOpen(false)}>閉じる</Button>
 
             </div>
         </div>
