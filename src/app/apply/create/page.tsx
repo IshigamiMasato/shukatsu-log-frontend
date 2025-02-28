@@ -4,6 +4,9 @@ import FormItem from "@/components/containers/FormItem";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Select from "@/components/elements/Select";
+import Textarea from "@/components/elements/Textarea";
 import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
@@ -70,78 +73,82 @@ const ApplyCreatePage = () => {
     }
 
     return (
-        <form method="POST" onSubmit={onSubmit}>
-            <FormItem>
-                <Label label="企業" />
-                <select
-                    name="company_id"
-                    value={ companyId }
-                    onChange={ (e) => setCompanyId(Number(e.target.value)) }
-                >
-                    <option value="">選択してください</option>
-                    {companies.map(company => {
-                        return (
-                            <option key={ company.company_id } value={ company.company_id }>
-                                { company.name }
-                            </option>
-                        )
-                    })}
-                </select>
-                { validationErrors.company_id && <ValidationErrorMsg errors={validationErrors.company_id} /> }
-            </FormItem>
-            <FormItem>
-                <Label label="ステータス" />
-                <select
-                    name="status"
-                    value={ status }
-                    onChange={ (e) => setStatus( Number(e.target.value) ) }
-                >
-                    <option value="">選択してください</option>
-                    {APPLY_STATUS.map(apply => {
-                        return (
-                            <option key={ apply.id } value={ apply.id }>
-                                { apply.name }
-                            </option>
-                        )
-                    })}
-                </select>
-                { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
-            </FormItem>
-            <FormItem>
-                <Label label="職種" />
-                <Input
-                    type="text"
-                    name="occupation"
-                    value={ occupation }
-                    onChange={ e => setOccupation(e.target.value) }
-                    errors={validationErrors.occupation}
-                />
-                { validationErrors.occupation && <ValidationErrorMsg errors={validationErrors.occupation} /> }
-            </FormItem>
-            <FormItem>
-                <Label label="応募経路" />
-                <Input
-                    type="text"
-                    name="apply_route"
-                    value={ applyRoute }
-                    onChange={ e => setApplyRoute(e.target.value) }
-                    errors={validationErrors.apply_route}
-                />
-                { validationErrors.apply_route && <ValidationErrorMsg errors={validationErrors.apply_route} /> }
-            </FormItem>
-            <FormItem>
-                <Label label="メモ" />
-                <Input
-                    type="textarea"
-                    name="memo"
-                    value={ memo }
-                    onChange={ e => setMemo(e.target.value) }
-                    errors={validationErrors.memo}
-                />
-                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
-            </FormItem>
-            <Button name="登録" />
-        </form>
+        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
+            <h2 className="text-lg font-semibold mb-5">応募登録フォーム</h2>
+            <form method="POST" onSubmit={onSubmit}>
+                <FormItem>
+                    <Label label="企業" /><RequiredBadge />
+                    <Select
+                        name="company_id"
+                        value={ companyId }
+                        onChange={ (e) => setCompanyId(Number(e.target.value)) }
+                        errors={validationErrors.company_id}
+                    >
+                        <option value="">選択してください</option>
+                        {companies.map(company => {
+                            return (
+                                <option key={ company.company_id } value={ company.company_id }>
+                                    { company.name }
+                                </option>
+                            )
+                        })}
+                    </Select>
+                    { validationErrors.company_id && <ValidationErrorMsg errors={validationErrors.company_id} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="ステータス" /><RequiredBadge />
+                    <Select
+                        name="status"
+                        value={ status }
+                        onChange={ (e) => setStatus( Number(e.target.value) ) }
+                        errors={validationErrors.status}
+                    >
+                        <option value="">選択してください</option>
+                        {APPLY_STATUS.map(apply => {
+                            return (
+                                <option key={ apply.id } value={ apply.id }>
+                                    { apply.name }
+                                </option>
+                            )
+                        })}
+                    </Select>
+                    { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="職種" />
+                    <Input
+                        type="text"
+                        name="occupation"
+                        value={ occupation }
+                        onChange={ e => setOccupation(e.target.value) }
+                        errors={validationErrors.occupation}
+                    />
+                    { validationErrors.occupation && <ValidationErrorMsg errors={validationErrors.occupation} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="応募経路" />
+                    <Input
+                        type="text"
+                        name="apply_route"
+                        value={ applyRoute }
+                        onChange={ e => setApplyRoute(e.target.value) }
+                        errors={validationErrors.apply_route}
+                    />
+                    { validationErrors.apply_route && <ValidationErrorMsg errors={validationErrors.apply_route} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="メモ" />
+                    <Textarea
+                        name="memo"
+                        value={ memo }
+                        onChange={ e => setMemo(e.target.value) }
+                        errors={validationErrors.memo}
+                    />
+                    { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+                </FormItem>
+                <Button className="bg-blue-600 text-white mt-3">登録</Button>
+            </form>
+        </div>
     )
 }
 
