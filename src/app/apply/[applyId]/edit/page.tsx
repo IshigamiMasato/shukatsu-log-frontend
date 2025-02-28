@@ -1,5 +1,11 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import Select from "@/components/elements/Select";
+import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, use, useEffect, useState } from "react";
@@ -77,60 +83,73 @@ const ApplyEditPage = ({ params } : { params : Promise<{ applyId: string }> }) =
     }
 
     return (
-        <form method="PUT" onSubmit={onSubmit}>
-            <div>
-                <label>企業</label>
-                <input type="text" disabled value={ companyName } />
-            </div>
-            <div>
-                <label>ステータス</label>
-                <select
-                    name="status"
-                    value={ status }
-                    onChange={ (e) => setStatus( Number(e.target.value) ) }
-                >
-                    {APPLY_STATUS.map(apply => {
-                        return (
-                            <option key={ apply.id } value={ apply.id }>
-                                { apply.name }
-                            </option>
-                        )
-                    })}
-                </select>
-                { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
-            </div>
-            <div>
-                <label>職種</label>
-                <input
-                    type="text"
-                    name="occupation"
-                    value={ occupation }
-                    onChange={ e => setOccupation(e.target.value) }
-                />
-                { validationErrors.occupation && <p className="text-red-500">{ validationErrors.occupation.join(',') }</p> }
-            </div>
-            <div>
-                <label>応募経路</label>
-                <input
-                    type="text"
-                    name="apply_route"
-                    value={ applyRoute }
-                    onChange={ e => setApplyRoute(e.target.value) }
-                />
-                { validationErrors.apply_route && <p className="text-red-500">{ validationErrors.apply_route.join(',') }</p> }
-            </div>
-            <div>
-                <label>メモ</label>
-                <input
-                    type="textarea"
-                    name="memo"
-                    value={ memo }
-                    onChange={ e => setMemo(e.target.value) }
-                />
-                { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
-            </div>
-            <button>更新</button>
-        </form>
+        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
+            <h2 className="text-lg font-semibold mb-5">応募編集フォーム</h2>
+            <form method="PUT" onSubmit={onSubmit}>
+                <FormItem>
+                    <Label label="企業" />
+                    <Input
+                        type="text"
+                        name="name"
+                        value={ companyName }
+                        disabled={true}
+                        className="text-gray-500"
+                    />
+                </FormItem>
+                <FormItem>
+                    <Label label="ステータス" />
+                    <Select
+                        name="status"
+                        value={ status }
+                        onChange={ (e) => setStatus( Number(e.target.value) ) }
+                        errors={validationErrors.status}
+                    >
+                        <option value="">選択してください</option>
+                        {APPLY_STATUS.map(apply => {
+                            return (
+                                <option key={ apply.id } value={ apply.id }>
+                                    { apply.name }
+                                </option>
+                            )
+                        })}
+                    </Select>
+                    { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
+                </FormItem>
+                <FormItem>
+                    <Label label="職種" />
+                    <Input
+                        type="text"
+                        name="occupation"
+                        value={ occupation }
+                        onChange={ e => setOccupation(e.target.value) }
+                        errors={validationErrors.occupation}
+                    />
+                    { validationErrors.occupation && <p className="text-red-500">{ validationErrors.occupation.join(',') }</p> }
+                </FormItem>
+                <FormItem>
+                    <Label label="応募経路" />
+                    <Input
+                        type="text"
+                        name="apply_route"
+                        value={ applyRoute }
+                        onChange={ e => setApplyRoute(e.target.value) }
+                        errors={validationErrors.apply_route}
+                    />
+                    { validationErrors.apply_route && <p className="text-red-500">{ validationErrors.apply_route.join(',') }</p> }
+                </FormItem>
+                <FormItem>
+                    <Label label="メモ" />
+                    <Textarea
+                        name="memo"
+                        value={ memo }
+                        onChange={ e => setMemo(e.target.value) }
+                        errors={validationErrors.memo}
+                    />
+                    { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
+                </FormItem>
+                <Button className="bg-blue-600 text-white mt-3">更新</Button>
+            </form>
+        </div>
     );
 }
 
