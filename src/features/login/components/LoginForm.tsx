@@ -1,11 +1,12 @@
 "use client";
 
+import FormContainer from "@/components/containers/FormContainer";
 import FormItem from "@/components/containers/FormItem";
 import Button from "@/components/elements/Button";
-import ErrorMsg from "@/components/elements/ErrorMsg";
+import ErrorMsg from "@/components/containers/ErrorMsg";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
@@ -44,7 +45,7 @@ const LoginForm = () => {
     }
 
     return (
-        <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto">
+        <FormContainer>
             { loginErrorMsg && <ErrorMsg error={loginErrorMsg} /> }
             <form onSubmit={onSubmit}>
                 <FormItem>
@@ -67,9 +68,9 @@ const LoginForm = () => {
                     />
                     { validationErrors.password && <ValidationErrorMsg errors={validationErrors.password} /> }
                 </FormItem>
-                <Button className="bg-blue-600 text-white mt-3">ログイン</Button>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">ログイン</Button>
             </form>
-        </div>
+        </FormContainer>
     )
 }
 

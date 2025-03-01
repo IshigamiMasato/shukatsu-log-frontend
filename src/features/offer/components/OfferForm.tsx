@@ -6,7 +6,7 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
@@ -92,7 +92,7 @@ const OfferForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button>登録</Button>
+            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
         </form>
     )
 }

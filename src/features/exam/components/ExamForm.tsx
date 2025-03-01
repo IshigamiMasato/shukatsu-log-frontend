@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import FormItem from "@/components/containers/FormItem";
 import Label from "@/components/elements/Label";
 import Input from "@/components/elements/Input";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
 import RequiredBadge from "@/components/elements/RequiredBadge";
@@ -80,7 +80,7 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button>登録</Button>
+            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
         </form>
     )
 }

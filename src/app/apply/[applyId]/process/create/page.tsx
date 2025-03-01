@@ -10,14 +10,16 @@ import OfferForm from "@/features/offer/components/OfferForm";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import DocumentForm from "@/features/document/components/DocumentForm";
 import { use, useState } from "react";
+import FormContainer from "@/components/containers/FormContainer";
+import FormTitle from "@/components/containers/FormTitle";
 
 const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> }) => {
     const { applyId } = use(params); // use()はawaitのように動作するため、use(params)の処理が完了するまでそれ以降の処理は実行されない
     const [status, setStatus] = useState<number>();
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
-            <h2 className="text-lg font-semibold mb-5">選考履歴登録フォーム</h2>
+        <FormContainer>
+            <FormTitle>選考履歴登録フォーム</FormTitle>
             <FormItem>
                 <Label label="ステータス" />
                 <Select
@@ -41,7 +43,7 @@ const ProcessCreatePage = ({ params } : { params : Promise<{ applyId: number }> 
             { status == INTERVIEW_SELECTION  && <InterviewForm applyId={applyId}/> }
             { status == OFFER  && <OfferForm applyId={applyId} /> }
             { status == FINAL_RESULT && <FinalResultForm applyId={applyId} /> }
-        </div>
+        </FormContainer>
     )
 }
 

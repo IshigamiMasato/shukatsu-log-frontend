@@ -1,9 +1,12 @@
 "use client";
 
+import FormContainer from "@/components/containers/FormContainer";
 import FormItem from "@/components/containers/FormItem";
+import FormTitle from "@/components/containers/FormTitle";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
 import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
@@ -83,11 +86,11 @@ const ApplyEditPage = ({ params } : { params : Promise<{ applyId: string }> }) =
     }
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
-            <h2 className="text-lg font-semibold mb-5">応募編集フォーム</h2>
+        <FormContainer>
+            <FormTitle>応募編集フォーム</FormTitle>
             <form method="PUT" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="企業" />
+                    <Label label="企業" /><RequiredBadge />
                     <Input
                         type="text"
                         name="name"
@@ -97,7 +100,7 @@ const ApplyEditPage = ({ params } : { params : Promise<{ applyId: string }> }) =
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="ステータス" />
+                    <Label label="ステータス" /><RequiredBadge />
                     <Select
                         name="status"
                         value={ status }
@@ -147,9 +150,9 @@ const ApplyEditPage = ({ params } : { params : Promise<{ applyId: string }> }) =
                     />
                     { validationErrors.memo && <p className="text-red-500">{ validationErrors.memo.join(',') }</p> }
                 </FormItem>
-                <Button className="bg-blue-600 text-white mt-3">更新</Button>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
             </form>
-        </div>
+        </FormContainer>
     );
 }
 

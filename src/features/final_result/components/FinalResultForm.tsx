@@ -6,7 +6,7 @@ import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, useState } from "react";
@@ -48,7 +48,7 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
     return (
         <form method="POST" onSubmit={onSubmit}>
             <FormItem>
-                <Label label="ステータス" /><RequiredBadge />
+                <Label label="選考終了ステータス" /><RequiredBadge />
                 <Select
                     name="status"
                     value={ status }
@@ -76,7 +76,7 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button>登録</Button>
+            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
         </form>
     )
 }

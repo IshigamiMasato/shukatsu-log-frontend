@@ -10,7 +10,7 @@ import FormItem from "@/components/containers/FormItem";
 import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Input from "@/components/elements/Input";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
 
