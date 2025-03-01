@@ -1,9 +1,9 @@
 "use client";
 
+import Button from "@/components/elements/Button";
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import Button from "./elements/Button";
 
 type Props = {
     applyId: number,
