@@ -4,11 +4,13 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormItem from "./containers/FormItem";
-import Label from "./elements/Label";
-import Input from "./elements/Input";
-import ValidationErrorMsg from "./elements/ValidationErrorMsg";
-import Button from "./elements/Button";
+import FormItem from "@/components/containers/FormItem";
+import Label from "@/components/elements/Label";
+import Input from "@/components/elements/Input";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import Textarea from "@/components/elements/Textarea";
+import Button from "@/components/elements/Button";
+import RequiredBadge from "@/components/elements/RequiredBadge";
 
 const ExamForm = ({ applyId } : { applyId : number }) => {
     const [examDate, setExamDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -47,7 +49,7 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
     return (
         <form method="POST" onSubmit={onSubmit}>
             <FormItem>
-                <Label label="試験日" />
+                <Label label="試験日" /><RequiredBadge />
                 <Input
                     type="date"
                     name="exam_date"
@@ -58,7 +60,7 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
                 { validationErrors.exam_date && <ValidationErrorMsg errors={validationErrors.exam_date} /> }
             </FormItem>
             <FormItem>
-                <Label label="試験内容" />
+                <Label label="試験内容" /><RequiredBadge />
                 <Input
                     type="text"
                     name="content"
@@ -70,8 +72,7 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
             </FormItem>
             <FormItem>
                 <Label label="メモ" />
-                <Input
-                    type="textarea"
+                <Textarea
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
@@ -79,7 +80,7 @@ const ExamForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button name="登録" />
+            <Button>登録</Button>
         </form>
     )
 }

@@ -1,14 +1,16 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Select from "@/components/elements/Select";
+import Textarea from "@/components/elements/Textarea";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormItem from "./containers/FormItem";
-import Label from "./elements/Label";
-import ValidationErrorMsg from "./elements/ValidationErrorMsg";
-import Input from "./elements/Input";
-import Button from "./elements/Button";
 
 const FinalResultForm = ({ applyId } : { applyId : number }) => {
     const [status, setStatus] = useState<number>();
@@ -46,11 +48,12 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
     return (
         <form method="POST" onSubmit={onSubmit}>
             <FormItem>
-                <Label label="ステータス" />
-                <select
+                <Label label="ステータス" /><RequiredBadge />
+                <Select
                     name="status"
                     value={ status }
                     onChange={ (e) => setStatus( Number(e.target.value) ) }
+                    errors={validationErrors.status}
                 >
                     <option value="">選択してください</option>
                     {FINAL_RESULT_STATUS.map(apply => {
@@ -60,13 +63,12 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
                             </option>
                         )
                     })}
-                </select>
+                </Select>
                 { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
             </FormItem>
             <FormItem>
                 <Label label="メモ" />
-                <Input
-                    type="textarea"
+                <Textarea
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
@@ -74,7 +76,7 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button name="登録" />
+            <Button>登録</Button>
         </form>
     )
 }

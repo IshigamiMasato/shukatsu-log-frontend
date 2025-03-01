@@ -1,14 +1,16 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Textarea from "@/components/elements/Textarea";
+import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormItem from "./containers/FormItem";
-import Label from "./elements/Label";
-import Input from "./elements/Input";
-import ValidationErrorMsg from "./elements/ValidationErrorMsg";
-import Button from "./elements/Button";
 
 const InterviewForm = ({ applyId } : { applyId : number }) => {
     const [interviewDate, setInterviewDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -47,7 +49,7 @@ const InterviewForm = ({ applyId } : { applyId : number }) => {
     return (
         <form method="POST" onSubmit={onSubmit}>
             <FormItem>
-                <Label label="面接日" />
+                <Label label="面接日" /><RequiredBadge />
                 <Input
                     type="date"
                     name="interview_date"
@@ -70,8 +72,7 @@ const InterviewForm = ({ applyId } : { applyId : number }) => {
             </FormItem>
             <FormItem>
                 <Label label="メモ" />
-                <Input
-                    type="textarea"
+                <Textarea
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
@@ -79,7 +80,7 @@ const InterviewForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button name="登録" />
+            <Button>登録</Button>
         </form>
     )
 }

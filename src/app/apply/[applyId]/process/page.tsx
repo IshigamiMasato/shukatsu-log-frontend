@@ -26,6 +26,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: string }> 
 
     return (
         <>
+            <Link href={`/apply/${applyId}/process/create`} className="bg-blue-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block mb-3">選考履歴登録</Link>
             {process.map((value : any) => {
                 if ( value.type == DOCUMENT_SELECTION ) {
                     const document:Document = value;
