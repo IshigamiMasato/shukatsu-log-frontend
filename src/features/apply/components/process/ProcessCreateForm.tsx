@@ -9,7 +9,7 @@ import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVI
 import DocumentCreateForm from "@/features/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/exam/components/ExamCreateForm";
 import FinalResultForm from "@/features/final_result/components/FinalResultForm";
-import InterviewForm from "@/features/interview/components/InterviewForm";
+import InterviewCreateForm from "@/features/interview/components/InterviewCreateForm";
 import OfferForm from "@/features/offer/components/OfferForm";
 import { useState } from "react";
 
@@ -39,7 +39,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
 
             { status == DOCUMENT_SELECTION  && <DocumentCreateForm applyId={applyId}/> }
             { status == EXAM_SELECTION  && <ExamCreateForm applyId={applyId}/> }
-            { status == INTERVIEW_SELECTION  && <InterviewForm applyId={applyId}/> }
+            { status == INTERVIEW_SELECTION  && <InterviewCreateForm applyId={applyId}/> }
             { status == OFFER  && <OfferForm applyId={applyId} /> }
             { status == FINAL_RESULT && <FinalResultForm applyId={applyId} /> }
         </FormContainer>
