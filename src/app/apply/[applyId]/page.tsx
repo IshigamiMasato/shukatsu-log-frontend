@@ -1,9 +1,9 @@
-import ApplyDeleteButton from "@/components/ApplyDeleteButton";
 import FormItem from "@/components/containers/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
+import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { getJWT } from "@/helper";
 import { faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

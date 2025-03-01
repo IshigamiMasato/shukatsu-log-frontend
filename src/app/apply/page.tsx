@@ -1,5 +1,5 @@
-import ApplyDeleteButton from "@/components/ApplyDeleteButton";
 import { APPLY_STATUS } from "@/constants/const";
+import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { getJWT } from "@/helper";
 import { Apply } from "@/types";
 import { faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
