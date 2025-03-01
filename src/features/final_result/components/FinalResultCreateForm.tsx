@@ -11,8 +11,9 @@ import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormTitle from "@/components/containers/FormTitle";
 
-const FinalResultForm = ({ applyId } : { applyId : number }) => {
+const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
     const [status, setStatus] = useState<number>();
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ status?: []; memo?: []; }>({});
@@ -46,39 +47,42 @@ const FinalResultForm = ({ applyId } : { applyId : number }) => {
     }
 
     return (
-        <form method="POST" onSubmit={onSubmit}>
-            <FormItem>
-                <Label label="選考終了ステータス" /><RequiredBadge />
-                <Select
-                    name="status"
-                    value={ status }
-                    onChange={ (e) => setStatus( Number(e.target.value) ) }
-                    errors={validationErrors.status}
-                >
-                    <option value="">選択してください</option>
-                    {FINAL_RESULT_STATUS.map(apply => {
-                        return (
-                            <option key={ apply.id } value={ apply.id }>
-                                { apply.name }
-                            </option>
-                        )
-                    })}
-                </Select>
-                { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
-            </FormItem>
-            <FormItem>
-                <Label label="メモ" />
-                <Textarea
-                    name="memo"
-                    value={ memo }
-                    onChange={ e => setMemo(e.target.value) }
-                    errors={validationErrors.memo}
-                />
-                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
-            </FormItem>
-            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
-        </form>
+        <div className="border p-4">
+            <FormTitle>試験情報登録</FormTitle>
+            <form method="POST" onSubmit={onSubmit}>
+                <FormItem>
+                    <Label label="選考終了ステータス" /><RequiredBadge />
+                    <Select
+                        name="status"
+                        value={ status }
+                        onChange={ (e) => setStatus( Number(e.target.value) ) }
+                        errors={validationErrors.status}
+                    >
+                        <option value="">選択してください</option>
+                        {FINAL_RESULT_STATUS.map(apply => {
+                            return (
+                                <option key={ apply.id } value={ apply.id }>
+                                    { apply.name }
+                                </option>
+                            )
+                        })}
+                    </Select>
+                    { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
+                </FormItem>
+                <FormItem>
+                    <Label label="メモ" />
+                    <Textarea
+                        name="memo"
+                        value={ memo }
+                        onChange={ e => setMemo(e.target.value) }
+                        errors={validationErrors.memo}
+                    />
+                    { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+                </FormItem>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
+            </form>
+        </div>
     )
 }
 
-export default FinalResultForm;
+export default FinalResultCreateForm;

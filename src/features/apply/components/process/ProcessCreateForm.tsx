@@ -8,7 +8,7 @@ import Select from "@/components/elements/Select";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import DocumentCreateForm from "@/features/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/exam/components/ExamCreateForm";
-import FinalResultForm from "@/features/final_result/components/FinalResultForm";
+import FinalResultCreateForm from "@/features/final_result/components/FinalResultCreateForm";
 import InterviewCreateForm from "@/features/interview/components/InterviewCreateForm";
 import OfferCreateForm from "@/features/offer/components/OfferCreateForm";
 import { useState } from "react";
@@ -41,7 +41,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
             { status == EXAM_SELECTION  && <ExamCreateForm applyId={applyId}/> }
             { status == INTERVIEW_SELECTION  && <InterviewCreateForm applyId={applyId}/> }
             { status == OFFER  && <OfferCreateForm applyId={applyId} /> }
-            { status == FINAL_RESULT && <FinalResultForm applyId={applyId} /> }
+            { status == FINAL_RESULT && <FinalResultCreateForm applyId={applyId} /> }
         </FormContainer>
     )
 }
