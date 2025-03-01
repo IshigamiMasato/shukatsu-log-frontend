@@ -4,7 +4,7 @@ import FormItem from "@/components/containers/FormItem";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { Interview } from "@/types";
 import { FormEvent, use, useEffect, useState } from "react";

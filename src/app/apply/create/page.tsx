@@ -1,5 +1,6 @@
 "use client";
 
+import FormContainer from "@/components/containers/FormContainer";
 import FormItem from "@/components/containers/FormItem";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
@@ -7,13 +8,14 @@ import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { Company } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormTitle from "@/components/containers/FormTitle";
 
 const ApplyCreatePage = () => {
     const [companies, setCompanies] = useState<Company[]>([]);
@@ -73,8 +75,8 @@ const ApplyCreatePage = () => {
     }
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
-            <h2 className="text-lg font-semibold mb-5">応募登録フォーム</h2>
+        <FormContainer>
+            <FormTitle>応募登録フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
                     <Label label="企業" /><RequiredBadge />
@@ -146,9 +148,9 @@ const ApplyCreatePage = () => {
                     />
                     { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                 </FormItem>
-                <Button className="bg-blue-600 text-white mt-3">登録</Button>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
             </form>
-        </div>
+        </FormContainer>
     )
 }
 

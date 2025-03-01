@@ -4,10 +4,13 @@ import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import Button from "./elements/Button";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 
-const ApplyDeleteButton = ({ applyId } : { applyId : number }) => {
+type Props = {
+    applyId: number,
+    children: React.ReactNode,
+}
+
+const ApplyDeleteButton = ({ applyId, children} : Props) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -30,8 +33,8 @@ const ApplyDeleteButton = ({ applyId } : { applyId : number }) => {
     }
 
     return (
-        <Button onClick={ () => handleDelete(applyId) } className="bg-red-600 text-white">
-            <FontAwesomeIcon icon={faCircleXmark} /><span className="ml-1">削除</span>
+        <Button onClick={ () => handleDelete(applyId) } className="bg-white border border-gray-300">
+            { children }
         </Button>
     )
 }

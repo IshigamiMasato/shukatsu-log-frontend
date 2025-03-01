@@ -1,18 +1,20 @@
 "use client";
 
+import FormContainer from "@/components/containers/FormContainer";
 import FormItem from "@/components/containers/FormItem";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
-import ValidationErrorMsg from "@/components/elements/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { EVENT_TYPES } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { Event } from "@/types";
 import moment from "moment";
 import { Dispatch, FormEvent, SetStateAction, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormTitle from "@/components/containers/FormTitle";
 
 type Props = {
     events: Event[],
@@ -70,8 +72,8 @@ const EventCreateForm = ({ events, setEvents } : Props) => {
     /************ イベント登録 ************/
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
-            <h2 className="text-lg font-semibold mb-5">予定登録フォーム</h2>
+        <FormContainer>
+            <FormTitle>予定登録フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
                     <Label label="タイトル" /><RequiredBadge />
@@ -86,7 +88,7 @@ const EventCreateForm = ({ events, setEvents } : Props) => {
                     { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                 </FormItem>
                 <FormItem>
-                    <RequiredBadge /><br />
+                    <Label label="タイプ" /><RequiredBadge /><br />
                     {
                         EVENT_TYPES.map(value => {
                             return (
@@ -140,9 +142,9 @@ const EventCreateForm = ({ events, setEvents } : Props) => {
                     />
                     { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                 </FormItem>
-                <Button className="bg-blue-600 text-white mt-3">登録</Button>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
             </form>
-        </div>
+        </FormContainer>
     )
 }
 

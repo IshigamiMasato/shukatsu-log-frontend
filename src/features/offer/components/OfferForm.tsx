@@ -1,14 +1,16 @@
 "use client";
 
+import FormItem from "@/components/containers/FormItem";
+import Button from "@/components/elements/Button";
+import Input from "@/components/elements/Input";
+import Label from "@/components/elements/Label";
+import RequiredBadge from "@/components/elements/RequiredBadge";
+import Textarea from "@/components/elements/Textarea";
+import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormItem from "./containers/FormItem";
-import Label from "./elements/Label";
-import Input from "./elements/Input";
-import ValidationErrorMsg from "./elements/ValidationErrorMsg";
-import Button from "./elements/Button";
 
 const OfferForm = ({ applyId } : { applyId : number }) => {
     const [offerDate, setOfferDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -48,7 +50,7 @@ const OfferForm = ({ applyId } : { applyId : number }) => {
     return (
         <form method="POST" onSubmit={onSubmit}>
             <FormItem>
-                <Label label="内定通知日" />
+                <Label label="内定通知日" /><RequiredBadge />
                 <Input
                     type="date"
                     name="offer_date"
@@ -82,8 +84,7 @@ const OfferForm = ({ applyId } : { applyId : number }) => {
             </FormItem>
             <FormItem>
                 <Label label="メモ" />
-                <Input
-                    type="textarea"
+                <Textarea
                     name="memo"
                     value={ memo }
                     onChange={ e => setMemo(e.target.value) }
@@ -91,7 +92,7 @@ const OfferForm = ({ applyId } : { applyId : number }) => {
                 />
                 { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
             </FormItem>
-            <Button name="登録" />
+            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
         </form>
     )
 }

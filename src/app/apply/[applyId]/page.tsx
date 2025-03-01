@@ -5,11 +5,11 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { getJWT } from "@/helper";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string }> }) => {
+const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 
     const jwt = await getJWT();
@@ -28,12 +28,17 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
     return (
         <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
             <div className="flex justify-between items-center mb-5">
-                <h2 className="text-lg font-semibold">応募詳細</h2>
-                <div className="flex text-nowrap space-x-1">
-                    <Link href={`/apply/${applyId}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
+                <h2 className="text-lg font-semibold text-nowrap">応募詳細</h2>
+                <div className="flex flex-wrap justify-end text-nowrap space-x-1">
+                    <Link href={`/apply/${apply.apply_id}/process`} className="bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
+                        <FontAwesomeIcon icon={faClockRotateLeft} /><span className="ml-1">選考履歴</span>
+                    </Link>
+                    <Link href={`/apply/${applyId}/edit`} className="bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
                         <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                     </Link>
-                    <ApplyDeleteButton applyId={Number(applyId)}/>
+                    <ApplyDeleteButton applyId={applyId}>
+                        <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
+                    </ApplyDeleteButton>
                 </div>
             </div>
 
@@ -96,9 +101,6 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
                     className="text-gray-500"
                 />
             </FormItem>
-
-            <Link href={`/apply/${applyId}/process/create`}>選考プロセス登録</Link>
-            <Link href={`/apply/${applyId}/process`}>選考プロセス一覧</Link>
         </div>
     );
 }
