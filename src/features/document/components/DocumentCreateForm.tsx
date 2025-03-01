@@ -11,8 +11,9 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import FormTitle from "@/components/containers/FormTitle";
 
-const DocumentForm = ({ applyId } : { applyId : number }) => {
+const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
     const FILE_COUNT = 5;
 
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -77,52 +78,55 @@ const DocumentForm = ({ applyId } : { applyId : number }) => {
     }
 
     return (
-        <form onSubmit={onSubmit} encType="multipart/form-data">
-            <FormItem>
-                <Label label="書類提出日" /><RequiredBadge />
-                <Input
-                    type="date"
-                    name="submission_date"
-                    value={ submissionDate }
-                    onChange={ (e) => setSubmissionDate(e.target.value) }
-                    errors={validationErrors.submission_date}
-                />
-                { validationErrors.submission_date && <ValidationErrorMsg errors={validationErrors.submission_date} /> }
-            </FormItem>
-            {
-                [...Array(FILE_COUNT)].map((v, i) => {
-                    const index = i + 1; // indexを1スタートとする
+        <div className="border p-4">
+            <FormTitle>応募書類登録</FormTitle>
+            <form onSubmit={onSubmit} encType="multipart/form-data">
+                <FormItem>
+                    <Label label="書類提出日" /><RequiredBadge />
+                    <Input
+                        type="date"
+                        name="submission_date"
+                        value={ submissionDate }
+                        onChange={ (e) => setSubmissionDate(e.target.value) }
+                        errors={validationErrors.submission_date}
+                    />
+                    { validationErrors.submission_date && <ValidationErrorMsg errors={validationErrors.submission_date} /> }
+                </FormItem>
+                {
+                    [...Array(FILE_COUNT)].map((v, i) => {
+                        const index = i + 1; // indexを1スタートとする
 
-                    return (
-                        <FormItem key={`file_${index}`}>
-                            <Label label="提出書類" />
-                            <Input
-                                type="file"
-                                name={`file_${index}`}
-                                onChange={ (e) => {
-                                    const newFiles = [...files];
-                                    newFiles[index] = e.target.files?.[0];
-                                    setFiles(newFiles);
-                                }}
-                                errors={undefined} // TODO: ファイルサイズのバリデーション
-                            />
-                        </FormItem>
-                    )
-                })
-            }
-            <FormItem>
-                <Label label="メモ" />
-                <Textarea
-                    name="memo"
-                    value={ memo }
-                    onChange={ e => setMemo(e.target.value) }
-                    errors={validationErrors.memo}
-                />
-                { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
-            </FormItem>
-            <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
-        </form>
+                        return (
+                            <FormItem key={`file_${index}`}>
+                                <Label label="提出書類" />
+                                <Input
+                                    type="file"
+                                    name={`file_${index}`}
+                                    onChange={ (e) => {
+                                        const newFiles = [...files];
+                                        newFiles[index] = e.target.files?.[0];
+                                        setFiles(newFiles);
+                                    }}
+                                    errors={undefined} // TODO: ファイルサイズのバリデーション
+                                />
+                            </FormItem>
+                        )
+                    })
+                }
+                <FormItem>
+                    <Label label="メモ" />
+                    <Textarea
+                        name="memo"
+                        value={ memo }
+                        onChange={ e => setMemo(e.target.value) }
+                        errors={validationErrors.memo}
+                    />
+                    { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
+                </FormItem>
+                <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">登録</Button>
+            </form>
+        </div>
     )
 }
 
-export default DocumentForm;
+export default DocumentCreateForm;
