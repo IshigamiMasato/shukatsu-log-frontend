@@ -94,7 +94,7 @@ const ApplyEditForm = ({ applyId } : { applyId : number }) => {
                         name="name"
                         value={ companyName }
                         disabled={true}
-                        className="text-gray-500"
+                        className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
                 <FormItem>

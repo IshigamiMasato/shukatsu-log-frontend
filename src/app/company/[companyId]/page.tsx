@@ -45,7 +45,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="name"
                     value={ company.name }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -55,7 +55,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="url"
                     value={ company.url ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -65,7 +65,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="president"
                     value={ company.president ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -75,7 +75,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="address"
                     value={ company.address ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -85,7 +85,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="establish_date"
                     value={ company.establishDate ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -95,7 +95,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="employee_number"
                     value={ company.employeeNumber ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -105,7 +105,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="listing_class"
                     value={ company.listingClass ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -114,7 +114,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="benefit"
                     value={ company.benefit ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -123,7 +123,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     name="memo"
                     value={ company.memo ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
         </div>

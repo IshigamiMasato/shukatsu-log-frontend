@@ -49,7 +49,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="name"
                     value={ apply.company.name }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -59,7 +59,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="url"
                     value={ apply.company.url ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -69,7 +69,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="occupation"
                     value={ apply.occupation ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -79,7 +79,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="status"
                     value={ APPLY_STATUS.find(status => status.id == apply.status)?.name }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -89,7 +89,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="apply_route"
                     value={ apply.apply_route ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
             <FormItem>
@@ -98,7 +98,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     name="memo"
                     value={ apply.memo ?? "" }
                     disabled={true}
-                    className="text-gray-500"
+                    className="text-gray-500 bg-gray-100"
                 />
             </FormItem>
         </div>
