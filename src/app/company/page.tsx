@@ -1,5 +1,8 @@
+import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { getJWT } from "@/helper";
 import { Company } from "@/types";
+import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 const CompanyPage: React.FC = async () => {
@@ -26,6 +29,8 @@ const CompanyPage: React.FC = async () => {
                             <th scope="col" className="px-6 py-3">企業名</th>
                             <th scope="col" className="px-6 py-3">登録日時</th>
                             <th scope="col" className="px-6 py-3">更新日時</th>
+                            <th scope="col" className="px-6 py-3">編集</th>
+                            <th scope="col" className="px-6 py-3">削除</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +42,16 @@ const CompanyPage: React.FC = async () => {
                                     </td>
                                     <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
                                     <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
+                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                        <Link href={`/company/${company.company_id}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
+                                            <FontAwesomeIcon icon={faPenToSquare} />
+                                        </Link>
+                                    </td>
+                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                        <CompanyDeleteButton companyId={company.company_id}>
+                                            <FontAwesomeIcon icon={faCircleXmark} />
+                                        </CompanyDeleteButton>
+                                    </td>
                                 </tr>
                             );
                         })}

@@ -4,7 +4,7 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { getJWT } from "@/helper";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
@@ -32,7 +32,9 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     <Link href={`/company/${companyId}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
                         <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                     </Link>
-                    <CompanyDeleteButton companyId={companyId} />
+                    <CompanyDeleteButton companyId={companyId}>
+                        <FontAwesomeIcon icon={faCircleXmark} /><span className="ml-1">削除</span>
+                    </CompanyDeleteButton>
                 </div>
             </div>
 
