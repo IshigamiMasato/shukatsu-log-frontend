@@ -5,11 +5,11 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { getJWT } from "@/helper";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string }> }) => {
+const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 
     const jwt = await getJWT();
@@ -33,7 +33,9 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: string
                     <Link href={`/apply/${applyId}/edit`} className="bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
                         <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                     </Link>
-                    <ApplyDeleteButton applyId={Number(applyId)}/>
+                    <ApplyDeleteButton applyId={applyId}>
+                        <FontAwesomeIcon icon={faCircleXmark} /><span className="ml-1">削除</span>
+                    </ApplyDeleteButton>
                 </div>
             </div>
 
