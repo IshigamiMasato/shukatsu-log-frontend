@@ -7,7 +7,7 @@ import Label from "@/components/elements/Label";
 import Select from "@/components/elements/Select";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import DocumentCreateForm from "@/features/document/components/DocumentCreateForm";
-import ExamForm from "@/features/exam/components/ExamForm";
+import ExamCreateForm from "@/features/exam/components/ExamCreateForm";
 import FinalResultForm from "@/features/final_result/components/FinalResultForm";
 import InterviewForm from "@/features/interview/components/InterviewForm";
 import OfferForm from "@/features/offer/components/OfferForm";
@@ -38,7 +38,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
             </FormItem>
 
             { status == DOCUMENT_SELECTION  && <DocumentCreateForm applyId={applyId}/> }
-            { status == EXAM_SELECTION  && <ExamForm applyId={applyId}/> }
+            { status == EXAM_SELECTION  && <ExamCreateForm applyId={applyId}/> }
             { status == INTERVIEW_SELECTION  && <InterviewForm applyId={applyId}/> }
             { status == OFFER  && <OfferForm applyId={applyId} /> }
             { status == FINAL_RESULT && <FinalResultForm applyId={applyId} /> }
