@@ -10,7 +10,7 @@ import DocumentCreateForm from "@/features/document/components/DocumentCreateFor
 import ExamCreateForm from "@/features/exam/components/ExamCreateForm";
 import FinalResultForm from "@/features/final_result/components/FinalResultForm";
 import InterviewCreateForm from "@/features/interview/components/InterviewCreateForm";
-import OfferForm from "@/features/offer/components/OfferForm";
+import OfferCreateForm from "@/features/offer/components/OfferCreateForm";
 import { useState } from "react";
 
 const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
@@ -40,7 +40,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
             { status == DOCUMENT_SELECTION  && <DocumentCreateForm applyId={applyId}/> }
             { status == EXAM_SELECTION  && <ExamCreateForm applyId={applyId}/> }
             { status == INTERVIEW_SELECTION  && <InterviewCreateForm applyId={applyId}/> }
-            { status == OFFER  && <OfferForm applyId={applyId} /> }
+            { status == OFFER  && <OfferCreateForm applyId={applyId} /> }
             { status == FINAL_RESULT && <FinalResultForm applyId={applyId} /> }
         </FormContainer>
     )
