@@ -1,10 +1,17 @@
 "use client";
 
+import Button from "@/components/elements/Button";
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
-const ExamDeleteButton = ({ applyId, examId } : { applyId : number, examId : number }) => {
+type Props = {
+    applyId: number,
+    examId: number,
+    children: React.ReactNode,
+}
+
+const ExamDeleteButton = ({ applyId, examId, children } : Props) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -27,7 +34,9 @@ const ExamDeleteButton = ({ applyId, examId } : { applyId : number, examId : num
     }
 
     return (
-        <button onClick={ () => handleDelete() }>削除</button>
+        <Button onClick={ () => handleDelete() } className="bg-white border border-gray-300">
+            { children }
+        </Button>
     )
 }
 

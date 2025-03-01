@@ -1,10 +1,17 @@
 "use client";
 
+import Button from "@/components/elements/Button";
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 
-const DocumentDeleteButton = ({ applyId, documentId } : { applyId : number, documentId : number }) => {
+type Props = {
+    applyId: number,
+    documentId: number,
+    children: React.ReactNode,
+}
+
+const DocumentDeleteButton = ({ applyId, documentId, children } : Props) => {
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -16,18 +23,20 @@ const DocumentDeleteButton = ({ applyId, documentId } : { applyId : number, docu
                 method: "DELETE",
             }).then(res => {
                 if ( ! res.ok ) {
-                    dispatch( dispToast({ status: "error", message: `提出書類の削除に失敗しました。もう一度お試しください。` }) );
+                    dispatch( dispToast({ status: "error", message: `応募書類の削除に失敗しました。もう一度お試しください。` }) );
                     return;
 
                 }
-                dispatch( dispToast({ status: "success", message: `提出書類を削除しました。` }) );
+                dispatch( dispToast({ status: "success", message: `応募書類を削除しました。` }) );
                 router.push(`/apply/${applyId}/process`);
             });
         }
     }
 
     return (
-        <button onClick={ () => handleDelete() }>削除</button>
+        <Button onClick={ () => handleDelete() } className="bg-white border border-gray-300">
+            { children }
+        </Button>
     )
 }
 
