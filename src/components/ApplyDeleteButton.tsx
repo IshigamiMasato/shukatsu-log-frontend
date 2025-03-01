@@ -33,7 +33,7 @@ const ApplyDeleteButton = ({ applyId, children} : Props) => {
     }
 
     return (
-        <Button onClick={ () => handleDelete(applyId) } className="bg-red-600 text-white">
+        <Button onClick={ () => handleDelete(applyId) } className="bg-white border border-gray-300">
             { children }
         </Button>
     )

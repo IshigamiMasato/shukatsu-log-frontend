@@ -33,7 +33,7 @@ const CompanyDeleteButton = ({ companyId, children } : Props) => {
     }
 
     return (
-        <Button onClick={ () => handleDelete(companyId) } className="bg-red-600 text-white">
+        <Button onClick={ () => handleDelete(companyId) } className="bg-white border border-gray-300">
             { children }
         </Button>
     )
