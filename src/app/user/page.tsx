@@ -16,13 +16,12 @@ const UserPage: React.FC = async () => {
 
     return (
         <section className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto">
-            <h2 className="text-xl font-medium mb-4">会員情報</h2>
             <dl className="space-y-2">
-                <div className="flex justify-between border-b pb-1">
+                <div className="flex justify-between pb-1">
                     <dt className="font-medium">名前</dt>
                     <dd>{ user.name }</dd>
                 </div>
-                <div className="flex justify-between border-b pb-1">
+                <div className="flex justify-between pb-1">
                     <dt className="font-medium">メールアドレス</dt>
                     <dd>{ user.email }</dd>
                 </div>

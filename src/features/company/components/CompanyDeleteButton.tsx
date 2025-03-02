@@ -3,7 +3,6 @@
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import Button from "@/components/elements/Button";
 
 type Props = {
     companyId: number,
@@ -33,9 +32,9 @@ const CompanyDeleteButton = ({ companyId, children } : Props) => {
     }
 
     return (
-        <Button onClick={ () => handleDelete(companyId) } className="bg-white border border-gray-300">
+        <button onClick={ () => handleDelete(companyId) }>
             { children }
-        </Button>
+        </button>
     )
 }
 
