@@ -29,10 +29,10 @@ const Header = () => {
     }
 
     return (
-        <header className="border mb-8">
+        <header className="border mb-8 bg-white">
             <div className="container mx-auto px-8 py-6">
                 <div className="flex justify-between items-center">
-                    <div className="text-lg font-bold">Shukatsu-Log</div>
+                    <div className="text-lg font-bold text-blue-600">Shukatsu-Log</div>
                     { isAuthenticated && (
                         <>
                             <div className="space-x-4 hidden md:flex items-center text-nowrap">

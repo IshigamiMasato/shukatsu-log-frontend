@@ -50,7 +50,7 @@ const EventPage = () => {
                 </ModalPortal>
             )}
 
-            <div className="container mx-auto px-8 py-6">
+            <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <Link href='/event/create' className="bg-blue-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block mb-3">予定登録</Link>
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
