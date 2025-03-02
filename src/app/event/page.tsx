@@ -59,7 +59,7 @@ const EventPage = () => {
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <ActionContainer className="mb-3">
                     <Link href='/event/create'>
-                        <FontAwesomeIcon icon={faCirclePlus} className="mr-1"/>予定登録
+                        <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">予定登録</span>
                     </Link>
                 </ActionContainer>
 

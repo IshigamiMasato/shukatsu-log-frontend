@@ -29,7 +29,7 @@ const ApplyPage = async () => {
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <ActionContainer className="mb-3">
                     <Link href='/apply/create'>
-                        <FontAwesomeIcon icon={faCirclePlus} className="mr-1"/>応募登録
+                        <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
                     </Link>
                 </ActionContainer>
 
