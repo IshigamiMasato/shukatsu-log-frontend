@@ -1,3 +1,4 @@
+import ActionContainer from "@/components/containers/ActionContainer";
 import FormItem from "@/components/containers/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
@@ -25,16 +26,20 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
     const company = await res.json();
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
+        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-lg font-semibold">企業詳細</h2>
                 <div className="flex text-nowrap space-x-1">
-                    <Link href={`/company/${companyId}/edit`} className="bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
-                        <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
-                    </Link>
-                    <CompanyDeleteButton companyId={companyId}>
-                        <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
-                    </CompanyDeleteButton>
+                    <ActionContainer>
+                        <Link href={`/company/${companyId}/edit`}>
+                            <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
+                        </Link>
+                    </ActionContainer>
+                    <ActionContainer>
+                        <CompanyDeleteButton companyId={companyId}>
+                            <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
+                        </CompanyDeleteButton>
+                    </ActionContainer>
                 </div>
             </div>
 
