@@ -8,6 +8,10 @@ import { EventClickArg } from "@fullcalendar/core/index.js";
 import ModalPortal from "@/components/ModalPortal";
 import EventModal from "@/features/event/components/EventModal";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import ActionContainer from "@/components/containers/ActionContainer";
+import IndexPageTitle from "@/components/containers/IndexPageTitle";
 
 const EventPage = () => {
     useEffect(() => {
@@ -50,8 +54,15 @@ const EventPage = () => {
                 </ModalPortal>
             )}
 
+            <IndexPageTitle>スケジュール</IndexPageTitle>
+
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <Link href='/event/create' className="bg-blue-600 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block mb-3">予定登録</Link>
+                <ActionContainer className="mb-3">
+                    <Link href='/event/create'>
+                        <FontAwesomeIcon icon={faCirclePlus} className="mr-1"/>予定登録
+                    </Link>
+                </ActionContainer>
+
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
                     initialView="dayGridMonth"
