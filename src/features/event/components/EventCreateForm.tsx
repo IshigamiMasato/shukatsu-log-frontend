@@ -10,19 +10,13 @@ import Textarea from "@/components/elements/Textarea";
 import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { EVENT_TYPES } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
-import { Event } from "@/types";
 import moment from "moment";
-import { Dispatch, FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { useRouter } from "next/navigation";
 
-type Props = {
-    events: Event[],
-    setEvents: Dispatch<SetStateAction<Event[]>>,
-}
-
-const EventCreateForm = ({ events, setEvents } : Props) => {
-    /************ イベント登録 ************/
+const EventCreateForm = () => {
     const [title, setTitle]     = useState<string>("");
     const [type, setType]       = useState<number|null>(null);
     const [startAt, setStartAt] = useState<string>( moment().format("YYYY-MM-DD HH:mm") );
@@ -30,14 +24,7 @@ const EventCreateForm = ({ events, setEvents } : Props) => {
     const [memo, setMemo]       = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ title?: []; type?: []; start_at?: []; end_at?: []; memo?: []; }>({});
     const dispatch = useDispatch();
-
-    const clearForm = () => {
-        setTitle("");
-        setType(null);
-        setStartAt( moment().format("YYYY-MM-DDTHH:mm") );
-        setEndAt( moment().format("YYYY-MM-DDTHH:mm") );
-        setMemo("");
-    }
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -63,13 +50,11 @@ const EventCreateForm = ({ events, setEvents } : Props) => {
             }
 
             res.json().then(newEvent => {
-                setEvents([ ...events, newEvent ]);
                 dispatch( dispToast({ status: "success", message: `タイトル：${newEvent.title} の登録が完了しました。` }) );
-                clearForm();
+                router.push('/event');
             });
         })
     }
-    /************ イベント登録 ************/
 
     return (
         <FormContainer>
