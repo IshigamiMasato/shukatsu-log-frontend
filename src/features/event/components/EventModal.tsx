@@ -13,6 +13,8 @@ import Input from "@/components/elements/Input";
 import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
@@ -99,6 +101,11 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     return (
         <div className="modal">
             <div className="modal-content">
+                <div className="flex justify-end">
+                    <Button onClick={() => setModalOpen(false)} className="border">
+                        <FontAwesomeIcon icon={faXmark} />
+                    </Button>
+                </div>
 
                 <form onSubmit={onSubmit}>
                     <FormItem>
@@ -113,7 +120,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                     </FormItem>
                     <FormItem>
-                        <RequiredBadge /><br />
+                        <Label label="タイプ" /><RequiredBadge /><br />
                         {
                             EVENT_TYPES.map((value) => {
                                 return (
@@ -163,12 +170,14 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         />
                         { validationErrors.memo && <ValidationErrorMsg errors={validationErrors.memo} /> }
                     </FormItem>
-                    <Button>更新</Button>
+
+                    <div className="flex space-x-1">
+                        <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">更新</Button>
+                        <Button type="button" onClick={() => deleteEventHandler(event.event_id)} className="bg-red-600 hover:bg-red-700 text-white mt-3">
+                            削除
+                        </Button>
+                    </div>
                 </form>
-
-                <Button onClick={() => deleteEventHandler(event.event_id)}>削除</Button>
-                <Button onClick={() => setModalOpen(false)}>閉じる</Button>
-
             </div>
         </div>
     );
