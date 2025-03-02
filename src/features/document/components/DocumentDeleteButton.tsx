@@ -1,6 +1,5 @@
 "use client";
 
-import Button from "@/components/elements/Button";
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -34,9 +33,9 @@ const DocumentDeleteButton = ({ applyId, documentId, children } : Props) => {
     }
 
     return (
-        <Button onClick={ () => handleDelete() } className="bg-white border border-gray-300">
+        <button onClick={ () => handleDelete() }>
             { children }
-        </Button>
+        </button>
     )
 }
 
