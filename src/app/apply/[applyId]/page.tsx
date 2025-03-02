@@ -1,3 +1,4 @@
+import ActionContainer from "@/components/containers/ActionContainer";
 import FormItem from "@/components/containers/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
@@ -26,19 +27,25 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
     const apply = await res.json();
 
     return (
-        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto">
+        <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-lg font-semibold text-nowrap">応募詳細</h2>
                 <div className="flex flex-wrap justify-end text-nowrap space-x-1">
-                    <Link href={`/apply/${apply.apply_id}/process`} className="bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
-                        <FontAwesomeIcon icon={faClockRotateLeft} /><span className="ml-1">選考履歴</span>
-                    </Link>
-                    <Link href={`/apply/${applyId}/edit`} className="bg-white font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-block border border-gray-300">
-                        <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
-                    </Link>
-                    <ApplyDeleteButton applyId={applyId}>
-                        <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
-                    </ApplyDeleteButton>
+                    <ActionContainer>
+                        <Link href={`/apply/${apply.apply_id}/process`}>
+                            <FontAwesomeIcon icon={faClockRotateLeft} /><span className="ml-1">選考履歴</span>
+                        </Link>
+                    </ActionContainer>
+                    <ActionContainer>
+                        <Link href={`/apply/${applyId}/edit`}>
+                            <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
+                        </Link>
+                    </ActionContainer>
+                    <ActionContainer>
+                        <ApplyDeleteButton applyId={applyId}>
+                            <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
+                        </ApplyDeleteButton>
+                    </ActionContainer>
                 </div>
             </div>
 
