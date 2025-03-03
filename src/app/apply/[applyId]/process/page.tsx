@@ -6,7 +6,7 @@ import OfferDeleteButton from "@/features/offer/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
-import { faCheck, faCirclePlus, faFile, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faCirclePlus, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ProcessContainer from "@/components/containers/ProcessContainer";
@@ -48,7 +48,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
                                         <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
-                                            <FontAwesomeIcon icon={faFile} />
+                                            <FontAwesomeIcon icon={faFileLines} />
                                         </div>
                                         <h3 className="text-lg font-semibold">応募書類</h3>
                                     </div>
