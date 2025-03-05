@@ -1,66 +1,58 @@
 import ActionContainer from "@/components/containers/ActionContainer";
-import { APPLY_STATUS } from "@/constants/const";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION } from "@/constants/const";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
-import { Apply } from "@/types";
-import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { getJWT } from "@/helper";
+import { Apply, ApplyStatusSummary, Event } from "@/types";
+import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import moment from "moment";
 import Link from "next/link";
 
-const Home = () => {
-	const applies = [
-		{
-			apply_id: 1,
-			user_id: 1,
-			company_id: 1,
-			status: 1,
-			occupation: "職種",
-			apply_route: "応募経路",
-			memo: "メモ",
-			created_at: "2025-01-01 10:00:00",
-			updated_at: "2025-01-01 10:00:00",
-			company: {
-				company_id: 1,
-				user_id: 1,
-				name: "企業A",
-				url: "http://localhost:80",
-				president: null,
-				address: null,
-				establish_date: null,
-				employee_number: null,
-				listing_class: null,
-				benefit: null,
-				memo: null,
-				created_at: "2025-01-01 10:00:00",
-				updated_at: "2025-01-01 10:00:00",
-			}
-		},
-		{
-			apply_id: 2,
-			user_id: 1,
-			company_id: 1,
-			status: 1,
-			occupation: "職種",
-			apply_route: "応募経路",
-			memo: "メモ",
-			created_at: "2025-01-01 10:00:00",
-			updated_at: "2025-01-01 10:00:00",
-			company: {
-				company_id: 1,
-				user_id: 1,
-				name: "企業A",
-				url: "http://localhost:80",
-				president: null,
-				address: null,
-				establish_date: null,
-				employee_number: null,
-				listing_class: null,
-				benefit: null,
-				memo: null,
-				created_at: "2025-01-01 10:00:00",
-				updated_at: "2025-01-01 10:00:00",
-			}
-		}
-	];
+const Home = async () => {
+	const jwt = await getJWT();
+
+	const resGetStatusSummary = await fetch(`http://backend/api/apply/status-summary`, {
+        method: "GET",
+        headers: {Authorization: `Bearer ${jwt}`}
+    });
+
+	if ( ! resGetStatusSummary.ok ) {
+        throw new Error(`Failed fetch apply status-summary. (status=${resGetStatusSummary.status})`);
+    }
+
+	const statusSummary: ApplyStatusSummary = await resGetStatusSummary.json();
+	const totalApply = Object.values(statusSummary).reduce((sum, num) => sum + Number(num), 0);
+
+	const startAt = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
+	const endAt   = moment().add(1, 'week').endOf('day').format('YYYY-MM-DD HH:mm:ss');
+	const params = { start_at: startAt, end_at: endAt };
+	const query = new URLSearchParams(params);
+	const resGetEvent = await fetch(`http://backend/api/event?${query}`, {
+        method: "GET",
+        headers: {Authorization: `Bearer ${jwt}`}
+    });
+
+	if ( ! resGetEvent.ok ) {
+        throw new Error(`Failed fetch event. (status=${resGetEvent.status})`);
+    }
+
+	const events: Event[] = await resGetEvent.json();
+
+	const inProgressStatuses = [DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION]; // 選考中の応募を取得
+	const queryParams = new URLSearchParams();
+	inProgressStatuses.forEach(status => {
+		queryParams.append('status[]', String(status));
+	});
+	const resGetApply = await fetch(`http://backend/api/apply?${queryParams}`, {
+        method: "GET",
+        headers: {Authorization: `Bearer ${jwt}`}
+    });
+
+	if ( ! resGetApply.ok ) {
+        throw new Error(`Failed fetch apply. (status=${resGetApply.status})`);
+    }
+
+	const applies: Apply[] = await resGetApply.json();
 
   	return (
 	    <div className="container mx-auto px-8 py-6 bg-white rounded-lg space-y-4">
@@ -92,7 +84,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">応募数</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ totalApply }</span>
 					</div>
 				</div>
 
@@ -102,7 +94,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">書類選考中</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ statusSummary.document_selection_summary }</span>
 					</div>
 				</div>
 
@@ -112,7 +104,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">筆記試験選考中</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ statusSummary.exam_selection_summary }</span>
 					</div>
 				</div>
 
@@ -122,7 +114,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">面接選考中</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ statusSummary.interview_selection_summary }</span>
 					</div>
 				</div>
 
@@ -132,7 +124,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">内定</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ statusSummary.offer_summary }</span>
 					</div>
 				</div>
 
@@ -142,7 +134,7 @@ const Home = () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">選考終了</h3>
-						<span className="text-3xl font-bold">10</span>
+						<span className="text-3xl font-bold">{ statusSummary.final_summary }</span>
 					</div>
 				</div>
 			</div>
@@ -152,14 +144,22 @@ const Home = () => {
 					<h2 className="text-xl font-bold">直近の予定</h2>
 					<p className="text-gray-400 text-sm">一週間以内の予定を表示</p>
 				</div>
-				<div className="bg-gray-100 rounded-lg p-5">
-					<ul>
-						<li>・2025/01/01 A企業 面接</li>
-						<li>・2025/01/01 A企業 面接</li>
-						<li>・2025/01/01 A企業 面接</li>
-						<li>・2025/01/01 A企業 面接</li>
-						<li>・2025/01/01 A企業 面接</li>
-					</ul>
+				<div className="bg-gray-100 rounded-lg p-8">
+					{ events.length > 0
+						? (
+							<ul>
+								{events.map(event => {
+									return (
+										<li key={event.event_id} className="flex justify-between items-center list-disc border-b pb-2">
+											<span>{event.title}</span>
+											<span className="text-gray-500">{ moment(event.start_at).format('YYYY年MM月DD日 HH時mm分') }〜</span>
+										</li>
+									)
+								})}
+							</ul>
+						)
+						: <p>予定はありません。</p>
+					}
 				</div>
 			</div>
 
