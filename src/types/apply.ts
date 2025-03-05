@@ -12,3 +12,11 @@ export type Apply = {
     updated_at: string|null,
     company: Company
 }
+
+export type ApplyStatusSummary = {
+    document_selection_summary: string,
+    exam_selection_summary: string,
+    interview_selection_summary: string,
+    offer_summary: string,
+    final_summary: string,
+}
