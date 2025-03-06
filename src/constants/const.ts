@@ -26,3 +26,6 @@ export const EXAM_SELECTION = 2;
 export const INTERVIEW_SELECTION = 3;
 export const OFFER = 4;
 export const FINAL_RESULT = 5;
+
+export const FILE_COUNT = 5;
+export const MAX_FILE_SIZE = 1024 * 1024; // 1MB
