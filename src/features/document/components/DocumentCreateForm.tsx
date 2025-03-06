@@ -12,14 +12,13 @@ import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { FILE_COUNT, MAX_FILE_SIZE } from "@/constants/const";
 
 const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
-    const FILE_COUNT = 5;
-
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
     const [files, setFiles] = useState<(File|undefined)[]>([]);
     const [memo, setMemo] = useState<string>("");
-    const [validationErrors, setValidationErrors] = useState<{ submission_date?: []; memo?: []; }>({});
+    const [validationErrors, setValidationErrors] = useState< Record<string, string[]> >({}); // file_${index} のように動的に値にアクセスするため、Recordで型定義
 
     const dispatch = useDispatch();
 
@@ -42,11 +41,18 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
+        let isValidFileSize = true;
         for (let i = 1; i <= FILE_COUNT; i++) {
             try {
                 const file = files[i];
 
                 if ( file ) {
+                    // ファイルサイズのみフロントでバリデーションチェック
+                    if ( file.size > MAX_FILE_SIZE ) {
+                        isValidFileSize = false;
+                        setValidationErrors( prev => ({ ...prev, [`file_${i}`]: ["ファイルサイズは10MB以下としてください。"] }) );
+                    }
+
                     const base64File = await fileToBase64(file);
                     formData.append(`files[]`, base64File);
                 }
@@ -56,6 +62,11 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
                 dispatch( dispToast({ status: "error", message: "ファイルのアップロードに失敗しました。" }) );
                 return;
             }
+        }
+
+        // ファイルサイズのバリデーションに引っかかっている場合
+        if ( ! isValidFileSize ) {
+            return;
         }
 
         fetch(`/api/apply/${applyId}/document`, {
@@ -107,8 +118,9 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
                                         newFiles[index] = e.target.files?.[0];
                                         setFiles(newFiles);
                                     }}
-                                    errors={undefined} // TODO: ファイルサイズのバリデーション
+                                    errors={validationErrors[`file_${index}`]}
                                 />
+                                { validationErrors[`file_${index}`] && <ValidationErrorMsg errors={validationErrors[`file_${index}`]} /> }
                             </FormItem>
                         )
                     })
