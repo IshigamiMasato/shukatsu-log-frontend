@@ -12,6 +12,7 @@ import Link from "next/link";
 import ProcessContainer from "@/components/containers/ProcessContainer";
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
+import FileDownloadButton from "@/features/document/file/components/FileDownloadButton";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
@@ -66,6 +67,9 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                 <div key={`file_${file.file_id}`} className="border p-3 rounded-md overflow-x-auto">
                                                     <p className="text-sm text-gray-600">ファイル名：{ file.name }</p>
                                                     <p className="text-sm text-gray-600">ファイルパス：{ file.path }</p>
+                                                    <FileDownloadButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
+                                                        ファイルをダウンロード
+                                                    </FileDownloadButton>
                                                 </div>
                                             )
                                         })}
