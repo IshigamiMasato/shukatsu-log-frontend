@@ -1,10 +1,16 @@
-import FinalResultEditForm from "@/features/final_result/components/FinalResultEditForm";
+import { getFinalResult } from "@/features/apply/final_result/api/getFinalResult";
+import FinalResultEditForm from "@/features/apply/final_result/components/FinalResultEditForm";
 
 const FinalResultEditPage = async ({ params } : { params : Promise<{ applyId: number, finalResultId: number }> }) => {
     const { applyId, finalResultId } = await params;
 
+    const finalResult = await getFinalResult(applyId, finalResultId);
+
+    // トークンリフレッシュが必要な場合
+    if ( finalResult === null ) return;
+
     return (
-        <FinalResultEditForm applyId={applyId} finalResultId={finalResultId} />
+        <FinalResultEditForm finalResult={finalResult} />
     )
 }
 

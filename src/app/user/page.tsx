@@ -1,18 +1,10 @@
-import { getJWT } from "@/helper";
+import { getUser } from "@/features/user/api/getUser";
 
-const UserPage: React.FC = async () => {
-    const jwt = await getJWT();
+const UserPage = async () => {
+    const user = await getUser();
 
-    const res = await fetch(`http://backend/api/user`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch user. (status=${res.status})`);
-    }
-
-    const user = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( user === null ) return;
 
     return (
         <section className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto">

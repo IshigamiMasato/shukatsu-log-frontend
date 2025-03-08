@@ -12,31 +12,14 @@ import Textarea from "@/components/elements/Textarea";
 import { FINAL_RESULT_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { FinalResult } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const FinalResultEditForm = ({ applyId, finalResultId } : { applyId : number, finalResultId : number }) => {
-    const [status, setStatus] = useState<number>();
-    const [memo, setMemo] = useState<string>("");
+const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => {
+    const [status, setStatus] = useState<number>(finalResult.status);
+    const [memo, setMemo]     = useState<string>(finalResult.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ status?: []; memo?: []; }>({});
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getFinalResult = async () => {
-            const res = await fetch(`/api/apply/${applyId}/final_result/${finalResultId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getFinalResult()
-            .then((finalResult: FinalResult) => {
-                /* フォーム初期化 */
-                setStatus(finalResult.status);
-                setMemo(finalResult.memo ?? "");
-            });
-    }, []);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -46,7 +29,7 @@ const FinalResultEditForm = ({ applyId, finalResultId } : { applyId : number, fi
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}/final_result/${finalResultId}`, {
+        fetch(`/api/apply/${finalResult.apply_id}/final_result/${finalResult.final_result_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -62,7 +45,6 @@ const FinalResultEditForm = ({ applyId, finalResultId } : { applyId : number, fi
             }
 
             res.json().then( (newFinalResult:FinalResult) => {
-                /* フォーム更新 */
                 setStatus(newFinalResult.status);
                 setMemo(newFinalResult.memo ?? "");
 

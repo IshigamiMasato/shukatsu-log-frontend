@@ -14,33 +14,16 @@ import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { Company } from "@/types";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const ApplyCreateForm = () => {
-    const [companies, setCompanies] = useState<Company[]>([]);
-
-    const [companyId, setCompanyId] = useState<number|undefined>(undefined);
-    const [status, setStatus] = useState<number|undefined>(undefined);
+const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
+    const [companyId, setCompanyId]   = useState<number|undefined>(undefined);
+    const [status, setStatus]         = useState<number|undefined>(undefined);
     const [occupation, setOccupation] = useState<string>("");
     const [applyRoute, setApplyRoute] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
-
+    const [memo, setMemo]             = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ company_id?: []; status?: []; occupation?: []; apply_route?: []; memo?: []; }>({});
-
-    useEffect(() => {
-        const getCompanies = async () => {
-            const res = await fetch('/api/company', {method: "GET"});
-
-            if ( res.ok ) {
-                const companies = await res.json();
-                setCompanies(companies);
-            }
-        }
-
-        getCompanies();
-    }, []);
-
     const dispatch = useDispatch();
     const router = useRouter();
 
@@ -82,7 +65,7 @@ const ApplyCreateForm = () => {
                     <Label label="企業" /><RequiredBadge />
                     <Select
                         name="company_id"
-                        value={ companyId }
+                        value={ companyId ?? "" }
                         onChange={ (e) => setCompanyId(Number(e.target.value)) }
                         errors={validationErrors.company_id}
                     >
@@ -101,7 +84,7 @@ const ApplyCreateForm = () => {
                     <Label label="ステータス" /><RequiredBadge />
                     <Select
                         name="status"
-                        value={ status }
+                        value={ status ?? "" }
                         onChange={ (e) => setStatus( Number(e.target.value) ) }
                         errors={validationErrors.status}
                     >

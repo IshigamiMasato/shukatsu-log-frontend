@@ -1,17 +1,20 @@
 "use client";
 
 import { RootState } from "@/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../elements/Button";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { loggedOut } from "@/store/modules/auth";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+    const router = useRouter();
+    const dispatch = useDispatch();
 
     const handleLogout = () => {
         const isConfirmed = window.confirm("ログアウトしますか？");
@@ -20,10 +23,8 @@ const Header = () => {
             fetch('/api/logout', {
                 method: "POST",
             }).then(res => {
-                if ( ! res.ok ) {
-                    res.json().then(data => console.error(data));
-                }
-                redirect("/login");
+                dispatch( loggedOut({}) );
+                router.replace('/login');
             });
         }
     }

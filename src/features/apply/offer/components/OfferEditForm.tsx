@@ -11,35 +11,16 @@ import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import { dispToast } from "@/store/modules/toast";
 import { Offer } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const OfferEditForm = ({ applyId, offerId } : { applyId : number, offerId : number }) => {
-    const [offerDate, setOfferDate] = useState<string>("");
-    const [salary , setSalary] = useState<number>(0);
-    const [condition, setCondition] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
+const OfferEditForm = ({ offer } : { offer: Offer }) => {
+    const [offerDate, setOfferDate] = useState<string>(offer.offer_date);
+    const [salary , setSalary]      = useState<number|undefined>(offer.salary ?? undefined);
+    const [condition, setCondition] = useState<string>(offer.condition        ?? "");
+    const [memo, setMemo]           = useState<string>(offer.memo             ?? "");
     const [validationErrors, setValidationErrors] = useState<{ offer_date?: []; salary?: []; condition?: []; memo?: []; }>({});
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getOffer = async () => {
-            const res = await fetch(`/api/apply/${applyId}/offer/${offerId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getOffer()
-            .then((offer: Offer) => {
-                /* フォーム初期化 */
-                setOfferDate(offer.offer_date);
-                setSalary(offer.salary ?? 0);
-                setCondition(offer.condition ?? "");
-                setMemo(offer.memo ?? "");
-            });
-    }, []);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,7 +30,7 @@ const OfferEditForm = ({ applyId, offerId } : { applyId : number, offerId : numb
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}/offer/${offerId}`, {
+        fetch(`/api/apply/${offer.apply_id}/offer/${offer.offer_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -65,11 +46,10 @@ const OfferEditForm = ({ applyId, offerId } : { applyId : number, offerId : numb
             }
 
             res.json().then( (newOffer:Offer) => {
-                /* フォーム更新 */
                 setOfferDate(newOffer.offer_date);
-                setSalary(newOffer.salary ?? 0);
+                setSalary(newOffer.salary       ?? undefined);
                 setCondition(newOffer.condition ?? "");
-                setMemo(newOffer.memo ?? "");
+                setMemo(newOffer.memo           ?? "");
 
                 dispatch( dispToast({ status: "success", message: `内定情報の更新が完了しました。` }) );
             });
@@ -96,7 +76,7 @@ const OfferEditForm = ({ applyId, offerId } : { applyId : number, offerId : numb
                     <Input
                         type="number"
                         name="salary"
-                        value={ salary }
+                        value={ salary ?? "" }
                         onChange={ e => setSalary(Number(e.target.value)) }
                         errors={validationErrors.salary}
                     />

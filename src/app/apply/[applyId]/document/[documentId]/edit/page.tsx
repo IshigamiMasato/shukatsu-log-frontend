@@ -1,10 +1,16 @@
-import DocumentEditForm from "@/features/document/components/DocumentEditForm";
+import { getDocument } from "@/features/apply/document/api/getDocument";
+import DocumentEditForm from "@/features/apply/document/components/DocumentEditForm";
 
 const DocumentEditPage = async ({ params } : { params : Promise<{ applyId: number, documentId: number }> }) => {
     const { applyId, documentId } = await params;
 
+    const document = await getDocument(applyId, documentId);
+
+    // トークンリフレッシュが必要な場合
+    if ( document === null ) return;
+
     return (
-        <DocumentEditForm applyId={applyId} documentId={documentId} />
+        <DocumentEditForm document={document} />
     )
 }
 

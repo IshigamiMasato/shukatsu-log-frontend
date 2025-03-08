@@ -1,26 +1,18 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
 import { APPLY_STATUS } from "@/constants/const";
+import { getApplies } from "@/features/apply/api/getApplies";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
-import { getJWT } from "@/helper";
 import { Apply } from "@/types";
 import { faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 const ApplyPage = async () => {
-    const jwt = await getJWT();
+    const applies = await getApplies();
 
-    const res = await fetch(`http://backend/api/apply`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch applies. (status=${res.status})`);
-    }
-
-    const applies = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( applies === null ) return;
 
     return (
         <>

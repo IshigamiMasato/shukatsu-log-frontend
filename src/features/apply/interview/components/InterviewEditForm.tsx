@@ -11,33 +11,15 @@ import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import { dispToast } from "@/store/modules/toast";
 import { Interview } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const InterviewEditForm = ({ applyId, interviewId } : { applyId : number, interviewId : number }) => {
-    const [interviewDate, setInterviewDate] = useState<string>("");
-    const [interviewerInfo, setInterviewerInfo] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
+const InterviewEditForm = ({ interview } : { interview: Interview }) => {
+    const [interviewDate, setInterviewDate]     = useState<string>(interview.interview_date);
+    const [interviewerInfo, setInterviewerInfo] = useState<string>(interview.interviewer_info ?? "");
+    const [memo, setMemo]                       = useState<string>(interview.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ interview_date?: []; interviewer_info?: []; memo?: []; }>({});
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getInterview = async () => {
-            const res = await fetch(`/api/apply/${applyId}/interview/${interviewId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getInterview()
-            .then((interview: Interview) => {
-                /* フォーム初期化 */
-                setInterviewDate(interview.interview_date);
-                setInterviewerInfo(interview.interviewer_info ?? "");
-                setMemo(interview.memo ?? "");
-            });
-    }, []);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +29,7 @@ const InterviewEditForm = ({ applyId, interviewId } : { applyId : number, interv
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}/interview/${interviewId}`, {
+        fetch(`/api/apply/${interview.apply_id}/interview/${interview.interview_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -63,7 +45,6 @@ const InterviewEditForm = ({ applyId, interviewId } : { applyId : number, interv
             }
 
             res.json().then( (newInterview:Interview) => {
-                /* フォーム更新 */
                 setInterviewDate(newInterview.interview_date);
                 setInterviewerInfo(newInterview.interviewer_info ?? "");
                 setMemo(newInterview.memo ?? "");

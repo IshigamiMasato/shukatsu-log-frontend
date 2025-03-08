@@ -11,33 +11,15 @@ import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import { dispToast } from "@/store/modules/toast";
 import { Exam } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const ExamEditForm = ({ applyId, examId } : { applyId : number, examId : number }) => {
-    const [examDate, setExamDate] = useState<string>("");
-    const [content, setContent] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
+const ExamEditForm = ({ exam } : { exam: Exam }) => {
+    const [examDate, setExamDate] = useState<string>(exam.exam_date);
+    const [content, setContent]   = useState<string>(exam.content);
+    const [memo, setMemo]         = useState<string>(exam.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ exam_date?: []; memo?: []; content?: []; }>({});
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getExam = async () => {
-            const res = await fetch(`/api/apply/${applyId}/exam/${examId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getExam()
-            .then((exam: Exam) => {
-                /* フォーム初期化 */
-                setExamDate(exam.exam_date);
-                setContent(exam.content);
-                setMemo(exam.memo ?? "");
-            });
-    }, []);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -47,7 +29,7 @@ const ExamEditForm = ({ applyId, examId } : { applyId : number, examId : number 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}/exam/${examId}`, {
+        fetch(`/api/apply/${exam.apply_id}/exam/${exam.exam_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -63,7 +45,6 @@ const ExamEditForm = ({ applyId, examId } : { applyId : number, examId : number 
             }
 
             res.json().then( (newExam:Exam) => {
-                /* フォーム更新 */
                 setExamDate(newExam.exam_date);
                 setContent(newExam.content);
                 setMemo(newExam.memo ?? "");

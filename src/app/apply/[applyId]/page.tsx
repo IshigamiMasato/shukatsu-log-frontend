@@ -4,8 +4,8 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
+import { getApply } from "@/features/apply/api/getApply";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
-import { getJWT } from "@/helper";
 import { faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -13,18 +13,10 @@ import Link from "next/link";
 const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 
-    const jwt = await getJWT();
+    const apply = await getApply(applyId);
 
-    const res = await fetch(`http://backend/api/apply/${applyId}`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch apply. (status=${res.status})`);
-    }
-
-    const apply = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( apply === null ) return;
 
     return (
         <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
