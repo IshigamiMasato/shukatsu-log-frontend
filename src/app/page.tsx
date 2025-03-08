@@ -1,58 +1,35 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION } from "@/constants/const";
+import { getApplies } from "@/features/apply/api/getApplies";
+import { getApplyStatusSummary } from "@/features/apply/api/getApplyStatusSummary";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
-import { getJWT } from "@/helper";
-import { Apply, ApplyStatusSummary, Event } from "@/types";
+import { getEvents } from "@/features/event/api/getEvents";
+import { Apply } from "@/types";
 import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
 
 const Home = async () => {
-	const jwt = await getJWT();
-
-	const resGetStatusSummary = await fetch(`http://backend/api/apply/status-summary`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-	if ( ! resGetStatusSummary.ok ) {
-        throw new Error(`Failed fetch apply status-summary. (status=${resGetStatusSummary.status})`);
-    }
-
-	const statusSummary: ApplyStatusSummary = await resGetStatusSummary.json();
-	const totalApply = Object.values(statusSummary).reduce((sum, num) => sum + Number(num), 0);
+	const applyStatusSummary = await getApplyStatusSummary();
+	// トークンリフレッシュが必要な場合
+	if ( applyStatusSummary === null ) return;
+	const totalApply = Object.values(applyStatusSummary).reduce((sum, num) => sum + Number(num), 0);
 
 	const startAt = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
 	const endAt   = moment().add(1, 'week').endOf('day').format('YYYY-MM-DD HH:mm:ss');
-	const params = { start_at: startAt, end_at: endAt };
-	const query = new URLSearchParams(params);
-	const resGetEvent = await fetch(`http://backend/api/event?${query}`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
+	const events = await getEvents(new URLSearchParams({ start_at: startAt, end_at: endAt }));
+	// トークンリフレッシュが必要な場合
+	if ( events === null ) return;
 
-	if ( ! resGetEvent.ok ) {
-        throw new Error(`Failed fetch event. (status=${resGetEvent.status})`);
-    }
-
-	const events: Event[] = await resGetEvent.json();
-
-	const inProgressStatuses = [DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION]; // 選考中の応募を取得
-	const queryParams = new URLSearchParams();
-	inProgressStatuses.forEach(status => {
-		queryParams.append('status[]', String(status));
+	// 選考中の応募を取得
+	const applyParams = new URLSearchParams();
+	[ DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION ].forEach(status => {
+		applyParams.append('status[]', String(status));
 	});
-	const resGetApply = await fetch(`http://backend/api/apply?${queryParams}`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-	if ( ! resGetApply.ok ) {
-        throw new Error(`Failed fetch apply. (status=${resGetApply.status})`);
-    }
-
-	const applies: Apply[] = await resGetApply.json();
+	const applies = await getApplies(applyParams);
+	// トークンリフレッシュが必要な場合
+	if ( applies === null ) return;
 
   	return (
 	    <div className="container mx-auto px-8 py-6 bg-white rounded-lg space-y-4">
@@ -94,7 +71,7 @@ const Home = async () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">書類選考中</h3>
-						<span className="text-3xl font-bold">{ statusSummary.document_selection_summary }</span>
+						<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
 					</div>
 				</div>
 
@@ -104,7 +81,7 @@ const Home = async () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">筆記試験選考中</h3>
-						<span className="text-3xl font-bold">{ statusSummary.exam_selection_summary }</span>
+						<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
 					</div>
 				</div>
 
@@ -114,7 +91,7 @@ const Home = async () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">面接選考中</h3>
-						<span className="text-3xl font-bold">{ statusSummary.interview_selection_summary }</span>
+						<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
 					</div>
 				</div>
 
@@ -124,7 +101,7 @@ const Home = async () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">内定</h3>
-						<span className="text-3xl font-bold">{ statusSummary.offer_summary }</span>
+						<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
 					</div>
 				</div>
 
@@ -134,7 +111,7 @@ const Home = async () => {
 					</div>
 					<div>
 						<h3 className="text-gray-400 text-base md:text-lg">選考終了</h3>
-						<span className="text-3xl font-bold">{ statusSummary.final_summary }</span>
+						<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
 					</div>
 				</div>
 			</div>

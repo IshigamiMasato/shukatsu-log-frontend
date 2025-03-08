@@ -1,11 +1,11 @@
 import { getJWT } from "@/helper";
-import { Apply } from "@/types";
+import { ApplyStatusSummary } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
-export const getApplies = async (query?: URLSearchParams): Promise<Apply[]|null|never> => {
+export const getApplyStatusSummary = async (): Promise<ApplyStatusSummary|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch('http://backend/api/apply' + ( query ? `?${query}` : '' ), {
+    const res = await fetch(`http://backend/api/apply/status-summary`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });
@@ -26,10 +26,10 @@ export const getApplies = async (query?: URLSearchParams): Promise<Apply[]|null|
             notFound();
         }
 
-        throw new Error( `Failed fetch applies. (status=${res.status}, data=${JSON.stringify(data)})` );
+        throw new Error( `Failed fetch apply status summary. (status=${res.status}, data=${JSON.stringify(data)})` );
     }
 
-    const applies: Apply[] = await res.json();
+    const applyStatusSummary: ApplyStatusSummary = await res.json();
 
-    return applies;
+    return applyStatusSummary;
 }
