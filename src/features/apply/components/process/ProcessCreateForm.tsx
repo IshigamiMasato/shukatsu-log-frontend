@@ -6,7 +6,7 @@ import FormTitle from "@/components/containers/FormTitle";
 import Label from "@/components/elements/Label";
 import Select from "@/components/elements/Select";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
-import DocumentCreateForm from "@/features/document/components/DocumentCreateForm";
+import DocumentCreateForm from "@/features/apply/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/exam/components/ExamCreateForm";
 import FinalResultCreateForm from "@/features/final_result/components/FinalResultCreateForm";
 import InterviewCreateForm from "@/features/interview/components/InterviewCreateForm";

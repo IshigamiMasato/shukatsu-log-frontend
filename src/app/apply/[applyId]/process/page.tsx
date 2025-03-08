@@ -1,4 +1,4 @@
-import DocumentDeleteButton from "@/features/document/components/DocumentDeleteButton";
+import DocumentDeleteButton from "@/features/apply/document/components/DocumentDeleteButton";
 import ExamDeleteButton from "@/features/exam/components/ExamDeleteButton";
 import FinalResultDeleteButton from "@/features/final_result/components/FinalResultDeleteButton";
 import InterviewDeleteButton from "@/features/interview/components/InterviewDeleteButton";
@@ -12,7 +12,7 @@ import Link from "next/link";
 import ProcessContainer from "@/components/containers/ProcessContainer";
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
-import FileDownloadButton from "@/features/document/file/components/FileDownloadButton";
+import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
