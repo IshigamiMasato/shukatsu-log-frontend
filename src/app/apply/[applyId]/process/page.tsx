@@ -4,7 +4,6 @@ import FinalResultDeleteButton from "@/features/apply/final_result/components/Fi
 import InterviewDeleteButton from "@/features/apply/interview/components/InterviewDeleteButton";
 import OfferDeleteButton from "@/features/apply/offer/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
-import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
 import { faCheck, faCirclePlus, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,22 +12,15 @@ import ProcessContainer from "@/components/containers/ProcessContainer";
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
 import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
+import { getProcess } from "@/features/apply/api/process/getProcess";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 
-    const jwt = await getJWT();
+    const process = await getProcess(applyId);
 
-    const res = await fetch(`http://backend/api/apply/${applyId}/process`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch process. (status=${res.status})`);
-    }
-
-    const process = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( process === null ) return;
 
     return (
         <>

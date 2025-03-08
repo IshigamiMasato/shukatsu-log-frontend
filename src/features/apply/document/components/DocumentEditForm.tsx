@@ -11,32 +11,14 @@ import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import { dispToast } from "@/store/modules/toast";
 import { Document } from "@/types";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const DocumentEditForm = ({ applyId, documentId } : { applyId : number, documentId : number }) => {
-    const [submissionDate, setSubmissionDate] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
+const DocumentEditForm = ({ document } : { document: Document }) => {
+    const [submissionDate, setSubmissionDate] = useState<string>(document.submission_date);
+    const [memo, setMemo] = useState<string>(document.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ submission_date?: []; memo?: []; }>({});
-
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const getDocument = async () => {
-            const res = await fetch(`/api/apply/${applyId}/document/${documentId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getDocument()
-            .then((document: Document) => {
-                /* フォーム初期化 */
-                setSubmissionDate(document.submission_date)
-                setMemo(document.memo ?? "");
-            });
-    }, []);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -46,7 +28,7 @@ const DocumentEditForm = ({ applyId, documentId } : { applyId : number, document
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}/document/${documentId}`, {
+        fetch(`/api/apply/${document.apply_id}/document/${document.document_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -62,7 +44,6 @@ const DocumentEditForm = ({ applyId, documentId } : { applyId : number, document
             }
 
             res.json().then( (newDocument:Document) => {
-                /* フォーム更新 */
                 setSubmissionDate(newDocument.submission_date);
                 setMemo(newDocument.memo ?? "");
 

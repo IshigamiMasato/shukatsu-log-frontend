@@ -1,4 +1,4 @@
-import { File } from "./File";
+import { File } from "./file";
 
 export type Document = {
     document_id: number,
