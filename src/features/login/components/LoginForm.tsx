@@ -8,12 +8,22 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const LoginForm = () => {
+    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
     const router = useRouter();
+
+    useEffect(() => {
+        if ( isAuthenticated ) {
+            router.replace('/');
+        }
+
+    }, [isAuthenticated]);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -39,8 +49,8 @@ const LoginForm = () => {
                 return;
             }
 
-            // ログイン成功時ユーザ画面へ遷移
-            router.push('/user');
+            // ログイン成功時TOP画面へ遷移
+            router.push('/');
         })
     }
 

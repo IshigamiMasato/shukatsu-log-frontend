@@ -1,7 +1,7 @@
 "use client";
 
 import { loggedIn, loggedOut } from "@/store/modules/auth";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Loading from "./Loading";
@@ -14,6 +14,7 @@ type Props = {
 const Auth: React.FC<Props> = ({ children, path }) => {
     const [isAuthChecked, setIsAuthChecked] = useState<boolean>(false);
     const dispatch = useDispatch();
+    const router = useRouter();
 
     /*
     * トークンの有効性の確認
@@ -51,9 +52,10 @@ const Auth: React.FC<Props> = ({ children, path }) => {
             // トークンリフレッシュが必要な場合
             if ( userData == 'REFRESH' ) {
                 await refreshToken();
-
-                // リフレッシュしたトークンで再取得
                 userData = await loadToken();
+                dispatch( loggedIn(userData) );
+
+                return "tokenRefreshed";
             }
 
             // 成功した場合はログイン状態にする
@@ -74,14 +76,14 @@ const Auth: React.FC<Props> = ({ children, path }) => {
         initializeAuth().then(result => {
             setIsAuthChecked(true);
 
-            // 認証状態を確認しログアウト状態であればログイン画面へ遷移
-            if ( result === "loggedOut" ) {
-                redirect("/login");
+            if ( result === "tokenRefreshed" ) {
+                // トークンリフレッシュ後、サーバコンポーネント側でデータを再取得するためリロード
+                router.refresh();
             }
 
-            // ログインページに遷移時 かつ 認証状態を確認しログイン状態 であればユーザ画面へ遷移
-            if ( result === "loggedIn" && path === "/login" ) {
-                redirect("/user");
+            // 認証状態を確認しログアウト状態であればログイン画面へ遷移
+            if ( result === "loggedOut" ) {
+                router.replace('/login');
             }
         });
 
