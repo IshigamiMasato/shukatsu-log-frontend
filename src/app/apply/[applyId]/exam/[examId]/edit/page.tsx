@@ -1,4 +1,4 @@
-import ExamEditForm from "@/features/exam/components/ExamEditForm";
+import ExamEditForm from "@/features/apply/exam/components/ExamEditForm";
 
 const ExamEditPage = async ({ params } : { params : Promise<{ applyId: number, examId: number }> }) => {
     const { applyId, examId } = await params;

@@ -1,5 +1,5 @@
 import DocumentDeleteButton from "@/features/apply/document/components/DocumentDeleteButton";
-import ExamDeleteButton from "@/features/exam/components/ExamDeleteButton";
+import ExamDeleteButton from "@/features/apply/exam/components/ExamDeleteButton";
 import FinalResultDeleteButton from "@/features/final_result/components/FinalResultDeleteButton";
 import InterviewDeleteButton from "@/features/interview/components/InterviewDeleteButton";
 import OfferDeleteButton from "@/features/offer/components/OfferDeleteButton";
