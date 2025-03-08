@@ -1,4 +1,4 @@
-import InterviewEditForm from "@/features/interview/components/InterviewEditForm";
+import InterviewEditForm from "@/features/apply/interview/components/InterviewEditForm";
 
 const InterviewEditPage = async ({ params } : { params : Promise<{ applyId: number, interviewId: number }> }) => {
     const { applyId, interviewId } = await params;

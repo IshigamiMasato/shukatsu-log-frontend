@@ -9,7 +9,7 @@ import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVI
 import DocumentCreateForm from "@/features/apply/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/apply/exam/components/ExamCreateForm";
 import FinalResultCreateForm from "@/features/final_result/components/FinalResultCreateForm";
-import InterviewCreateForm from "@/features/interview/components/InterviewCreateForm";
+import InterviewCreateForm from "@/features/apply/interview/components/InterviewCreateForm";
 import OfferCreateForm from "@/features/offer/components/OfferCreateForm";
 import { useState } from "react";
 
