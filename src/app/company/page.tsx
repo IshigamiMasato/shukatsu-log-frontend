@@ -1,6 +1,6 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
-import { getCompanies } from "@/features/company/api/CompanyApi";
+import { getCompanies } from "@/features/company/api/getCompanies";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { Company } from "@/types";
 import { faCirclePlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";

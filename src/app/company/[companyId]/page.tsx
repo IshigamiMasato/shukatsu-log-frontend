@@ -3,7 +3,7 @@ import FormItem from "@/components/containers/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
-import { getCompany } from "@/features/company/api/CompanyApi";
+import { getCompany } from "@/features/company/api/getCompany";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

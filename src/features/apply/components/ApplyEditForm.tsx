@@ -11,40 +11,16 @@ import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
-import { FormEvent, useEffect, useState } from "react";
+import { Apply } from "@/types";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
-const ApplyEditForm = ({ applyId } : { applyId : number }) => {
-    const [companyName, setCompanyName] = useState<string>("");
-
-    const [status, setStatus] = useState<number>();
-    const [occupation, setOccupation] = useState<string>("");
-    const [applyRoute, setApplyRoute] = useState<string>("");
-    const [memo, setMemo] = useState<string>("");
-
+const ApplyEditForm = ({ apply } : { apply: Apply }) => {
+    const [status, setStatus]           = useState<number>(apply.status);
+    const [occupation, setOccupation]   = useState<string>(apply.occupation  ?? "");
+    const [applyRoute, setApplyRoute]   = useState<string>(apply.apply_route ?? "");
+    const [memo, setMemo]               = useState<string>(apply.memo        ?? "");
     const [validationErrors, setValidationErrors] = useState<{ company_id?: []; status?: []; occupation?: []; apply_route?: []; memo?: []; }>({});
-
-    useEffect(() => {
-        const getApply= async () => {
-            const res = await fetch(`/api/apply/${applyId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getApply()
-            .then(apply => {
-                /* フォーム初期化 */
-                setCompanyName(apply.company.name);
-                setStatus(apply.status);
-                // NULL許可項目はAPIからNULLで返却される。フォームにNULLを設定するとIDEでエラーになるためNULLの場合は初期値に変換
-                setOccupation(apply.occupation   ?? "");
-                setApplyRoute(apply.apply_route  ?? "");
-                setMemo(apply.memo               ?? "");
-            });
-    }, []);
-
     const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -55,7 +31,7 @@ const ApplyEditForm = ({ applyId } : { applyId : number }) => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/apply/${applyId}`, {
+        fetch(`/api/apply/${apply.apply_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -70,10 +46,8 @@ const ApplyEditForm = ({ applyId } : { applyId : number }) => {
                 return;
             }
 
-            res.json().then(newApply => {
-                /* フォーム更新 */
+            res.json().then((newApply: Apply) => {
                 setStatus(newApply.status);
-                // NULL許可項目はAPIからNULLで返却される。フォームにNULLを設定するとIDEでエラーになるためNULLの場合は初期値に変換
                 setOccupation(newApply.occupation   ?? "");
                 setApplyRoute(newApply.apply_route  ?? "");
                 setMemo(newApply.memo               ?? "");
@@ -92,7 +66,7 @@ const ApplyEditForm = ({ applyId } : { applyId : number }) => {
                     <Input
                         type="text"
                         name="name"
-                        value={ companyName }
+                        value={ apply.company.name }
                         disabled={true}
                         className="text-gray-500 bg-gray-100"
                     />

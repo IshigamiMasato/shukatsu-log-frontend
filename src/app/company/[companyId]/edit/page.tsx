@@ -1,4 +1,4 @@
-import { getCompany } from "@/features/company/api/CompanyApi";
+import { getCompany } from "@/features/company/api/getCompany";
 import CompanyEditForm from "@/features/company/components/CompanyEditForm";
 
 const CompanyEditPage = async ({ params } : { params : Promise<{ companyId: number }> }) => {
