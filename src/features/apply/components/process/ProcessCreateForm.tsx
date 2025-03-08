@@ -8,7 +8,7 @@ import Select from "@/components/elements/Select";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import DocumentCreateForm from "@/features/apply/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/apply/exam/components/ExamCreateForm";
-import FinalResultCreateForm from "@/features/final_result/components/FinalResultCreateForm";
+import FinalResultCreateForm from "@/features/apply/final_result/components/FinalResultCreateForm";
 import InterviewCreateForm from "@/features/apply/interview/components/InterviewCreateForm";
 import OfferCreateForm from "@/features/apply/offer/components/OfferCreateForm";
 import { useState } from "react";

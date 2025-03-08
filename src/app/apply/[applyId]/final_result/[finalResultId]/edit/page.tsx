@@ -1,4 +1,4 @@
-import FinalResultEditForm from "@/features/final_result/components/FinalResultEditForm";
+import FinalResultEditForm from "@/features/apply/final_result/components/FinalResultEditForm";
 
 const FinalResultEditPage = async ({ params } : { params : Promise<{ applyId: number, finalResultId: number }> }) => {
     const { applyId, finalResultId } = await params;
