@@ -10,7 +10,7 @@ import DocumentCreateForm from "@/features/apply/document/components/DocumentCre
 import ExamCreateForm from "@/features/apply/exam/components/ExamCreateForm";
 import FinalResultCreateForm from "@/features/final_result/components/FinalResultCreateForm";
 import InterviewCreateForm from "@/features/apply/interview/components/InterviewCreateForm";
-import OfferCreateForm from "@/features/offer/components/OfferCreateForm";
+import OfferCreateForm from "@/features/apply/offer/components/OfferCreateForm";
 import { useState } from "react";
 
 const ProcessCreateForm = ({ applyId } : { applyId : number }) => {

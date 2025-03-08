@@ -1,4 +1,4 @@
-import OfferEditForm from "@/features/offer/components/OfferEditForm";
+import OfferEditForm from "@/features/apply/offer/components/OfferEditForm";
 
 const OfferEditPage = async ({ params } : { params : Promise<{ applyId: number, offerId: number }> }) => {
     const { applyId, offerId } = await params;

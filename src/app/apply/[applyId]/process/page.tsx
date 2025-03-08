@@ -2,7 +2,7 @@ import DocumentDeleteButton from "@/features/apply/document/components/DocumentD
 import ExamDeleteButton from "@/features/apply/exam/components/ExamDeleteButton";
 import FinalResultDeleteButton from "@/features/final_result/components/FinalResultDeleteButton";
 import InterviewDeleteButton from "@/features/apply/interview/components/InterviewDeleteButton";
-import OfferDeleteButton from "@/features/offer/components/OfferDeleteButton";
+import OfferDeleteButton from "@/features/apply/offer/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getJWT } from "@/helper";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
