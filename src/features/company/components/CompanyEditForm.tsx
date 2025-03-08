@@ -9,48 +9,22 @@ import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { Company } from "@/types";
 
-const CompanyEditForm = ({ companyId } : { companyId : number }) => {
-    const [name, setName]                     = useState<string>("");
-    const [url, setURL]                       = useState<string>("");
-    const [president, setPresident]           = useState<string>("");
-    const [address, setAddress]               = useState<string>("");
-    const [establishDate, setEstablishDate]   = useState<string>("");
-    const [employeeNumber, setEmployeeNumber] = useState<number>(0);
-    const [listingClass, setListingClass]     = useState<string>("");
-    const [benefit, setBenefit]               = useState<string>("");
-    const [memo, setMemo]                     = useState<string>("");
-
+const CompanyEditForm = ({ company } : { company: Company }) => {
+    const [name, setName]                     = useState<string>(company.name                      ?? "");
+    const [url, setURL]                       = useState<string>(company.url                       ?? "");
+    const [president, setPresident]           = useState<string>(company.president                 ?? "");
+    const [address, setAddress]               = useState<string>(company.address                   ?? "");
+    const [establishDate, setEstablishDate]   = useState<string>(company.establish_date            ?? "");
+    const [employeeNumber, setEmployeeNumber] = useState<number|undefined>(company.employee_number ?? undefined);
+    const [listingClass, setListingClass]     = useState<string>(company.listing_class             ?? "");
+    const [benefit, setBenefit]               = useState<string>(company.benefit                   ?? "");
+    const [memo, setMemo]                     = useState<string>(company.memo                      ?? "");
     const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; benefit?: []; memo?: []; }>({});
-
-    useEffect(() => {
-        const getCompany = async () => {
-            const res = await fetch(`/api/company/${companyId}`, {method: 'GET'});
-
-            if ( res.ok ) {
-                return await res.json();
-            }
-        }
-
-        getCompany()
-            .then(company => {
-                /* フォーム初期化 */
-                setName(company.name);
-                 // NULL許可項目はAPIからNULLで返却される。フォームにNULLを設定するとIDEでエラーになるためNULLの場合は初期値に変換
-                setURL(company.url                        ?? "");
-                setPresident(company.president            ?? "");
-                setAddress(company.address                ?? "");
-                setEstablishDate(company.establish_date   ?? "");
-                setEmployeeNumber(company.employee_number ?? 0);
-                setListingClass(company.listing_class     ?? "");
-                setBenefit(company.benefit                ?? "");
-                setMemo(company.memo                      ?? "");
-            });
-    }, []);
-
     const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -61,7 +35,7 @@ const CompanyEditForm = ({ companyId } : { companyId : number }) => {
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
 
-        fetch(`/api/company/${companyId}`, {
+        fetch(`/api/company/${company.company_id}`, {
             method: "PUT",
             body: formData
         }).then(res => {
@@ -77,14 +51,12 @@ const CompanyEditForm = ({ companyId } : { companyId : number }) => {
             }
 
             res.json().then(newCompany => {
-                /* フォーム更新 */
-                setName(newCompany.name);
-                 // NULL許可項目はAPIからNULLで返却される。フォームにNULLを設定するとIDEでエラーになるためNULLの場合は初期値に変換
+                setName(newCompany.name                      ?? "");
                 setURL(newCompany.url                        ?? "");
                 setPresident(newCompany.president            ?? "");
                 setAddress(newCompany.address                ?? "");
                 setEstablishDate(newCompany.establish_date   ?? "");
-                setEmployeeNumber(newCompany.employee_number ?? 0);
+                setEmployeeNumber(newCompany.employee_number ?? undefined);
                 setListingClass(newCompany.listing_class     ?? "");
                 setBenefit(newCompany.benefit                ?? "");
                 setMemo(newCompany.memo                      ?? "");
@@ -158,7 +130,7 @@ const CompanyEditForm = ({ companyId } : { companyId : number }) => {
                     <Input
                         type="number"
                         name="employee_number"
-                        value={ employeeNumber }
+                        value={ employeeNumber ?? "" }
                         onChange={ e => setEmployeeNumber(Number(e.target.value)) }
                         errors={validationErrors.employee_number}
                     />

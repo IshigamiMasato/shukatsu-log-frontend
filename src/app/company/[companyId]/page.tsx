@@ -3,8 +3,8 @@ import FormItem from "@/components/containers/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
+import { getCompany } from "@/features/company/api/CompanyApi";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
-import { getJWT } from "@/helper";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -12,18 +12,10 @@ import Link from "next/link";
 const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: number }> }) => {
     const companyId = (await params).companyId;
 
-    const jwt = await getJWT();
+    const company = await getCompany(companyId);
 
-    const res = await fetch(`http://backend/api/company/${companyId}`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch company. (status=${res.status})`);
-    }
-
-    const company = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( company === null ) return;
 
     return (
         <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
@@ -88,7 +80,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                 <Input
                     type="date"
                     name="establish_date"
-                    value={ company.establishDate ?? "" }
+                    value={ company.establish_date ?? "" }
                     disabled={true}
                     className="text-gray-500 bg-gray-100"
                 />
@@ -98,7 +90,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                 <Input
                     type="number"
                     name="employee_number"
-                    value={ company.employeeNumber ?? "" }
+                    value={ company.employee_number ?? "" }
                     disabled={true}
                     className="text-gray-500 bg-gray-100"
                 />
@@ -108,7 +100,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                 <Input
                     type="text"
                     name="listing_class"
-                    value={ company.listingClass ?? "" }
+                    value={ company.listing_class ?? "" }
                     disabled={true}
                     className="text-gray-500 bg-gray-100"
                 />

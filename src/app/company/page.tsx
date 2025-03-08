@@ -1,25 +1,17 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import IndexPageTitle from "@/components/containers/IndexPageTitle";
+import { getCompanies } from "@/features/company/api/CompanyApi";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
-import { getJWT } from "@/helper";
 import { Company } from "@/types";
 import { faCirclePlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 const CompanyPage: React.FC = async () => {
-    const jwt = await getJWT();
+    const companies = await getCompanies();
 
-    const res = await fetch(`http://backend/api/company`, {
-        method: "GET",
-        headers: {Authorization: `Bearer ${jwt}`}
-    });
-
-    if ( ! res.ok ) {
-        throw new Error(`Failed fetch companies. (status=${res.status})`);
-    }
-
-    const companies = await res.json();
+    // トークンリフレッシュが必要な場合
+    if ( companies === null ) return;
 
     return (
         <>
