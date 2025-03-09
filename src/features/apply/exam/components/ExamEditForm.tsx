@@ -71,8 +71,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
                 </FormItem>
                 <FormItem>
                     <Label label="試験内容" /><RequiredBadge />
-                    <Input
-                        type="text"
+                    <Textarea
                         name="content"
                         value={ content }
                         onChange={ e => setContent(e.target.value) }
