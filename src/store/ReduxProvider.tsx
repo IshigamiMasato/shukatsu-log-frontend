@@ -17,12 +17,10 @@ const ReduxProvider: React.FC<Props> = ({ children }) => {
 
     return (
         <Provider store={store}>
-            <div className="flex flex-col justify-between min-h-screen">
-                <Header />
-                <Toast />
-                <Auth path={path}>{ children }</Auth>
-                <Footer />
-            </div>
+            <Header />
+            <Toast />
+            <Auth path={path}>{ children }</Auth>
+            <Footer />
         </Provider>
     )
 }
