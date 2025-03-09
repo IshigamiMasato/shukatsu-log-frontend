@@ -35,19 +35,19 @@ const Home = async () => {
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
 			<div className="flex justify-start flex-wrap mb-4">
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white">
+				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
 					<Link href='/event/create'>
 						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">予定登録</span>
 					</Link>
 				</ActionContainer>
 
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white">
+				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
 					<Link href='/company/create'>
 						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
 					</Link>
 				</ActionContainer>
 
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white">
+				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
 					<Link href='/apply/create'>
 						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
 					</Link>
@@ -164,7 +164,7 @@ const Home = async () => {
 							<tbody>
 								{applies.map((apply: Apply) => {
 									return (
-										<tr key={ apply.apply_id } className="bg-white border-b border-gray-200">
+										<tr key={ apply.apply_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
 												<Link href={`/apply/${apply.apply_id}`} className="border p-1 rounded-lg text-blue-500 hover:bg-blue-100 transition-all duration-300">{ APPLY_STATUS.find(status => status.id == apply.status)?.name }</Link>
 											</td>

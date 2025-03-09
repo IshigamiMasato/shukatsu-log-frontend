@@ -1,5 +1,5 @@
 import ActionContainer from "@/components/containers/ActionContainer";
-import IndexPageTitle from "@/components/containers/IndexPageTitle";
+import TitleContainer from "@/components/containers/TitleContainer";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { Company } from "@/types";
@@ -15,10 +15,9 @@ const CompanyPage: React.FC = async () => {
 
     return (
         <>
-            <IndexPageTitle>企業一覧</IndexPageTitle>
-
+            <TitleContainer main="企業一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <ActionContainer className="mb-3">
+                <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                     <Link href='/company/create'>
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
                     </Link>
@@ -45,14 +44,14 @@ const CompanyPage: React.FC = async () => {
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer>
+                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
                                                 <Link href={`/company/${company.company_id}/edit`}>
                                                     <FontAwesomeIcon icon={faPenToSquare} />
                                                 </Link>
                                             </ActionContainer>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer>
+                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
                                                 <CompanyDeleteButton companyId={company.company_id}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </CompanyDeleteButton>
