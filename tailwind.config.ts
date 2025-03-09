@@ -9,9 +9,9 @@ export default {
   safelist: [
     // 動的に使うクラスを追加
     'bg-blue-700',
-    'bg-blue-800',
+    'hover:bg-blue-800',
     'bg-red-600',
-    'bg-red-700',
+    'hover:bg-red-700',
     'text-gray-700',
   ],
   theme: {
