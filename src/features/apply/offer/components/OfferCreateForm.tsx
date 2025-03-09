@@ -76,8 +76,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
                 </FormItem>
                 <FormItem>
                     <Label label="条件" />
-                    <Input
-                        type="text"
+                    <Textarea
                         name="condition"
                         value={ condition }
                         onChange={ e => setCondition(e.target.value) }
