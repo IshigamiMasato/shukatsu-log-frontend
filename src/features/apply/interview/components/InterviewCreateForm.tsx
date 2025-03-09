@@ -64,8 +64,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
                 </FormItem>
                 <FormItem>
                     <Label label="面接官情報" />
-                    <Input
-                        type="text"
+                    <Textarea
                         name="interviewer_info"
                         value={ interviewerInfo }
                         onChange={ e => setInterviewerInfo(e.target.value) }
