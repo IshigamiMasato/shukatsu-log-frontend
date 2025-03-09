@@ -22,12 +22,12 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-lg font-semibold">企業詳細</h2>
                 <div className="flex text-nowrap space-x-1">
-                    <ActionContainer>
+                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                         <Link href={`/company/${companyId}/edit`}>
                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                         </Link>
                     </ActionContainer>
-                    <ActionContainer>
+                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                         <CompanyDeleteButton companyId={companyId}>
                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                         </CompanyDeleteButton>

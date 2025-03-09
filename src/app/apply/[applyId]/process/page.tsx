@@ -68,12 +68,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 )}
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/document/${document.document_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <DocumentDeleteButton applyId={applyId} documentId={document.document_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </DocumentDeleteButton>
@@ -103,12 +103,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/exam/${exam.exam_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <ExamDeleteButton applyId={applyId} examId={exam.exam_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </ExamDeleteButton>
@@ -138,12 +138,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/interview/${interview.interview_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <InterviewDeleteButton applyId={applyId} interviewId={interview.interview_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </InterviewDeleteButton>
@@ -173,12 +173,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/offer/${offer.offer_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <OfferDeleteButton applyId={applyId} offerId={offer.offer_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </OfferDeleteButton>
@@ -207,12 +207,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/final_result/${finalResult.final_result_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <FinalResultDeleteButton applyId={applyId} finalResultId={finalResult.final_result_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </FinalResultDeleteButton>

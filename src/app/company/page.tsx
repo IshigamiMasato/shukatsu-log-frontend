@@ -44,14 +44,14 @@ const CompanyPage: React.FC = async () => {
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                                 <Link href={`/company/${company.company_id}/edit`}>
                                                     <FontAwesomeIcon icon={faPenToSquare} />
                                                 </Link>
                                             </ActionContainer>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                                 <CompanyDeleteButton companyId={company.company_id}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </CompanyDeleteButton>

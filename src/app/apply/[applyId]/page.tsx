@@ -23,17 +23,17 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-lg font-semibold text-nowrap">応募詳細</h2>
                 <div className="flex flex-wrap justify-end text-nowrap space-x-1">
-                    <ActionContainer>
+                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                         <Link href={`/apply/${apply.apply_id}/process`}>
                             <FontAwesomeIcon icon={faClockRotateLeft} /><span className="ml-1">選考履歴</span>
                         </Link>
                     </ActionContainer>
-                    <ActionContainer>
+                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                         <Link href={`/apply/${applyId}/edit`}>
                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                         </Link>
                     </ActionContainer>
-                    <ActionContainer>
+                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                         <ApplyDeleteButton applyId={applyId}>
                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                         </ApplyDeleteButton>

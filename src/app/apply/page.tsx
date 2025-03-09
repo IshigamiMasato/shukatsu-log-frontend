@@ -52,21 +52,21 @@ const ApplyPage = async () => {
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                                 <Link href={`/apply/${apply.apply_id}/process`}>
                                                     <FontAwesomeIcon icon={faClockRotateLeft} />
                                                 </Link>
                                             </ActionContainer>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border">
+                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                                 <Link href={`/apply/${apply.apply_id}/edit`}>
                                                     <FontAwesomeIcon icon={faPenToSquare} />
                                                 </Link>
                                             </ActionContainer>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white border">
+                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                                 <ApplyDeleteButton applyId={apply.apply_id}>
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </ApplyDeleteButton>
