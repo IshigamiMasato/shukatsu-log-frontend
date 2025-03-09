@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ProcessContainer from "@/components/containers/ProcessContainer";
 import ActionContainer from "@/components/containers/ActionContainer";
-import IndexPageTitle from "@/components/containers/IndexPageTitle";
+import TitleContainer from "@/components/containers/TitleContainer";
 import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
 import { getProcess } from "@/features/apply/api/process/getProcess";
 
@@ -24,10 +24,9 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
 
     return (
         <>
-            <IndexPageTitle>選考履歴一覧</IndexPageTitle>
-
+            <TitleContainer main="選考履歴一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <ActionContainer className="mb-3">
+                <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                     <Link href={`/apply/${applyId}/process/create`}>
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">選考履歴登録</span>
                     </Link>
@@ -40,7 +39,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                             <ProcessContainer key={`document_${document.document_id}`}>
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
-                                        <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
+                                        <div className="text-gray-400 bg-gray-100 w-6 h-6 text-center align-middle rounded-full">
                                             <FontAwesomeIcon icon={faFileLines} />
                                         </div>
                                         <h3 className="text-lg font-semibold">応募書類</h3>
@@ -69,12 +68,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 )}
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/document/${document.document_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <DocumentDeleteButton applyId={applyId} documentId={document.document_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </DocumentDeleteButton>
@@ -90,7 +89,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                             <ProcessContainer key={`exam_${exam.exam_id}`}>
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
-                                        <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
+                                        <div className="text-gray-400 bg-gray-100 w-6 h-6 text-center align-middle rounded-full">
                                             <FontAwesomeIcon icon={faFilePen} />
                                         </div>
                                         <h3 className="text-lg font-semibold">試験情報</h3>
@@ -104,12 +103,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/exam/${exam.exam_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <ExamDeleteButton applyId={applyId} examId={exam.exam_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </ExamDeleteButton>
@@ -125,7 +124,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                             <ProcessContainer key={`interview_${interview.interview_id}`}>
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
-                                        <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
+                                        <div className="text-gray-400 bg-gray-100 w-6 h-6 text-center align-middle rounded-full">
                                             <FontAwesomeIcon icon={faPeopleArrows} />
                                         </div>
                                         <h3 className="text-lg font-semibold">面接情報</h3>
@@ -139,12 +138,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/interview/${interview.interview_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <InterviewDeleteButton applyId={applyId} interviewId={interview.interview_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </InterviewDeleteButton>
@@ -160,7 +159,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                             <ProcessContainer key={`offer_${offer.offer_id}`}>
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
-                                        <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
+                                        <div className="text-red-400 bg-gray-100 w-6 h-6 text-center align-middle rounded-full">
                                             <FontAwesomeIcon icon={faHeart} />
                                         </div>
                                         <h3 className="text-lg font-semibold">内定情報</h3>
@@ -174,12 +173,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/offer/${offer.offer_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <OfferDeleteButton applyId={applyId} offerId={offer.offer_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </OfferDeleteButton>
@@ -195,7 +194,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                             <ProcessContainer key={`final_result_${finalResult.final_result_id}`}>
                                 <div className="mb-3">
                                     <div className="flex space-x-1 mb-1">
-                                        <div className="bg-blue-500 text-white w-6 h-6 text-center align-middle rounded-full">
+                                        <div className="text-gray-400 bg-gray-100 w-6 h-6 text-center align-middle rounded-full">
                                             <FontAwesomeIcon icon={faCheck} />
                                         </div>
                                         <h3 className="text-lg font-semibold">選考終了情報</h3>
@@ -208,12 +207,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                 </div>
 
                                 <div className="flex flex-wrap text-nowrap space-x-1">
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                         <Link href={`/apply/${applyId}/final_result/${finalResult.final_result_id}/edit`}>
                                             <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
                                         </Link>
                                     </ActionContainer>
-                                    <ActionContainer>
+                                    <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                         <FinalResultDeleteButton applyId={applyId} finalResultId={finalResult.final_result_id}>
                                             <FontAwesomeIcon icon={faTrash} /><span className="ml-1">削除</span>
                                         </FinalResultDeleteButton>

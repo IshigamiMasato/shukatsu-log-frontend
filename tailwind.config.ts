@@ -12,6 +12,7 @@ export default {
     'hover:bg-blue-800',
     'bg-red-600',
     'hover:bg-red-700',
+    'text-gray-700',
   ],
   theme: {
     extend: {

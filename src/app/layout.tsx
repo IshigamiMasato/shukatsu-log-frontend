@@ -29,12 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-100`}
       >
         <div className="modal-wrapper"></div>
-        <ReduxProvider>
-          {children}
-        </ReduxProvider>
+        <div className="flex flex-col justify-between min-h-screen">
+          <ReduxProvider>
+            {children}
+          </ReduxProvider>
+        </div>
       </body>
     </html>
   );

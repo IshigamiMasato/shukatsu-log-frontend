@@ -5,7 +5,7 @@ type Props = {
 
 const FormContainer = ({ children, className } : Props) => {
     return (
-        <div className={`w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg ${className}`}>
+        <div className={`w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg border ${className}`}>
             { children }
         </div>
     )
