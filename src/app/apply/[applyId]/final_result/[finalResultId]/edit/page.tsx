@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getFinalResult } from "@/features/apply/final_result/api/getFinalResult";
 import FinalResultEditForm from "@/features/apply/final_result/components/FinalResultEditForm";
 
@@ -10,7 +11,10 @@ const FinalResultEditPage = async ({ params } : { params : Promise<{ applyId: nu
     if ( finalResult === null ) return;
 
     return (
-        <FinalResultEditForm finalResult={finalResult} />
+        <>
+            <BackLink />
+            <FinalResultEditForm finalResult={finalResult} />
+        </>
     )
 }
 

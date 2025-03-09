@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getCompany } from "@/features/company/api/getCompany";
 import CompanyEditForm from "@/features/company/components/CompanyEditForm";
 
@@ -10,7 +11,10 @@ const CompanyEditPage = async ({ params } : { params : Promise<{ companyId: numb
     if ( company === null ) return;
 
     return (
-        <CompanyEditForm company={company} />
+        <>
+            <BackLink />
+            <CompanyEditForm company={company} />
+        </>
     )
 }
 
