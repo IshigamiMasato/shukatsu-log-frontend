@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getApply } from "@/features/apply/api/getApply";
 import ApplyEditForm from "@/features/apply/components/ApplyEditForm";
 
@@ -10,7 +11,10 @@ const ApplyEditPage = async ({ params } : { params : Promise<{ applyId: number }
     if ( apply === null ) return;
 
     return (
-        <ApplyEditForm apply={apply} />
+        <>
+            <BackLink />
+            <ApplyEditForm apply={apply} />
+        </>
     );
 }
 

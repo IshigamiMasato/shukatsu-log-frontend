@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getInterview } from "@/features/apply/interview/api/getInterview";
 import InterviewEditForm from "@/features/apply/interview/components/InterviewEditForm";
 
@@ -10,7 +11,10 @@ const InterviewEditPage = async ({ params } : { params : Promise<{ applyId: numb
     if ( interview === null ) return;
 
     return (
-        <InterviewEditForm interview={interview} />
+        <>
+            <BackLink />
+            <InterviewEditForm interview={interview} />
+        </>
     )
 }
 

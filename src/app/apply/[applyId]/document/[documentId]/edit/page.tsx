@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getDocument } from "@/features/apply/document/api/getDocument";
 import DocumentEditForm from "@/features/apply/document/components/DocumentEditForm";
 
@@ -10,7 +11,10 @@ const DocumentEditPage = async ({ params } : { params : Promise<{ applyId: numbe
     if ( document === null ) return;
 
     return (
-        <DocumentEditForm document={document} />
+        <>
+            <BackLink />
+            <DocumentEditForm document={document} />
+        </>
     )
 }
 

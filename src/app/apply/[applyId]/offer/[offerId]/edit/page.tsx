@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import { getOffer } from "@/features/apply/offer/api/getOffer";
 import OfferEditForm from "@/features/apply/offer/components/OfferEditForm";
 
@@ -10,7 +11,10 @@ const OfferEditPage = async ({ params } : { params : Promise<{ applyId: number, 
     if ( offer === null ) return;
 
     return (
-        <OfferEditForm offer={offer} />
+        <>
+            <BackLink />
+            <OfferEditForm offer={offer} />
+        </>
     )
 }
 

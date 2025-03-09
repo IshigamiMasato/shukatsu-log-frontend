@@ -1,3 +1,4 @@
+import BackLink from "@/components/BackLink";
 import ApplyCreateForm from "@/features/apply/components/ApplyCreateForm";
 import { getCompanies } from "@/features/company/api/getCompanies";
 
@@ -8,7 +9,10 @@ const ApplyCreatePage = async () => {
     if ( companies === null ) return;
 
     return (
-        <ApplyCreateForm companies={companies} />
+        <>
+            <BackLink />
+            <ApplyCreateForm companies={companies} />
+        </>
     )
 }
 
