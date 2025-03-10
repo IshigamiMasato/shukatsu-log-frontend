@@ -3,21 +3,40 @@ import TitleContainer from "@/components/containers/TitleContainer";
 import { APPLY_STATUS } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
+import ApplySearchForm from "@/features/apply/components/ApplySearchForm";
+import { getCompanies } from "@/features/company/api/getCompanies";
 import { Apply } from "@/types";
 import { faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-const ApplyPage = async () => {
-    const applies = await getApplies();
-
+const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|string[] }> }) => {
+    const searchParams = await props.searchParams;
+    let params = new URLSearchParams();;
+    if (Object.keys(searchParams).length > 0) {
+        Object.keys(searchParams).forEach(key => {
+            const value = searchParams[key];
+            if (Array.isArray(value)) {
+                value.forEach(val => params.append(key, val));
+            } else {
+                params.append(key, value);
+            }
+        });
+    }
+    const applies = await getApplies(params);
     // トークンリフレッシュが必要な場合
     if ( applies === null ) return;
+
+    const companies = await getCompanies();
+    // トークンリフレッシュが必要な場合
+    if ( companies === null ) return;
 
     return (
         <>
             <TitleContainer main="応募一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
+                <ApplySearchForm companies={companies} />
+
                 <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                     <Link href='/apply/create'>
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
