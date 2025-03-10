@@ -2,10 +2,10 @@ import { getJWT } from "@/helper";
 import { Company } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
-export const getCompanies = async (): Promise<Company[]|null|never> => {
+export const getCompanies = async (query?: URLSearchParams): Promise<Company[]|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/company`, {
+    const res = await fetch('http://backend/api/company' + ( query ? `?${query}` : '' ), {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });
