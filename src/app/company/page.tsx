@@ -2,13 +2,19 @@ import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
+import CompanySearchForm from "@/features/company/components/CompanySearchForm";
 import { Company } from "@/types";
 import { faCirclePlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-const CompanyPage: React.FC = async () => {
-    const companies = await getCompanies();
+const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: string }> }) => {
+    const searchParams = await props.searchParams;
+    let params;
+    if ( Object.keys(searchParams).length > 0 ) {
+        params = new URLSearchParams(searchParams);
+    }
+    const companies = await getCompanies(params);
 
     // トークンリフレッシュが必要な場合
     if ( companies === null ) return;
@@ -17,6 +23,8 @@ const CompanyPage: React.FC = async () => {
         <>
             <TitleContainer main="企業一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
+                <CompanySearchForm />
+
                 <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                     <Link href='/company/create'>
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>

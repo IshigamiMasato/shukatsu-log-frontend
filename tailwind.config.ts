@@ -15,6 +15,9 @@ export default {
     'text-gray-700',
     'grow',
     'min-h-screen',
+    'w-1/2',
+    'mr-1',
+    'px-2',
   ],
   theme: {
     extend: {
