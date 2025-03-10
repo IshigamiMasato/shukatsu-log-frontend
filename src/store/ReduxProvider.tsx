@@ -19,8 +19,12 @@ const ReduxProvider: React.FC<Props> = ({ children }) => {
         <Provider store={store}>
             <div className="flex flex-col min-h-screen">
                 <Header />
+                <Auth path={path}>
+                    <div className="grow">
+                        { children }
+                    </div>
+                </Auth>
                 <Toast />
-                <Auth path={path}>{ children }</Auth>
                 <Footer />
             </div>
         </Provider>

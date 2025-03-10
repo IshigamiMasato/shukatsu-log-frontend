@@ -91,12 +91,9 @@ const Auth: React.FC<Props> = ({ children, path }) => {
     }, [path]);
 
     return (
-        <div className="grow">
-            { isAuthChecked
-                ? children
-                : <Loading/>
-            }
-        </div>
+        isAuthChecked
+            ? children
+            : <Loading/>
     )
 }
 

@@ -13,6 +13,8 @@ export default {
     'bg-red-600',
     'hover:bg-red-700',
     'text-gray-700',
+    'grow',
+    'min-h-screen',
   ],
   theme: {
     extend: {
