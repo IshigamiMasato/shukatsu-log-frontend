@@ -18,6 +18,7 @@ export default {
     'w-1/2',
     'mr-1',
     'px-2',
+    'mr-2',
   ],
   theme: {
     extend: {

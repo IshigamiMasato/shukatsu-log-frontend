@@ -5,7 +5,7 @@ type LabelProps = {
 
 const Label = ({ label, className } : LabelProps) => {
     return (
-        <label className={`text-sm font-medium text-left w-32 ${className}`}>{ label }</label>
+        <label className={`text-sm font-medium text-left w-32 ${className || ''}`}>{ label }</label>
     )
 }
 
