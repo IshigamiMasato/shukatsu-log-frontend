@@ -1,12 +1,12 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EVENT_TYPES, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import { getApplyStatusSummary } from "@/features/apply/api/getApplyStatusSummary";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { getEvents } from "@/features/event/api/getEvents";
 import { Apply } from "@/types";
-import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronRight, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
@@ -139,23 +139,34 @@ const Home = async () => {
 			<div className="mb-12">
 				<TitleContainer main="直近の予定" sub="一週間以内の予定を表示" />
 				<div className="rounded-lg p-5 bg-white">
-					<div className="bg-gray-100 rounded-lg p-8">
-						{ events.length > 0
-							? (
-								<ul>
-									{events.map(event => {
-										return (
-											<li key={event.event_id} className="flex justify-between items-center list-disc border-b pb-2 text-sm">
-												<span>{event.title}</span>
-												<span className="text-gray-500">{ moment(event.start_at).format('YYYY年MM月DD日 HH時mm分') }〜</span>
+					{ events.length > 0
+						? (
+							<ul>
+								{events.map(event => {
+									return (
+										<Link key={event.event_id} href='/event' className="hover:underline">
+											<li className="border-b pb-2 mb-2">
+												<div>
+													<h3 className="text-base font-medium">{event.title}</h3>
+													<p className="text-sm text-gray-500">{EVENT_TYPES.find(status => status.id == event.type)?.name}</p>
+													<p className="text-sm">{moment(event.start_at).format('YY年MM月DD日 HH時mm分')} 〜 {moment(event.end_at).format('YY年MM月DD日 HH時mm分')}</p>
+												</div>
 											</li>
-										)
-									})}
-								</ul>
-							)
-							: <p className="text-sm">予定はありません。</p>
-						}
-					</div>
+										</Link>
+									)
+								})}
+							</ul>
+						)
+						: (
+							<div>
+								<h3 className="text-base font-medium mb-2">直近の予定はありません。</h3>
+								<div className="flex text-sm items-center text-blue-500 hover:underline">
+									<FontAwesomeIcon icon={faChevronRight} />
+									<Link href='/event/create' className="ml-1">予定を登録する</Link>
+								</div>
+							</div>
+						)
+					}
 				</div>
 			</div>
 
