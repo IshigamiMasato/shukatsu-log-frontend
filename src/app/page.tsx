@@ -1,15 +1,20 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION } from "@/constants/const";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EVENT_TYPES, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import { getApplyStatusSummary } from "@/features/apply/api/getApplyStatusSummary";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { getEvents } from "@/features/event/api/getEvents";
 import { Apply } from "@/types";
-import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faChevronRight, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
+
+const getApplyLink = (status: number) => {
+	const query = new URLSearchParams({ 'status[]': String(status) }).toString();
+	return `/apply?${query}`;
+}
 
 const Home = async () => {
 	const applyStatusSummary = await getApplyStatusSummary();
@@ -56,91 +61,112 @@ const Home = async () => {
 
 			<div className="mb-12">
 				<TitleContainer main="進捗状況" />
-				<div className="rounded-lg p-5 bg-white">
 					<div className="flex flex-wrap justify-between">
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faEnvelope} />
+						<Link href={'/apply'} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faEnvelope} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">総応募数</h3>
+									<span className="text-3xl font-bold">{ totalApply }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">応募数</h3>
-								<span className="text-3xl font-bold">{ totalApply }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faFileLines} />
+						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFileLines} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">書類選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">書類選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faFilePen} />
+						<Link href={getApplyLink(EXAM_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFilePen} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">筆記試験選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">筆記試験選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faPeopleArrows} />
+						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faPeopleArrows} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">面接選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">面接選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faHeart} />
+						<Link href={getApplyLink(OFFER)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faHeart} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">内定</h3>
+									<span className="text-3xl font-bold text-red-500">{ applyStatusSummary.offer_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">内定</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faCheck} />
+						<Link href={getApplyLink(FINAL_RESULT)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faCheck} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">選考終了</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">選考終了</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
-							</div>
-						</div>
+						</Link>
 					</div>
-				</div>
 			</div>
 
 			<div className="mb-12">
 				<TitleContainer main="直近の予定" sub="一週間以内の予定を表示" />
 				<div className="rounded-lg p-5 bg-white">
-					<div className="bg-gray-100 rounded-lg p-8">
-						{ events.length > 0
-							? (
-								<ul>
-									{events.map(event => {
-										return (
-											<li key={event.event_id} className="flex justify-between items-center list-disc border-b pb-2 text-sm">
-												<span>{event.title}</span>
-												<span className="text-gray-500">{ moment(event.start_at).format('YYYY年MM月DD日 HH時mm分') }〜</span>
+					{ events.length > 0
+						? (
+							<ul>
+								{events.map(event => {
+									return (
+										<Link key={event.event_id} href='/event' className="hover:underline">
+											<li className="border-b pb-2 mb-2">
+												<div>
+													<h3 className="text-base font-medium">{event.title}</h3>
+													<p className="text-sm text-gray-500">{EVENT_TYPES.find(status => status.id == event.type)?.name}</p>
+													<p className="text-sm">{moment(event.start_at).format('YY年MM月DD日 HH時mm分')} 〜 {moment(event.end_at).format('YY年MM月DD日 HH時mm分')}</p>
+												</div>
 											</li>
-										)
-									})}
-								</ul>
-							)
-							: <p className="text-sm">予定はありません。</p>
-						}
-					</div>
+										</Link>
+									)
+								})}
+							</ul>
+						)
+						: (
+							<div>
+								<h3 className="text-base font-medium mb-2">直近の予定はありません。</h3>
+								<div className="flex text-sm items-center text-blue-500 hover:underline">
+									<FontAwesomeIcon icon={faChevronRight} />
+									<Link href='/event/create' className="ml-1">予定を登録する</Link>
+								</div>
+							</div>
+						)
+					}
 				</div>
 			</div>
 
