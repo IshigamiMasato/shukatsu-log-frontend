@@ -21,6 +21,7 @@ export const FINAL_RESULT_STATUS = [
     { id: 3, name: "辞退" },
 ];
 
+export const INIT = 0;
 export const DOCUMENT_SELECTION  = 1;
 export const EXAM_SELECTION = 2;
 export const INTERVIEW_SELECTION = 3;
