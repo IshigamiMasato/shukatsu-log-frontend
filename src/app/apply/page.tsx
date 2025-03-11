@@ -1,13 +1,13 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INIT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
+import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER, UNREGISTERED_SELECTION_PROCESS } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import ApplySearchForm from "@/features/apply/components/ApplySearchForm";
 import DocumentSelectionStatusBadge from "@/features/apply/components/DocumentSelectionStatusBadge";
 import ExamSelectionStatusBadge from "@/features/apply/components/ExamSelectionStatusBadge";
 import FinalResultStatusBadge from "@/features/apply/components/FinalResultStatusBadge";
-import InitStatusBadge from "@/features/apply/components/InitStatusBadge";
+import UnregisteredSelectionProcessStatusBadge from "@/features/apply/components/UnregisteredSelectionProcessStatusBadge";
 import InterviewSelectionStatusBadge from "@/features/apply/components/InterviewSelectionStatusBadge";
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
@@ -19,8 +19,8 @@ import { JSX } from "react";
 
 const getBadge = (status: number): JSX.Element|null => {
     switch (status) {
-        case INIT:
-            return <InitStatusBadge />;
+        case UNREGISTERED_SELECTION_PROCESS:
+            return <UnregisteredSelectionProcessStatusBadge />;
         case DOCUMENT_SELECTION:
             return <DocumentSelectionStatusBadge />;
         case EXAM_SELECTION:
@@ -72,7 +72,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                     </div>
                     <div className="flex items-center text-xs font-medium text-nowrap">
                         <p>ステータス：</p>
-                        <InitStatusBadge />
+                        <UnregisteredSelectionProcessStatusBadge />
                         <DocumentSelectionStatusBadge />
                         <ExamSelectionStatusBadge />
                         <InterviewSelectionStatusBadge />
