@@ -3,10 +3,12 @@ import ApplyCreateForm from "@/features/apply/components/ApplyCreateForm";
 import { getCompanies } from "@/features/company/api/getCompanies";
 
 const ApplyCreatePage = async () => {
-    const companies = await getCompanies();
+    const result = await getCompanies();
 
     // トークンリフレッシュが必要な場合
-    if ( companies === null ) return;
+    if ( result === null ) return;
+
+    const companies = result.data;
 
     return (
         <>

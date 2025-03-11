@@ -53,9 +53,10 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
     // トークンリフレッシュが必要な場合
     if ( applies === null ) return;
 
-    const companies = await getCompanies();
+    const resultGetCompanies = await getCompanies(params);
     // トークンリフレッシュが必要な場合
-    if ( companies === null ) return;
+    if ( resultGetCompanies === null ) return;
+    const companies = resultGetCompanies.data;
 
     return (
         <>
