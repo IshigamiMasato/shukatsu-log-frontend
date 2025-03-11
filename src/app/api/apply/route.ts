@@ -11,7 +11,6 @@ export async function POST(request: Request) {
     const formData = await request.formData();
 
     const companyId   = formData.get('company_id');
-    const status      = formData.get('status');
     const occupation  = formData.get('occupation');
     const apply_route = formData.get('apply_route');
     const memo        = formData.get('memo');
@@ -22,8 +21,7 @@ export async function POST(request: Request) {
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
                 company_id: companyId,
-                status: status,
-                occupation: occupation ? occupation : null,
+                occupation: occupation,
                 apply_route: apply_route ? apply_route : null,
                 memo: memo ? memo : null,
             })
