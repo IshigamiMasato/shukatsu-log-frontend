@@ -10,16 +10,14 @@ import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
-import { APPLY_STATUS } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
-import { Company } from "@/types";
+import { Apply, Company } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
     const [companyId, setCompanyId]   = useState<number|undefined>(undefined);
-    const [status, setStatus]         = useState<number|undefined>(undefined);
     const [occupation, setOccupation] = useState<string>("");
     const [applyRoute, setApplyRoute] = useState<string>("");
     const [memo, setMemo]             = useState<string>("");
@@ -50,9 +48,9 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                 return;
             }
 
-            res.json().then(newApply => {
-                dispatch( dispToast({ status: "success", message: `企業名：${newApply.company.name} への応募登録が完了しました。` }) );
-                router.push('/apply');
+            res.json().then((newApply:Apply) => {
+                dispatch( dispToast({ status: "success", message: '応募登録が完了しました。引き続き選考履歴を登録してください。' }) );
+                router.push(`/apply/${newApply.apply_id}/process/create`);
             });
         })
     }
@@ -81,26 +79,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                     { validationErrors.company_id && <ValidationErrorMsg errors={validationErrors.company_id} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="ステータス" /><RequiredBadge />
-                    <Select
-                        name="status"
-                        value={ status ?? "" }
-                        onChange={ (e) => setStatus( Number(e.target.value) ) }
-                        errors={validationErrors.status}
-                    >
-                        <option value="">選択してください</option>
-                        {APPLY_STATUS.map(apply => {
-                            return (
-                                <option key={ apply.id } value={ apply.id }>
-                                    { apply.name }
-                                </option>
-                            )
-                        })}
-                    </Select>
-                    { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
-                </FormItem>
-                <FormItem>
-                    <Label label="職種" />
+                    <Label label="職種" /><RequiredBadge />
                     <Input
                         type="text"
                         name="occupation"
