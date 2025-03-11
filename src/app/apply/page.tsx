@@ -12,7 +12,7 @@ import InterviewSelectionStatusBadge from "@/features/apply/components/Interview
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import { Apply } from "@/types";
-import { faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { JSX } from "react";
@@ -96,6 +96,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                                 <th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
                                 <th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
                                 <th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
                                 <th scope="col" className="px-6 py-3 text-nowrap">編集</th>
                                 <th scope="col" className="px-6 py-3 text-nowrap">削除</th>
                             </tr>
@@ -117,7 +118,14 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
                                             <Link href={`/apply/${apply.apply_id}/process`}>
                                                 <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                        <FontAwesomeIcon icon={faClockRotateLeft} />
+                                                    <FontAwesomeIcon icon={faClockRotateLeft} />
+                                                </ActionContainer>
+                                            </Link>
+                                        </td>
+                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                            <Link href={`/company/${apply.company_id}`}>
+                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                    <FontAwesomeIcon icon={faBuilding} />
                                                 </ActionContainer>
                                             </Link>
                                         </td>

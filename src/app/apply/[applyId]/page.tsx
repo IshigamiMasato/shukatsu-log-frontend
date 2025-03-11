@@ -7,7 +7,7 @@ import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { getApply } from "@/features/apply/api/getApply";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
-import { faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
@@ -23,9 +23,15 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
         <>
             <BackLink />
             <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
-                <div className="flex justify-between items-center mb-5">
-                    <h2 className="text-lg font-semibold text-nowrap">応募詳細</h2>
-                    <div className="flex flex-wrap justify-end text-nowrap space-x-1">
+                <h2 className="text-lg font-semibold text-nowrap mb-5">応募詳細</h2>
+                <div className="flex items-center justify-between overflow-x-auto mb-5">
+                    <div />
+                    <div className="flex items-center text-nowrap space-x-1">
+                        <Link href={`/company/${apply.company_id}`}>
+                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                    <FontAwesomeIcon icon={faBuilding} /><span className="ml-1">企業詳細</span>
+                            </ActionContainer>
+                        </Link>
                         <Link href={`/apply/${apply.apply_id}/process`}>
                             <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                     <FontAwesomeIcon icon={faClockRotateLeft} /><span className="ml-1">選考履歴</span>

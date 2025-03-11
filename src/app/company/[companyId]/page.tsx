@@ -22,9 +22,10 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
         <>
             <BackLink />
             <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
-                <div className="flex justify-between items-center mb-5">
-                    <h2 className="text-lg font-semibold">企業詳細</h2>
-                    <div className="flex text-nowrap space-x-1">
+                <h2 className="text-lg font-semibold text-nowrap mb-5">企業詳細</h2>
+                <div className="flex items-center justify-between overflow-x-auto mb-5">
+                    <div />
+                    <div className="flex items-center text-nowrap space-x-1">
                         <Link href={`/company/${companyId}/edit`}>
                             <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                 <FontAwesomeIcon icon={faPenToSquare} /><span className="ml-1">編集</span>
