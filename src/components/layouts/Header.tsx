@@ -59,10 +59,10 @@ const Header = () => {
                 { isAuthenticated && isOpen && (
                     <div className="md:hidden">
                         <ul>
-                            <li><Link href="/event" className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">スケジュール</Link></li>
-                            <li><Link href="/company" className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">企業</Link></li>
-                            <li><Link href="/apply" className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">応募</Link></li>
-                            <li><Link href="/user" className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">会員情報</Link></li>
+                            <li><Link href="/event" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">スケジュール</Link></li>
+                            <li><Link href="/company" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">企業</Link></li>
+                            <li><Link href="/apply" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">応募</Link></li>
+                            <li><Link href="/user" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">会員情報</Link></li>
                             <li>
                                 <Button onClick={handleLogout} className="hover:bg-gray-50 w-full !text-left">
                                     <FontAwesomeIcon icon={faRightFromBracket}/>
