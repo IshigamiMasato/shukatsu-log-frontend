@@ -12,7 +12,7 @@ import InterviewSelectionStatusBadge from "@/features/apply/components/Interview
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getEvents } from "@/features/event/api/getEvents";
 import { Apply } from "@/types";
-import { faCheck, faChevronRight, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faCheck, faChevronRight, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
@@ -224,6 +224,7 @@ const Home = async () => {
 									<th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
+									<th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">編集</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">削除</th>
 								</tr>
@@ -249,6 +250,13 @@ const Home = async () => {
 													</ActionContainer>
 												</Link>
 											</td>
+											<td className="px-6 py-3 font-medium whitespace-nowrap">
+												<Link href={`/company/${apply.company_id}`}>
+													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+														<FontAwesomeIcon icon={faBuilding} />
+													</ActionContainer>
+												</Link>
+                                        	</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
 												<Link href={`/apply/${apply.apply_id}/edit`}>
 													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
