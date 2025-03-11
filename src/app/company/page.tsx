@@ -25,11 +25,11 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <CompanySearchForm />
 
-                <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
-                    <Link href='/company/create'>
+                <Link href='/company/create'>
+                    <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
-                    </Link>
-                </ActionContainer>
+                    </ActionContainer>
+                </Link>
 
                 <div className="overflow-x-auto shadow-md rounded-lg border">
                     <table className="w-full text-sm text-left">
@@ -52,18 +52,18 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                <Link href={`/company/${company.company_id}/edit`}>
+                                            <Link href={`/company/${company.company_id}/edit`}>
+                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
                                                     <FontAwesomeIcon icon={faPenToSquare} />
-                                                </Link>
-                                            </ActionContainer>
+                                                </ActionContainer>
+                                            </Link>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-                                                <CompanyDeleteButton companyId={company.company_id}>
+                                            <CompanyDeleteButton companyId={company.company_id}>
+                                                <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
                                                     <FontAwesomeIcon icon={faTrash} />
-                                                </CompanyDeleteButton>
-                                            </ActionContainer>
+                                                </ActionContainer>
+                                            </CompanyDeleteButton>
                                         </td>
                                     </tr>
                                 );

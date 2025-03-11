@@ -77,11 +77,11 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                     </div>
                 </div>
 
-                <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
-                    <Link href='/apply/create'>
+                <Link href='/apply/create'>
+                    <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
-                    </Link>
-                </ActionContainer>
+                    </ActionContainer>
+                </Link>
 
                 <div className="overflow-x-auto shadow-md rounded-lg border">
                     <table className="w-full text-sm text-left">
@@ -111,25 +111,25 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                <Link href={`/apply/${apply.apply_id}/process`}>
-                                                    <FontAwesomeIcon icon={faClockRotateLeft} />
-                                                </Link>
-                                            </ActionContainer>
+                                            <Link href={`/apply/${apply.apply_id}/process`}>
+                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                        <FontAwesomeIcon icon={faClockRotateLeft} />
+                                                </ActionContainer>
+                                            </Link>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                <Link href={`/apply/${apply.apply_id}/edit`}>
-                                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                                </Link>
-                                            </ActionContainer>
+                                            <Link href={`/apply/${apply.apply_id}/edit`}>
+                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                                </ActionContainer>
+                                            </Link>
                                         </td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-                                                <ApplyDeleteButton applyId={apply.apply_id}>
-                                                    <FontAwesomeIcon icon={faTrash} />
-                                                </ApplyDeleteButton>
-                                            </ActionContainer>
+                                            <ApplyDeleteButton applyId={apply.apply_id}>
+                                                <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
+                                                        <FontAwesomeIcon icon={faTrash} />
+                                                </ActionContainer>
+                                            </ApplyDeleteButton>
                                         </td>
                                     </tr>
                                 );

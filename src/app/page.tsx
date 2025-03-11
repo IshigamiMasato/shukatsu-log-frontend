@@ -66,23 +66,23 @@ const Home = async () => {
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
 			<div className="flex justify-start flex-wrap mb-4">
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-					<Link href='/event/create'>
+				<Link href='/event/create'>
+					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
 						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">予定登録</span>
-					</Link>
-				</ActionContainer>
+					</ActionContainer>
+				</Link>
 
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-					<Link href='/company/create'>
-						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
-					</Link>
-				</ActionContainer>
+				<Link href='/company/create'>
+					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
+							<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
+					</ActionContainer>
+				</Link>
 
-				<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-					<Link href='/apply/create'>
+				<Link href='/apply/create'>
+					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
 						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
-					</Link>
-				</ActionContainer>
+					</ActionContainer>
+				</Link>
 			</div>
 
 			<div className="mb-12">
@@ -241,25 +241,25 @@ const Home = async () => {
 											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-													<Link href={`/apply/${apply.apply_id}/process`}>
+												<Link href={`/apply/${apply.apply_id}/process`}>
+													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
 														<FontAwesomeIcon icon={faClockRotateLeft} />
-													</Link>
-												</ActionContainer>
+													</ActionContainer>
+												</Link>
 											</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-													<Link href={`/apply/${apply.apply_id}/edit`}>
+												<Link href={`/apply/${apply.apply_id}/edit`}>
+													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
 														<FontAwesomeIcon icon={faPenToSquare} />
-													</Link>
-												</ActionContainer>
+													</ActionContainer>
+												</Link>
 											</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-													<ApplyDeleteButton applyId={apply.apply_id}>
+												<ApplyDeleteButton applyId={apply.apply_id}>
+													<ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
 														<FontAwesomeIcon icon={faTrash} />
-													</ApplyDeleteButton>
-												</ActionContainer>
+													</ActionContainer>
+												</ApplyDeleteButton>
 											</td>
 										</tr>
 									);
