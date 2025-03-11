@@ -1,6 +1,6 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { DOCUMENT_SELECTION, EVENT_TYPES, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
+import { DOCUMENT_SELECTION, EVENT_TYPES, EXAM_SELECTION, FINAL_RESULT, INIT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import { getApplyStatusSummary } from "@/features/apply/api/getApplyStatusSummary";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
@@ -25,17 +25,17 @@ const getApplyLink = (status: number) => {
 
 const getBadge = (status: number): JSX.Element|null => {
     switch (status) {
-        case 0:
+        case INIT:
             return <InitStatusBadge />;
-        case 1:
+        case DOCUMENT_SELECTION:
             return <DocumentSelectionStatusBadge />;
-        case 2:
+        case EXAM_SELECTION:
             return <ExamSelectionStatusBadge />;
-        case 3:
+        case INTERVIEW_SELECTION:
             return <InterviewSelectionStatusBadge />;
-        case 4:
+        case OFFER:
             return <OfferStatusBadge />;
-        case 5:
+        case FINAL_RESULT:
             return <FinalResultStatusBadge />;
         default:
             return null;
