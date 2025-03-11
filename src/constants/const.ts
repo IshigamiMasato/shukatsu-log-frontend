@@ -8,6 +8,7 @@ export const EVENT_TYPES = [
 ];
 
 export const APPLY_STATUS = [
+    { id: 0, name: "選考履歴未登録" },
     { id: 1, name: "書類選考中" },
     { id: 2, name: "筆記試験選考中" },
     { id: 3, name: "面接選考中" },

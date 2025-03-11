@@ -5,7 +5,7 @@ import FormItem from "@/components/containers/FormItem";
 import FormTitle from "@/components/containers/FormTitle";
 import Label from "@/components/elements/Label";
 import Select from "@/components/elements/Select";
-import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INIT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import DocumentCreateForm from "@/features/apply/document/components/DocumentCreateForm";
 import ExamCreateForm from "@/features/apply/exam/components/ExamCreateForm";
 import FinalResultCreateForm from "@/features/apply/final_result/components/FinalResultCreateForm";
@@ -27,7 +27,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
                     onChange={ (e) => setStatus( Number(e.target.value) ) }
                 >
                     <option value="">選択してください</option>
-                    {APPLY_STATUS.map(apply => {
+                    {APPLY_STATUS.filter(apply => apply.id !== INIT).map(apply => {
                         return (
                             <option key={ apply.id } value={ apply.id }>
                                 { apply.name }
