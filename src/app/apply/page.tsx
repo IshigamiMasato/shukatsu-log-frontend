@@ -49,13 +49,16 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
             }
         });
     }
-    const applies = await getApplies(params);
+    const resultGetApplies = await getApplies(params);
     // トークンリフレッシュが必要な場合
-    if ( applies === null ) return;
+    if ( resultGetApplies === null ) return;
+    const applies = resultGetApplies.data;
+    const total = resultGetApplies.total;
 
-    const companies = await getCompanies();
+    const resultGetCompanies = await getCompanies(params);
     // トークンリフレッシュが必要な場合
-    if ( companies === null ) return;
+    if ( resultGetCompanies === null ) return;
+    const companies = resultGetCompanies.data;
 
     return (
         <>
@@ -65,7 +68,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
 
                 <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
                     <div className="text-gray-500 text-nowrap">
-                        登録数：<span className="font-semibold text-black">10</span>件
+                        登録数：<span className="font-semibold text-black">{ total }</span>件
                     </div>
                     <div className="flex items-center text-xs font-medium text-nowrap">
                         <p>ステータス：</p>

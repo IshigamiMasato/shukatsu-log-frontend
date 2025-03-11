@@ -59,9 +59,11 @@ const Home = async () => {
 	[ DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION ].forEach(status => {
 		applyParams.append('status[]', String(status));
 	});
-	const applies = await getApplies(applyParams);
-	// トークンリフレッシュが必要な場合
-	if ( applies === null ) return;
+	const resultGetApplies = await getApplies(applyParams);
+    // トークンリフレッシュが必要な場合
+    if ( resultGetApplies === null ) return;
+    const applies = resultGetApplies.data;
+    const progressTotal = resultGetApplies.total;
 
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
@@ -201,7 +203,7 @@ const Home = async () => {
 				<div className="rounded-lg p-5 bg-white">
 					<div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
 						<div className="text-gray-500 text-nowrap">
-							選考中件数：<span className="font-semibold text-black">10</span>件
+							選考中件数：<span className="font-semibold text-black">{ progressTotal }</span>件
 						</div>
 						<div className="flex items-center text-xs font-medium text-nowrap">
 							<p>ステータス：</p>

@@ -2,7 +2,7 @@ import { getJWT } from "@/helper";
 import { Company } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
-export const getCompanies = async (query?: URLSearchParams): Promise<Company[]|null|never> => {
+export const getCompanies = async (query?: URLSearchParams): Promise<{ data: Company[], total: number }|null|never> => {
     const jwt = await getJWT();
 
     const res = await fetch('http://backend/api/company' + ( query ? `?${query}` : '' ), {
@@ -29,7 +29,7 @@ export const getCompanies = async (query?: URLSearchParams): Promise<Company[]|n
         throw new Error( `Failed fetch companies. (status=${res.status}, data=${JSON.stringify(data)})` );
     }
 
-    const companies: Company[] = await res.json();
+    const json: { data: Company[], total: number }  = await res.json();
 
-    return companies;
+    return json;
 }

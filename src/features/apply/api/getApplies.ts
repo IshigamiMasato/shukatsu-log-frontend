@@ -2,7 +2,7 @@ import { getJWT } from "@/helper";
 import { Apply } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
-export const getApplies = async (query?: URLSearchParams): Promise<Apply[]|null|never> => {
+export const getApplies = async (query?: URLSearchParams): Promise<{ data: Apply[], total: number }|null|never> => {
     const jwt = await getJWT();
 
     const res = await fetch('http://backend/api/apply' + ( query ? `?${query}` : '' ), {
@@ -29,7 +29,7 @@ export const getApplies = async (query?: URLSearchParams): Promise<Apply[]|null|
         throw new Error( `Failed fetch applies. (status=${res.status}, data=${JSON.stringify(data)})` );
     }
 
-    const applies: Apply[] = await res.json();
+    const json: { data: Apply[], total: number }  = await res.json();
 
-    return applies;
+    return json;
 }

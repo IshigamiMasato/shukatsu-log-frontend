@@ -14,16 +14,24 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
     if ( Object.keys(searchParams).length > 0 ) {
         params = new URLSearchParams(searchParams);
     }
-    const companies = await getCompanies(params);
-
+    const result = await getCompanies(params);
     // トークンリフレッシュが必要な場合
-    if ( companies === null ) return;
+    if ( result === null ) return;
+
+    const companies = result.data;
+    const total = result.total;
 
     return (
         <>
             <TitleContainer main="企業一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <CompanySearchForm />
+
+                <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
+                    <div className="text-gray-500 text-nowrap">
+                        登録数：<span className="font-semibold text-black">{ total }</span>件
+                    </div>
+                </div>
 
                 <Link href='/company/create'>
                     <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
