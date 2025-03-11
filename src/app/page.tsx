@@ -1,6 +1,6 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, INTERVIEW_SELECTION } from "@/constants/const";
+import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import { getApplyStatusSummary } from "@/features/apply/api/getApplyStatusSummary";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
@@ -10,6 +10,11 @@ import { faCheck, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFi
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
+
+const getApplyLink = (status: number) => {
+	const query = new URLSearchParams({ 'status[]': String(status) }).toString();
+	return `/apply?${query}`;
+}
 
 const Home = async () => {
 	const applyStatusSummary = await getApplyStatusSummary();
@@ -56,69 +61,79 @@ const Home = async () => {
 
 			<div className="mb-12">
 				<TitleContainer main="進捗状況" />
-				<div className="rounded-lg p-5 bg-white">
 					<div className="flex flex-wrap justify-between">
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faEnvelope} />
+						<Link href={'/apply'} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faEnvelope} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">総応募数</h3>
+									<span className="text-3xl font-bold">{ totalApply }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">応募数</h3>
-								<span className="text-3xl font-bold">{ totalApply }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faFileLines} />
+						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFileLines} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">書類選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">書類選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faFilePen} />
+						<Link href={getApplyLink(EXAM_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFilePen} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">筆記試験選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">筆記試験選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faPeopleArrows} />
+						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faPeopleArrows} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">面接選考中</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">面接選考中</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faHeart} />
+						<Link href={getApplyLink(OFFER)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faHeart} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">内定</h3>
+									<span className="text-3xl font-bold text-red-500">{ applyStatusSummary.offer_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">内定</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
-							</div>
-						</div>
+						</Link>
 
-						<div className="basis-1/2 md:basis-1/3 flex items-center space-x-4 p-4 hover:bg-gray-50 cursor-pointer border border-gray-100 rounded-md">
-							<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-								<FontAwesomeIcon icon={faCheck} />
+						<Link href={getApplyLink(FINAL_RESULT)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faCheck} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">選考終了</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
+								</div>
 							</div>
-							<div>
-								<h3 className="text-gray-400 text-base md:text-lg">選考終了</h3>
-								<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
-							</div>
-						</div>
+						</Link>
 					</div>
-				</div>
 			</div>
 
 			<div className="mb-12">
