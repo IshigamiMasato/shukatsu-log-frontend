@@ -56,11 +56,11 @@ const EventPage = () => {
 
             <TitleContainer main="スケジュール" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mx-0 mb-3">
-                    <Link href='/event/create'>
+                <Link href='/event/create'>
+                    <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mx-0 mb-3">
                         <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">予定登録</span>
-                    </Link>
-                </ActionContainer>
+                    </ActionContainer>
+                </Link>
 
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
