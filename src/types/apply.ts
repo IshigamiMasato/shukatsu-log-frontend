@@ -14,6 +14,7 @@ export type Apply = {
 }
 
 export type ApplyStatusSummary = {
+    init_status_summary: string,
     document_selection_summary: string,
     exam_selection_summary: string,
     interview_selection_summary: string,
