@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ProcessContainer from "@/components/containers/ProcessContainer";
 import ActionContainer from "@/components/containers/ActionContainer";
-import TitleContainer from "@/components/containers/TitleContainer";
 import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
 import { getProcess } from "@/features/apply/api/process/getProcess";
+import BackLink from "@/components/BackLink";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
@@ -24,13 +24,19 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
 
     return (
         <>
-            <TitleContainer main="選考履歴一覧" />
-            <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <Link href={`/apply/${applyId}/process/create`}>
-                    <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
-                            <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">選考履歴登録</span>
-                    </ActionContainer>
-                </Link>
+            <BackLink />
+            <div className="w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg">
+                <h2 className="text-lg font-semibold text-nowrap mb-5">選考履歴</h2>
+                <div className="flex items-center justify-between overflow-x-auto mb-5">
+                    <div />
+                    <div className="flex items-center text-nowrap space-x-1">
+                        <Link href={`/apply/${applyId}/process/create`}>
+                            <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
+                                <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">選考履歴登録</span>
+                            </ActionContainer>
+                        </Link>
+                    </div>
+                </div>
 
                 {process.map((value : any) => {
                     if ( value.type == DOCUMENT_SELECTION ) {
