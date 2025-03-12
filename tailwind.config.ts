@@ -37,6 +37,7 @@ export default {
     'py-0.5',
     'rounded-full',
     'text-nowrap',
+    'justify-end',
   ],
   theme: {
     extend: {
