@@ -12,6 +12,7 @@ import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { useRouter } from "next/navigation";
 
 const OfferCreateForm = ({ applyId } : { applyId : number }) => {
     const [offerDate, setOfferDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -20,6 +21,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ offer_date?: []; salary?: []; condition?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
@@ -45,6 +47,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
             }
 
             dispatch( dispToast({ status: "success", message: `内定情報の登録が完了しました。` }) );
+            router.push(`/apply/${applyId}/process`);
         })
     }
 

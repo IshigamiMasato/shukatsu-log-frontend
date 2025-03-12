@@ -12,6 +12,7 @@ import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import FormTitle from "@/components/containers/FormTitle";
+import { useRouter } from "next/navigation";
 
 const ExamCreateForm = ({ applyId } : { applyId : number }) => {
     const [examDate, setExamDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -19,6 +20,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ exam_date?: []; memo?: []; content?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
@@ -44,6 +46,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
             }
 
             dispatch( dispToast({ status: "success", message: `試験情報の登録が完了しました。` }) );
+            router.push(`/apply/${applyId}/process`);
         })
     }
 

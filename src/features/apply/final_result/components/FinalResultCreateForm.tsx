@@ -12,12 +12,14 @@ import { dispToast } from "@/store/modules/toast";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { useRouter } from "next/navigation";
 
 const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
     const [status, setStatus] = useState<number>();
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ status?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
@@ -43,6 +45,7 @@ const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
             }
 
             dispatch( dispToast({ status: "success", message: `選考終了情報の登録が完了しました。` }) );
+            router.push(`/apply/${applyId}/process`);
         })
     }
 

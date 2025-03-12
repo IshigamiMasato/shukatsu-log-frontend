@@ -12,6 +12,7 @@ import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
+import { useRouter } from "next/navigation";
 
 const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
     const [interviewDate, setInterviewDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -19,6 +20,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ interview_date?: []; interviewer_info?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
@@ -44,6 +46,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
             }
 
             dispatch( dispToast({ status: "success", message: `面接情報の登録が完了しました。` }) );
+            router.push(`/apply/${applyId}/process`);
         })
     }
 
