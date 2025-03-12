@@ -13,14 +13,15 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/containers/FormTitle";
 import { FILE_COUNT, MAX_FILE_SIZE } from "@/constants/const";
+import { useRouter } from "next/navigation";
 
 const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
     const [files, setFiles] = useState<(File|undefined)[]>([]);
     const [memo, setMemo] = useState<string>("");
     const [validationErrors, setValidationErrors] = useState< Record<string, string[]> >({}); // file_${index} のように動的に値にアクセスするため、Recordで型定義
-
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const fileToBase64 = async ( file : File ): Promise<string> => {
         return new Promise((resolve, reject) => {
@@ -80,11 +81,12 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
                         setValidationErrors(res.errors);
                     }
                 })
-                dispatch( dispToast({ status: "error", message: `書類の登録に失敗しました。もう一度お試しください。` }) );
+                dispatch( dispToast({ status: "error", message: `応募書類の登録に失敗しました。もう一度お試しください。` }) );
                 return;
             }
 
-            dispatch( dispToast({ status: "success", message: `書類の登録が完了しました。` }) );
+            dispatch( dispToast({ status: "success", message: `応募書類の登録が完了しました。` }) );
+            router.push(`/apply/${applyId}/process`);
         })
     }
 
