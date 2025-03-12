@@ -65,6 +65,14 @@ const EventPage = () => {
                 <FullCalendar
                     plugins={[ dayGridPlugin ]}
                     initialView="dayGridMonth"
+                    headerToolbar={
+                        {
+                            start: '',
+                            center: 'title',
+                            end: 'today prev,next'
+                        }
+                    }
+                    buttonText={{ today:  '今日' }}
                     events={
                         events.map(event => {
                             return { id: String(event.event_id), title: event.title, start: event.start_at, end: event.end_at };

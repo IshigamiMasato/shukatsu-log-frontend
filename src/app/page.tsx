@@ -12,11 +12,12 @@ import InterviewSelectionStatusBadge from "@/features/apply/components/Interview
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getEvents } from "@/features/event/api/getEvents";
 import { Apply } from "@/types";
-import { faBuilding, faCheck, faChevronRight, faCirclePlus, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faCheck, faChevronRight, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
 import { JSX } from "react";
+import Button from "@/components/elements/Button";
 
 const getApplyLink = (status: number) => {
 	const query = new URLSearchParams({ 'status[]': String(status) }).toString();
@@ -67,30 +68,26 @@ const Home = async () => {
 
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
-			<div className="flex justify-start flex-wrap mb-4">
-				<Link href='/event/create'>
-					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">予定登録</span>
-					</ActionContainer>
-				</Link>
-
-				<Link href='/company/create'>
-					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-							<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">企業登録</span>
-					</ActionContainer>
-				</Link>
-
-				<Link href='/apply/create'>
-					<ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white m-1">
-						<FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
-					</ActionContainer>
-				</Link>
-			</div>
+			{ Number(applyStatusSummary.unregistered_selection_process_summary) > 0 && (
+				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-red-100 rounded-lg">
+					<div className="flex space-x-2">
+						<div className="text-white bg-red-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
+							<FontAwesomeIcon icon={faVolumeHigh} />
+						</div>
+						<h3 className="text-base font-medium">選考履歴が登録されていない応募があります。</h3>
+					</div>
+					<div>
+						<Link href={getApplyLink(UNREGISTERED_SELECTION_PROCESS)}>
+							<Button className="bg-red-600 hover:bg-red-700 text-white">選考履歴を登録する</Button>
+						</Link>
+					</div>
+				</div>
+			)}
 
 			<div className="mb-12">
 				<TitleContainer main="進捗状況" />
 					<div className="flex flex-wrap justify-between">
-						<Link href={'/apply'} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={'/apply'} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faEnvelope} />
@@ -102,7 +99,7 @@ const Home = async () => {
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faFileLines} />
@@ -114,7 +111,7 @@ const Home = async () => {
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(EXAM_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={getApplyLink(EXAM_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faFilePen} />
@@ -126,7 +123,7 @@ const Home = async () => {
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faPeopleArrows} />
@@ -138,7 +135,7 @@ const Home = async () => {
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(OFFER)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={getApplyLink(OFFER)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faHeart} />
@@ -150,7 +147,7 @@ const Home = async () => {
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(FINAL_RESULT)} className="basis-1/2 md:basis-1/3 bg-white p-4 hover:bg-gray-50 border border-gray-100 rounded-md">
+						<Link href={getApplyLink(FINAL_RESULT)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
 							<div className="flex items-center space-x-4">
 								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faCheck} />
@@ -166,7 +163,7 @@ const Home = async () => {
 
 			<div className="mb-12">
 				<TitleContainer main="直近の予定" sub="一週間以内の予定を表示" />
-				<div className="rounded-lg p-5 bg-white">
+				<div className="rounded-lg p-8 bg-white">
 					{ events.length > 0
 						? (
 							<ul>
@@ -200,7 +197,7 @@ const Home = async () => {
 
 			<div className="">
 				<TitleContainer main="選考中の応募" />
-				<div className="rounded-lg p-5 bg-white">
+				<div className="rounded-lg p-8 bg-white">
 					<div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
 						<div className="text-gray-500 text-nowrap">
 							選考中件数：<span className="font-semibold text-black">{ progressTotal }</span>件
