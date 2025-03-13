@@ -17,7 +17,6 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import Input from "@/components/elements/Input";
 import moment from "moment";
-import FileDeleteButton from "@/features/apply/document/file/components/FileDeleteButton";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
@@ -49,22 +48,13 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">応募書類提出日 { document.submission_date }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
                                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">応募書類提出</h3>
-                                                <FormItem>
-                                                    <Label label="メモ" />
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ document.memo ?? "" }
-                                                        disabled={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
                                                 { document.files.length > 0 && (
                                                     <div className="mb-5 space-y-2">
                                                         {document.files.map(file => {
                                                             return (
                                                                 <div key={`file_${file.file_id}`} className="border p-4 rounded-md overflow-x-auto">
                                                                     <FormItem>
-                                                                        <Label label="ファイル名" />
+                                                                        <Label label="応募書類" />
                                                                         <Input
                                                                             type="text"
                                                                             name="name"
@@ -79,17 +69,21 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                                                 <FontAwesomeIcon icon={faDownload} /><span className="ml-1">ダウンロード</span>
                                                                             </FileDownloadButton>
                                                                         </ActionContainer>
-                                                                        <FileDeleteButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
-                                                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-                                                                                <FontAwesomeIcon icon={faTrash} /><span className="ml-1">ファイル削除</span>
-                                                                            </ActionContainer>
-                                                                        </FileDeleteButton>
                                                                     </div>
                                                                 </div>
                                                             )
                                                         })}
                                                     </div>
                                                 )}
+                                                <FormItem>
+                                                    <Label label="メモ" />
+                                                    <Textarea
+                                                        name="memo"
+                                                        value={ document.memo ?? "" }
+                                                        disabled={true}
+                                                        className="text-gray-500 bg-gray-100"
+                                                    />
+                                                </FormItem>
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/document/${document.document_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">

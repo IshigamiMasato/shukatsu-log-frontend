@@ -28,7 +28,7 @@ const FileDeleteButton = ({ applyId, documentId, fileId, children } : Props) => 
 
                 }
                 dispatch( dispToast({ status: "success", message: `ファイルを削除しました。` }) );
-                router.push(`/apply/${applyId}/process`);
+                router.push(`/apply/${applyId}/document/${documentId}/edit`);
             });
         }
     }
