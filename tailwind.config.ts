@@ -38,6 +38,7 @@ export default {
     'rounded-full',
     'text-nowrap',
     'justify-end',
+    'p-5',
   ],
   theme: {
     extend: {
