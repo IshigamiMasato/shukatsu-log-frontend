@@ -31,3 +31,6 @@ export const FINAL_RESULT = 5;
 
 export const FILE_COUNT = 5;
 export const MAX_FILE_SIZE = 1024 * 1024; // 1MB
+
+export const DEFAULT_PAGE = 1;
+export const PER_PAGE = 10;
