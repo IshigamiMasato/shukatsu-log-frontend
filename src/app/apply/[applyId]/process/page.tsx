@@ -17,6 +17,7 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import Input from "@/components/elements/Input";
 import moment from "moment";
+import FileDeleteButton from "@/features/apply/document/file/components/FileDeleteButton";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
@@ -72,11 +73,18 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                                             className="text-gray-500 bg-gray-100"
                                                                         />
                                                                     </FormItem>
-                                                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                                        <FileDownloadButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
-                                                                            <FontAwesomeIcon icon={faDownload} /><span className="ml-1">ダウンロード</span>
-                                                                        </FileDownloadButton>
-                                                                    </ActionContainer>
+                                                                    <div className="flex flex-wrap text-nowrap space-x-1">
+                                                                        <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                                            <FileDownloadButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
+                                                                                <FontAwesomeIcon icon={faDownload} /><span className="ml-1">ダウンロード</span>
+                                                                            </FileDownloadButton>
+                                                                        </ActionContainer>
+                                                                        <FileDeleteButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
+                                                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
+                                                                                <FontAwesomeIcon icon={faTrash} /><span className="ml-1">ファイル削除</span>
+                                                                            </ActionContainer>
+                                                                        </FileDeleteButton>
+                                                                    </div>
                                                                 </div>
                                                             )
                                                         })}
