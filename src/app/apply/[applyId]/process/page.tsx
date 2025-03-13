@@ -5,7 +5,7 @@ import InterviewDeleteButton from "@/features/apply/interview/components/Intervi
 import OfferDeleteButton from "@/features/apply/offer/components/OfferDeleteButton";
 import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, FINAL_RESULT_STATUS, INTERVIEW_SELECTION, OFFER } from "@/constants/const";
 import { Document, Exam, FinalResult, Interview, Offer } from "@/types";
-import { faCirclePlus, faDownload, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCircleCheck, faCirclePlus, faDownload, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ActionContainer from "@/components/containers/ActionContainer";
@@ -244,10 +244,13 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                     const finalResult: FinalResult = value;
                                     return (
                                         <li key={`final_result_${finalResult.final_result_id}`} className="mb-10 ms-6">
-                                            <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
+                                            <div className="absolute w-3 h-3 bg-purple-500 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">選考終了情報作成日 { moment(finalResult.created_at).format('YYYY-MM-DD') }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">選考終了情報</h3>
+                                                <h3 className="text-lg font-semibold text-white bg-purple-500 rounded-3xl p-1.5 mb-1 inline-block">
+                                                    <FontAwesomeIcon icon={faCircleCheck} />
+                                                    <span className="ml-1">選考終了</span>
+                                                </h3>
                                                 <FormItem>
                                                     <Label label="ステータス" />
                                                     <Input
