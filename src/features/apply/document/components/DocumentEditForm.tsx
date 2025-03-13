@@ -1,5 +1,6 @@
 "use client";
 
+import ActionContainer from "@/components/containers/ActionContainer";
 import FormContainer from "@/components/containers/FormContainer";
 import FormItem from "@/components/containers/FormItem";
 import FormTitle from "@/components/containers/FormTitle";
@@ -9,24 +10,70 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import RequiredBadge from "@/components/elements/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
+import { FILE_COUNT, MAX_FILE_SIZE } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
 import { Document } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import FileDeleteButton from "../file/components/FileDeleteButton";
+import { useRouter } from "next/navigation";
+
+const fileToBase64 = async ( file : File ): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(new Error('ファイル読み込み失敗'));
+
+        reader.readAsDataURL(file);
+    });
+}
 
 const DocumentEditForm = ({ document } : { document: Document }) => {
     const [submissionDate, setSubmissionDate] = useState<string>(document.submission_date);
     const [memo, setMemo] = useState<string>(document.memo ?? "");
-    const [validationErrors, setValidationErrors] = useState<{ submission_date?: []; memo?: []; }>({});
+    const [files, setFiles] = useState<(File|undefined)[]>([]);
+    const [validationErrors, setValidationErrors] = useState< Record<string, string[]> >({}); // file_${index} のように動的に値にアクセスするため、Recordで型定義
     const dispatch = useDispatch();
+    const router = useRouter();
 
-    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
         const formData = new FormData(form);
+
+        let isValidFileSize = true;
+        for (let i = 1; i <= FILE_COUNT; i++) {
+            try {
+                const file = files[i];
+
+                if ( file ) {
+                    // ファイルサイズのみフロントでバリデーションチェック
+                    if ( file.size > MAX_FILE_SIZE ) {
+                        isValidFileSize = false;
+                        setValidationErrors( prev => ({ ...prev, [`file_${i}`]: ["ファイルサイズは10MB以下としてください。"] }) );
+                    }
+
+                    const base64File = await fileToBase64(file);
+                    formData.append(`files[]`, base64File);
+                }
+
+            } catch ( error ) {
+                console.error(error);
+                dispatch( dispToast({ status: "error", message: "ファイルのアップロードに失敗しました。" }) );
+                return;
+            }
+        }
+
+        // ファイルサイズのバリデーションに引っかかっている場合
+        if ( ! isValidFileSize ) {
+            return;
+        }
 
         fetch(`/api/apply/${document.apply_id}/document/${document.document_id}`, {
             method: "PUT",
@@ -48,6 +95,8 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                 setMemo(newDocument.memo ?? "");
 
                 dispatch( dispToast({ status: "success", message: `提出書類の更新が完了しました。` }) );
+                // ファイル情報を更新したいためリロード
+                router.refresh();
             });
         })
     }
@@ -57,7 +106,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
             <FormTitle>応募書類編集フォーム</FormTitle>
             <form onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="書類提出日" /><RequiredBadge />
+                    <Label label="応募書類提出日" /><RequiredBadge />
                     <Input
                         type="date"
                         name="submission_date"
@@ -66,6 +115,57 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                         errors={validationErrors.submission_date}
                     />
                     { validationErrors.submission_date && <ValidationErrorMsg errors={validationErrors.submission_date} /> }
+                </FormItem>
+                { document.files.length > 0 && (
+                    <div className="mb-5 space-y-2">
+                        {document.files.map(file => {
+                            return (
+                                <div key={`file_${file.file_id}`} className="border p-4 rounded-md overflow-x-auto">
+                                    <FormItem>
+                                        <Label label="応募書類" />
+                                        <Input
+                                            type="text"
+                                            name="name"
+                                            value={ file.name }
+                                            disabled={true}
+                                            className="text-gray-500 bg-gray-100"
+                                        />
+                                    </FormItem>
+                                    <div className="flex flex-wrap text-nowrap space-x-1">
+                                        <FileDeleteButton applyId={document.apply_id} documentId={document.document_id} fileId={file.file_id}>
+                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
+                                                <FontAwesomeIcon icon={faTrash} /><span className="ml-1">ファイル削除</span>
+                                            </ActionContainer>
+                                        </FileDeleteButton>
+                                    </div>
+                                </div>
+                            )
+                        })}
+                    </div>
+                )}
+                <FormItem>
+                {
+                    [...Array(FILE_COUNT - document.files.length)].map((v, i) => {
+                        const index = i + 1; // indexを1スタートとする
+
+                        return (
+                            <FormItem key={`file_${index}`}>
+                                <Label label="応募書類" />
+                                <Input
+                                    type="file"
+                                    name={`file_${index}`}
+                                    onChange={ (e) => {
+                                        const newFiles = [...files];
+                                        newFiles[index] = e.target.files?.[0];
+                                        setFiles(newFiles);
+                                    }}
+                                    errors={validationErrors[`file_${index}`]}
+                                />
+                                { validationErrors[`file_${index}`] && <ValidationErrorMsg errors={validationErrors[`file_${index}`]} /> }
+                            </FormItem>
+                        )
+                    })
+                }
                 </FormItem>
                 <FormItem>
                     <Label label="メモ" />

@@ -39,6 +39,7 @@ export async function PUT(request: Request, { params } : {params: Promise<{ appl
     const formData = await request.formData();
 
     const submissionDate = formData.get('submission_date');
+    const files = formData.getAll('files[]');
     const memo = formData.get('memo');
 
     try {
@@ -47,6 +48,7 @@ export async function PUT(request: Request, { params } : {params: Promise<{ appl
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
                 submission_date: submissionDate,
+                files: files,
                 memo: memo ? memo : null,
             })
         });
