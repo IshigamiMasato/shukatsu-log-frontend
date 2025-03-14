@@ -1,6 +1,6 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { DEFAULT_PAGE, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER, PER_PAGE, UNREGISTERED_SELECTION_PROCESS } from "@/constants/const";
+import { DEFAULT_PAGE, PER_PAGE } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import ApplySearchForm from "@/features/apply/components/ApplySearchForm";
@@ -15,32 +15,13 @@ import { Apply } from "@/types";
 import { faBuilding, faChevronLeft, faChevronRight, faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import { JSX } from "react";
+import getBadge from "@/features/apply/getBadge";
 
 const getPageLink = (page: number, params: URLSearchParams) => {
 	params.set('page', String(page));
     params.set('offset', String((Number(page) - 1) * PER_PAGE));
     params.set('limit', String(PER_PAGE));
 	return `/apply?${params}`;
-}
-
-const getBadge = (status: number): JSX.Element|null => {
-    switch (status) {
-        case UNREGISTERED_SELECTION_PROCESS:
-            return <UnregisteredSelectionProcessStatusBadge />;
-        case DOCUMENT_SELECTION:
-            return <DocumentSelectionStatusBadge />;
-        case EXAM_SELECTION:
-            return <ExamSelectionStatusBadge />;
-        case INTERVIEW_SELECTION:
-            return <InterviewSelectionStatusBadge />;
-        case OFFER:
-            return <OfferStatusBadge />;
-        case FINAL_RESULT:
-            return <FinalResultStatusBadge />;
-        default:
-            return null;
-    }
 }
 
 const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|string[] }> }) => {
