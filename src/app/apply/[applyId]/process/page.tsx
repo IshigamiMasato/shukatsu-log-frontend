@@ -211,9 +211,9 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                 <FormItem>
                                                     <Label label="年収" />
                                                     <Input
-                                                        type="number"
+                                                        type="text"
                                                         name="name"
-                                                        value={ offer.salary ?? "" }
+                                                        value={ offer.salary ? offer.salary.toLocaleString() : '' }
                                                         disabled={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />

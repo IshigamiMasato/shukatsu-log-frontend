@@ -77,8 +77,9 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                         type="number"
                         name="salary"
                         value={ salary ?? "" }
-                        onChange={ e => setSalary(Number(e.target.value)) }
+                        onChange={ e => setSalary( e.target.value ? Number(e.target.value) : undefined) }
                         errors={validationErrors.salary}
+                        min={1}
                     />
                     { validationErrors.salary && <ValidationErrorMsg errors={validationErrors.salary} /> }
                 </FormItem>

@@ -124,14 +124,16 @@ const CompanySearchForm = () => {
                             type="number"
                             name="from_employee_number"
                             value={ fromEmployeeNumber ?? "" }
-                            onChange={ e => setFromEmployeeNumber(Number(e.target.value)) }
+                            onChange={ e => setFromEmployeeNumber( e.target.value ? Number(e.target.value) : undefined ) }
+                            min={1}
                         />
                         〜
                         <Input
                             type="number"
                             name="to_employee_number"
                             value={ toEmployeeNumber ?? "" }
-                            onChange={ e => setToEmployeeNumber(Number(e.target.value)) }
+                            onChange={ e => setToEmployeeNumber( e.target.value ? Number(e.target.value) : undefined ) }
+                            min={1}
                         />
                     </div>
                 </FormItem>

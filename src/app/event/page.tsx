@@ -2,7 +2,7 @@ import { getEvents } from "@/features/event/api/getEvents";
 import Calendar from "@/features/event/components/Calendar";
 
 export const metadata = {
-	title: `予定 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+	title: `予定一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
 }
 
 const EventPage = async () => {
