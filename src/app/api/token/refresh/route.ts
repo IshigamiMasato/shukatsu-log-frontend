@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     }
 
     try {
-        const res = await fetch('http://backend/api/token/refresh', {
+        const res = await fetch(`${process.env.API_URL}/api/token/refresh`, {
             method: "POST",
             headers: {
                 "Content-Type"  : "application/json",

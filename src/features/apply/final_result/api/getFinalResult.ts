@@ -1,11 +1,11 @@
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { notFound, redirect } from "next/navigation";
 import { FinalResult } from "@/types";
 
 export const getFinalResult = async (applyId: number, finalResultId: number): Promise<FinalResult|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/apply/${applyId}/final_result/${finalResultId}`, {
+    const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/final_result/${finalResultId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });

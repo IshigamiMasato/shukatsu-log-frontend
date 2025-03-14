@@ -1,11 +1,11 @@
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { notFound, redirect } from "next/navigation";
 import { Interview } from "@/types";
 
 export const getInterview = async (applyId: number, interviewId: number): Promise<Interview|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/apply/${applyId}/interview/${interviewId}`, {
+    const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/interview/${interviewId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });

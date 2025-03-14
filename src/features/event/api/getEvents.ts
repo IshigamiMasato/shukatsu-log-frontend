@@ -1,11 +1,11 @@
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { Event } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
 export const getEvents = async (query?: URLSearchParams): Promise<Event[]|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch('http://backend/api/event' + ( query ? `?${query}` : '' ), {
+    const res = await fetch(`${process.env.API_URL}/api/event` + ( query ? `?${query}` : '' ), {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });

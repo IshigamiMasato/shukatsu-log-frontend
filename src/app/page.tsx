@@ -16,31 +16,12 @@ import { faBuilding, faCheck, faChevronRight, faClockRotateLeft, faEnvelope, faF
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
-import { JSX } from "react";
 import Button from "@/components/elements/Button";
+import getBadge from "@/features/apply/getBadge";
 
 const getApplyLink = (status: number) => {
 	const query = new URLSearchParams({ 'status[]': String(status) }).toString();
 	return `/apply?${query}`;
-}
-
-const getBadge = (status: number): JSX.Element|null => {
-    switch (status) {
-        case UNREGISTERED_SELECTION_PROCESS:
-            return <UnregisteredSelectionProcessStatusBadge />;
-        case DOCUMENT_SELECTION:
-            return <DocumentSelectionStatusBadge />;
-        case EXAM_SELECTION:
-            return <ExamSelectionStatusBadge />;
-        case INTERVIEW_SELECTION:
-            return <InterviewSelectionStatusBadge />;
-        case OFFER:
-            return <OfferStatusBadge />;
-        case FINAL_RESULT:
-            return <FinalResultStatusBadge />;
-        default:
-            return null;
-    }
 }
 
 const Home = async () => {

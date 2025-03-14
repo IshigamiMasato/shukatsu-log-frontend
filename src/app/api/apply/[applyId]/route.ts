@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 
 export async function GET(request: Request, { params } : {params: Promise<{ applyId: string }>}) {
     const applyId = (await params).applyId;
@@ -11,7 +11,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ appl
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}`, {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });
@@ -44,7 +44,7 @@ export async function PUT(request: Request, { params } : {params: Promise<{ appl
     const memo        = formData.get('memo');
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
@@ -76,7 +76,7 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });

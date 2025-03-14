@@ -1,11 +1,11 @@
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { Company } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
 export const getCompanies = async (query: URLSearchParams): Promise<{ data: Company[], total: number }|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch('http://backend/api/company' + ( !query.toString() ? '' : `?${query}` ), {
+    const res = await fetch(`${process.env.API_URL}/api/company` + ( !query.toString() ? '' : `?${query}` ), {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });
