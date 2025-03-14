@@ -39,7 +39,7 @@ const Header = () => {
                     { isAuthenticated && (
                         <>
                             <div className="space-x-4 hidden md:flex items-center text-nowrap">
-                                <Link href="/event">スケジュール</Link>
+                                <Link href="/event">予定</Link>
                                 <Link href="/company">企業</Link>
                                 <Link href="/apply">応募</Link>
                                 <Link href="/user">会員情報</Link>
@@ -59,7 +59,7 @@ const Header = () => {
                 { isAuthenticated && isOpen && (
                     <div className="md:hidden">
                         <ul>
-                            <li><Link href="/event" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">スケジュール</Link></li>
+                            <li><Link href="/event" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">予定</Link></li>
                             <li><Link href="/company" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">企業</Link></li>
                             <li><Link href="/apply" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">応募</Link></li>
                             <li><Link href="/user" onClick={() => setIsOpen(false)} className="block font-medium text-sm px-5 py-2.5 hover:bg-gray-50 border-b">会員情報</Link></li>

@@ -21,6 +21,10 @@ import CompanyDetail from "@/features/apply/process/components/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
 import BackLink from "@/components/navigations/BackLink";
 
+export const metadata = {
+	title: `選考履歴一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+}
+
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 

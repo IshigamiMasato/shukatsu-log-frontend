@@ -11,6 +11,10 @@ import { faBuilding, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawes
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
+export const metadata = {
+	title: `応募詳細 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+}
+
 const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 

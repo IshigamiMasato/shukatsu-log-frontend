@@ -17,6 +17,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import getBadge from "@/features/apply/getBadge";
 
+export const metadata = {
+	title: `応募一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+}
+
 const getPageLink = (page: number, params: URLSearchParams) => {
 	params.set('page', String(page));
     params.set('offset', String((Number(page) - 1) * PER_PAGE));

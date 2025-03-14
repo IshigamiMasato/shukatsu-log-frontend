@@ -10,6 +10,10 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
+export const metadata = {
+	title: `企業詳細 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+}
+
 const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: number }> }) => {
     const companyId = (await params).companyId;
 

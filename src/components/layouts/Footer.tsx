@@ -17,7 +17,7 @@ const Footer = () => {
                     <div>
                         { isAuthenticated && (
                             <div className="flex flex-col items-start text-nowrap text-sm text-gray-500">
-                                <Link href="/event">スケジュール</Link>
+                                <Link href="/event">予定</Link>
                                 <Link href="/company">企業</Link>
                                 <Link href="/apply">応募</Link>
                                 <Link href="/user">会員情報</Link>
