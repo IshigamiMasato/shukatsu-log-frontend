@@ -19,6 +19,10 @@ import Link from "next/link";
 import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
 
+export const metadata = {
+	title: process.env.NEXT_PUBLIC_APP_NAME,
+}
+
 const getApplyLink = (status: number) => {
 	const query = new URLSearchParams({ 'status[]': String(status) }).toString();
 	return `/apply?${query}`;

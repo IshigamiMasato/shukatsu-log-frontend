@@ -1,5 +1,9 @@
 import { getUser } from "@/features/user/api/getUser";
 
+export const metadata = {
+	title: `会員情報 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+}
+
 const UserPage = async () => {
     const user = await getUser();
 
