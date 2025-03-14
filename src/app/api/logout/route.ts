@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     }
 
     try {
-        const res = await fetch('http://backend/api/logout', {
+        const res = await fetch(`${process.env.API_URL}/api/logout`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });

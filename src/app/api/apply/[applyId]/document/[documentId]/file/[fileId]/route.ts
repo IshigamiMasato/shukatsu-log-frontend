@@ -41,7 +41,7 @@ export async function DELETE(request: Request, { params } : {params: Promise<{ a
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}/document/${documentId}/file/${fileId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/document/${documentId}/file/${fileId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });

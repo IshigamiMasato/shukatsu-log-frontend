@@ -4,7 +4,7 @@ import { notFound, redirect } from "next/navigation";
 export const getProcess = async (applyId: number): Promise<object[]|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/apply/${applyId}/process`, {
+    const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/process`, {
         method: "GET",
         headers: {Authorization: `Bearer ${jwt}`}
     });
@@ -28,7 +28,7 @@ export const getProcess = async (applyId: number): Promise<object[]|null|never> 
         throw new Error( `Failed fetch process. (status=${res.status}, data=${JSON.stringify(data)})` );
     }
 
-    const process = await res.json();
+    const processData = await res.json();
 
-    return process;
+    return processData;
 }

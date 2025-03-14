@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const res = await fetch('http://backend/api/company', {
+        const res = await fetch(`${process.env.API_URL}/api/company`, {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });
@@ -45,7 +45,7 @@ export async function POST(request: Request) {
     const memo           = formData.get('memo');
 
     try {
-        const res = await fetch('http://backend/api/company', {
+        const res = await fetch(`${process.env.API_URL}/api/company`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({

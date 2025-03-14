@@ -5,7 +5,7 @@ import { notFound, redirect } from "next/navigation";
 export const getExam = async (applyId: number, examId: number): Promise<Exam|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/apply/${applyId}/exam/${examId}`, {
+    const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/exam/${examId}`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });

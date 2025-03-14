@@ -11,7 +11,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ appl
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}/final_result/${finalResultId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/final_result/${finalResultId}`, {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });
@@ -42,7 +42,7 @@ export async function PUT(request: Request, { params } : {params: Promise<{ appl
     const memo = formData.get('memo');
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}/final_result/${finalResultId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/final_result/${finalResultId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
@@ -73,7 +73,7 @@ export async function DELETE(request: Request, { params } : {params: Promise<{ a
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}/final_result/${finalResultId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/final_result/${finalResultId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });

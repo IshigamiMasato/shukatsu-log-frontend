@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     }
 
     try {
-        const res = await fetch('http://backend/api/user', {
+        const res = await fetch(`${process.env.API_URL}/api/user`, {
             method: "GET",
             headers: {
                 "Content-Type"  : "application/json",

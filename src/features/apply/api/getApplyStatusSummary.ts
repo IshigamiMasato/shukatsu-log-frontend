@@ -5,7 +5,7 @@ import { notFound, redirect } from "next/navigation";
 export const getApplyStatusSummary = async (): Promise<ApplyStatusSummary|null|never> => {
     const jwt = await getJWT();
 
-    const res = await fetch(`http://backend/api/apply/status-summary`, {
+    const res = await fetch(`${process.env.API_URL}/api/apply/status-summary`, {
         method: "GET",
         headers: { Authorization: `Bearer ${jwt}` }
     });

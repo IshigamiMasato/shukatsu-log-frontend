@@ -19,7 +19,7 @@ export async function PUT( request: Request, { params } : {params: Promise<{ eve
     const memo    = formData.get('memo');
 
     try {
-        const res = await fetch(`http://backend/api/event/${eventId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/event/${eventId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
@@ -52,7 +52,7 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
     }
 
     try {
-        const res = await fetch(`http://backend/api/event/${eventId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/event/${eventId}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
         });

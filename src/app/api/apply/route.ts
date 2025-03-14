@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const memo        = formData.get('memo');
 
     try {
-        const res = await fetch('http://backend/api/apply', {
+        const res = await fetch(`${process.env.API_URL}/api/apply`, {
             method: "POST",
             headers: { "Content-Type": "application/json", "Authorization" : `Bearer ${jwt}` },
             body: JSON.stringify({
