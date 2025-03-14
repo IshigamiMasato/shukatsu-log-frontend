@@ -3,7 +3,7 @@ import ApplyCreateForm from "@/features/apply/components/ApplyCreateForm";
 import { getCompanies } from "@/features/company/api/getCompanies";
 
 const ApplyCreatePage = async () => {
-    const result = await getCompanies();
+    const result = await getCompanies(new URLSearchParams());
 
     // トークンリフレッシュが必要な場合
     if ( result === null ) return;
