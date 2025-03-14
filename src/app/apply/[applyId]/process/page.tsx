@@ -36,7 +36,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                     </ActionContainer>
                 </Link>
 
-                { true ?
+                { process.length > 0 ?
                     (
                         <ol className="relative border-s border-gray-200">
                             { process.map((value: any) => {
