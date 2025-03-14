@@ -17,10 +17,14 @@ import FormTitle from "@/components/forms/FormTitle";
 import { useRouter } from "next/navigation";
 
 const EventCreateForm = () => {
+    const now = moment();
+    const initStartAt = now.clone().minutes(0).seconds(0);
+    const initEndAt = initStartAt.clone().add(1, 'hour');
+
     const [title, setTitle]     = useState<string>("");
     const [type, setType]       = useState<number|null>(null);
-    const [startAt, setStartAt] = useState<string>( moment().format("YYYY-MM-DD HH:mm") );
-    const [endAt, setEndAt]     = useState<string>( moment().format("YYYY-MM-DD HH:mm") );
+    const [startAt, setStartAt] = useState<string>( initStartAt.format("YYYY-MM-DD HH:mm") );
+    const [endAt, setEndAt]     = useState<string>( initEndAt.format("YYYY-MM-DD HH:mm") );
     const [memo, setMemo]       = useState<string>("");
     const [validationErrors, setValidationErrors] = useState<{ title?: []; type?: []; start_at?: []; end_at?: []; memo?: []; }>({});
     const dispatch = useDispatch();
