@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 import { cookies } from "next/headers";
 
 export async function POST(request: Request) {

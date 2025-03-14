@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 
 export async function PUT( request: Request, { params } : {params: Promise<{ eventId: string }>} ) {
     const eventId = (await params).eventId;

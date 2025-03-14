@@ -6,3 +6,5 @@ export const getJWT = async (): Promise<string|undefined> => {
 
     return jwtCookie?.value;
 }
+
+export default getJWT;

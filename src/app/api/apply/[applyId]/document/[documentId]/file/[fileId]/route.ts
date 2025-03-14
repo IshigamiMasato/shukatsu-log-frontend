@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import { getJWT } from "@/helper";
+import getJWT from "@/server/utils/getJWT";
 
 export async function GET(request: Request, { params } : {params: Promise<{ applyId: number, documentId: number, fileId: number }>}) {
     const { applyId, documentId, fileId } = await params;
@@ -11,7 +11,7 @@ export async function GET(request: Request, { params } : {params: Promise<{ appl
     }
 
     try {
-        const res = await fetch(`http://backend/api/apply/${applyId}/document/${documentId}/file/${fileId}`, {
+        const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/document/${documentId}/file/${fileId}`, {
             method: "GET",
             headers: { "Authorization" : `Bearer ${jwt}` },
         });
