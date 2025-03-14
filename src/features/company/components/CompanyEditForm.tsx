@@ -131,8 +131,9 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                         type="number"
                         name="employee_number"
                         value={ employeeNumber ?? "" }
-                        onChange={ e => setEmployeeNumber(Number(e.target.value)) }
+                        onChange={ e => setEmployeeNumber( e.target.value ? Number(e.target.value) : undefined ) }
                         errors={validationErrors.employee_number}
+                        min={1}
                     />
                     { validationErrors.employee_number && <ValidationErrorMsg errors={validationErrors.employee_number} /> }
                 </FormItem>

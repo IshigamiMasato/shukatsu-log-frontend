@@ -72,9 +72,9 @@ const CompanyDetail = ({company} : {company: Company}) => {
                 <FormItem className="w-1/2 px-2">
                     <Label label="従業員数" />
                     <Input
-                        type="number"
+                        type="text"
                         name="employee_number"
-                        value={ company.employee_number ?? "" }
+                        value={ company.employee_number ? company.employee_number.toLocaleString() : '' }
                         disabled={true}
                         className="text-gray-500 bg-gray-100"
                     />
