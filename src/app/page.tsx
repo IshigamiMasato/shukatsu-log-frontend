@@ -199,16 +199,16 @@ const Home = async () => {
 					</div>
 					<div className="overflow-x-auto shadow-md rounded-lg border">
 						<table className="w-full text-sm text-left">
-							<thead className="text-xs bg-gray-50">
+							<thead className="text-xs bg-gray-100">
 								<tr>
 									<th scope="col" className="px-6 py-3 text-nowrap">企業名 / 職種</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">ステータス</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">編集</th>
 									<th scope="col" className="px-6 py-3 text-nowrap">削除</th>
+									<th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
+									<th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -223,8 +223,6 @@ const Home = async () => {
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
                                             	{ getBadge(apply.status) }
                                         	</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
 											<td className="px-6 py-3 font-medium whitespace-nowrap">
 												<Link href={`/apply/${apply.apply_id}/process`}>
 													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -253,6 +251,8 @@ const Home = async () => {
 													</ActionContainer>
 												</ApplyDeleteButton>
 											</td>
+											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
+											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
 										</tr>
 									);
 								})}

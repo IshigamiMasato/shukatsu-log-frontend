@@ -79,13 +79,15 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
 
                 <div className="overflow-x-auto shadow-md rounded-lg border">
                     <table className="w-full text-sm text-left">
-                        <thead className="text-xs bg-gray-50">
+                        <thead className="text-xs bg-gray-100">
                             <tr>
-                                <th scope="col" className="px-6 py-3">企業名</th>
-                                <th scope="col" className="px-6 py-3">登録日時</th>
-                                <th scope="col" className="px-6 py-3">更新日時</th>
-                                <th scope="col" className="px-6 py-3">編集</th>
-                                <th scope="col" className="px-6 py-3">削除</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">企業名</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">企業URL</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">従業員数</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">編集</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">削除</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
+                                <th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,8 +97,12 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
                                             <Link href={`/company/${company.company_id}`} className="text-blue-500 hover:underline">{ company.name }</Link>
                                         </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
+                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                            <Link href={company.url ?? "#"} legacyBehavior>
+                                                <a target="_blank" rel="noopener noreferrer">{ company.url }</a>
+                                            </Link>
+                                        </td>
+                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.employee_number?.toLocaleString() }</td>
                                         <td className="px-6 py-3 font-medium whitespace-nowrap">
                                             <Link href={`/company/${company.company_id}/edit`}>
                                                 <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -111,6 +117,8 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
                                                 </ActionContainer>
                                             </CompanyDeleteButton>
                                         </td>
+                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.created_at }</td>
+                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.updated_at }</td>
                                     </tr>
                                 );
                             })}
