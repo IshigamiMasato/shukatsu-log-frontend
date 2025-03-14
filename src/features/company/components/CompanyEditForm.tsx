@@ -71,7 +71,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
             <FormTitle>企業編集フォーム</FormTitle>
             <form onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="企業名" /><RequiredBadge />
+                    <Label>企業名</Label><RequiredBadge />
                     <Input
                         type="text"
                         name="name"
@@ -82,7 +82,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.name && <ValidationErrorMsg errors={validationErrors.name} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="企業URL" />
+                    <Label>企業URL</Label>
                     <Input
                         type="text"
                         name="url"
@@ -93,7 +93,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.url && <ValidationErrorMsg errors={validationErrors.url} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="社長名" />
+                    <Label>社長名</Label>
                     <Input
                         type="text"
                         name="president"
@@ -104,7 +104,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.president && <ValidationErrorMsg errors={validationErrors.president} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="住所" />
+                    <Label>住所</Label>
                     <Input
                         type="text"
                         name="address"
@@ -115,7 +115,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.address && <ValidationErrorMsg errors={validationErrors.address} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="設立年月日" />
+                    <Label>設立年月日</Label>
                     <Input
                         type="date"
                         name="establish_date"
@@ -126,7 +126,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.establish_date && <ValidationErrorMsg errors={validationErrors.establish_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="従業員数" />
+                    <Label>従業員数</Label>
                     <Input
                         type="number"
                         name="employee_number"
@@ -138,7 +138,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.employee_number && <ValidationErrorMsg errors={validationErrors.employee_number} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="上場区分" />
+                    <Label>上場区分</Label>
                     <Input
                         type="text"
                         name="listing_class"
@@ -149,7 +149,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.listing_class && <ValidationErrorMsg errors={validationErrors.listing_class} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="福利厚生" />
+                    <Label>福利厚生</Label>
                     <Textarea
                         name="benefit"
                         value={ benefit }
@@ -159,7 +159,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                     { validationErrors.benefit && <ValidationErrorMsg errors={validationErrors.benefit} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

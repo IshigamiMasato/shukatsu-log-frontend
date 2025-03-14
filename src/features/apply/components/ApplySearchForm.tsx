@@ -67,7 +67,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
             <div className={`p-5 border border-gray-200 rounded-lg shadow-md ${!isOpen && 'hidden'}`}>
                 <div className="flex flex-wrap justify-start items-center">
                     <FormItem className="w-1/2 px-2">
-                        <Label label="企業" />
+                        <Label>企業</Label>
                         <Select
                             name="company_id"
                             value={ companyId ?? "" }
@@ -101,7 +101,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                         })}
                     </FormItem>
                     <FormItem className="w-1/2 px-2">
-                        <Label label="職種" />
+                        <Label>職種</Label>
                         <Input
                             type="text"
                             name="occupation"
@@ -110,7 +110,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                         />
                     </FormItem>
                     <FormItem className="w-1/2 px-2">
-                        <Label label="応募経路" />
+                        <Label>応募経路</Label>
                         <Input
                             type="text"
                             name="apply_route"
@@ -119,7 +119,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                         />
                     </FormItem>
                     <FormItem className="w-1/2 px-2">
-                        <Label label="メモ" />
+                        <Label>メモ</Label>
                         <Input
                             type="text"
                             name="memo"

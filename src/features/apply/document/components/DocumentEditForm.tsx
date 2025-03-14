@@ -106,7 +106,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
             <FormTitle>応募書類編集フォーム</FormTitle>
             <form onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="応募書類提出日" /><RequiredBadge />
+                    <Label>応募書類提出日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="submission_date"
@@ -122,7 +122,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                             return (
                                 <div key={`file_${file.file_id}`} className="border p-4 rounded-md overflow-x-auto">
                                     <FormItem>
-                                        <Label label="応募書類" />
+                                        <Label>応募書類</Label>
                                         <Input
                                             type="text"
                                             name="name"
@@ -150,7 +150,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
 
                         return (
                             <FormItem key={`file_${index}`}>
-                                <Label label="応募書類" />
+                                <Label>応募書類</Label>
                                 <Input
                                     type="file"
                                     name={`file_${index}`}
@@ -168,7 +168,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                 }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

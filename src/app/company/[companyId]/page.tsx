@@ -44,7 +44,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                 </div>
 
                 <FormItem>
-                    <Label label="企業名" />
+                    <Label>企業名</Label>
                     <Input
                         type="text"
                         name="name"
@@ -54,7 +54,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="企業URL" />
+                    <Label>企業URL</Label>
                     <Input
                         type="text"
                         name="url"
@@ -64,7 +64,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="社長名" />
+                    <Label>社長名</Label>
                     <Input
                         type="text"
                         name="president"
@@ -74,7 +74,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="住所" />
+                    <Label>住所</Label>
                     <Input
                         type="text"
                         name="address"
@@ -84,7 +84,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="設立年月日" />
+                    <Label>設立年月日</Label>
                     <Input
                         type="date"
                         name="establish_date"
@@ -94,7 +94,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="従業員数" />
+                    <Label>従業員数</Label>
                     <Input
                         type="text"
                         name="employee_number"
@@ -104,7 +104,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="上場区分" />
+                    <Label>上場区分</Label>
                     <Input
                         type="text"
                         name="listing_class"
@@ -114,7 +114,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="福利厚生" />
+                    <Label>福利厚生</Label>
                     <Textarea
                         name="benefit"
                         value={ company.benefit ?? "" }
@@ -123,7 +123,7 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ company.memo ?? "" }

@@ -55,7 +55,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
             <FormTitle>面接情報登録</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="面接日" /><RequiredBadge />
+                    <Label>面接日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="interview_date"
@@ -66,7 +66,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.interview_date && <ValidationErrorMsg errors={validationErrors.interview_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="面接官情報" />
+                    <Label>面接官情報</Label>
                     <Textarea
                         name="interviewer_info"
                         value={ interviewerInfo }
@@ -76,7 +76,7 @@ const InterviewCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.interviewer_info && <ValidationErrorMsg errors={validationErrors.interviewer_info} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

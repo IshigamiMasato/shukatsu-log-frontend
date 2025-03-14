@@ -59,7 +59,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
             <FormTitle>面接情報編集フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="面接日" /><RequiredBadge />
+                    <Label>面接日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="interview_date"
@@ -70,7 +70,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
                     { validationErrors.interview_date && <ValidationErrorMsg errors={validationErrors.interview_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="面接官情報" />
+                    <Label>面接官情報</Label>
                     <Textarea
                         name="interviewer_info"
                         value={ interviewerInfo }
@@ -80,7 +80,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
                     { validationErrors.interviewer_info && <ValidationErrorMsg errors={validationErrors.interviewer_info} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

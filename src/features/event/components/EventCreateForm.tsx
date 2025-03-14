@@ -61,7 +61,7 @@ const EventCreateForm = () => {
             <FormTitle>予定登録フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="タイトル" /><RequiredBadge />
+                    <Label>タイトル</Label><RequiredBadge />
                     <Input
                         type="text"
                         name="title"
@@ -73,7 +73,7 @@ const EventCreateForm = () => {
                     { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="タイプ" /><RequiredBadge /><br />
+                    <Label>タイプ</Label><RequiredBadge /><br />
                     {
                         EVENT_TYPES.map(value => {
                             return (
@@ -94,7 +94,7 @@ const EventCreateForm = () => {
                     { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="開始" /><RequiredBadge />
+                    <Label>開始</Label><RequiredBadge />
                     <Input
                         type="datetime-local"
                         name="start_at"
@@ -106,7 +106,7 @@ const EventCreateForm = () => {
                     { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="終了" /><RequiredBadge />
+                    <Label>終了</Label><RequiredBadge />
                     <Input
                         type="datetime-local"
                         name="end_at"
@@ -118,7 +118,7 @@ const EventCreateForm = () => {
                     { validationErrors.end_at && <ValidationErrorMsg errors={validationErrors.end_at} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

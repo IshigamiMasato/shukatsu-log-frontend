@@ -55,7 +55,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                 </div>
 
                 <FormItem>
-                    <Label label="企業名" />
+                    <Label>企業名</Label>
                     <Input
                         type="text"
                         name="name"
@@ -65,7 +65,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="企業URL" />
+                    <Label>企業URL</Label>
                     <Input
                         type="text"
                         name="url"
@@ -75,7 +75,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="職種" />
+                    <Label>職種</Label>
                     <Input
                         type="text"
                         name="occupation"
@@ -85,7 +85,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="選考ステータス" />
+                    <Label>選考ステータス</Label>
                     <Input
                         type="text"
                         name="status"
@@ -95,7 +95,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="応募経路" />
+                    <Label>応募経路</Label>
                     <Input
                         type="text"
                         name="apply_route"
@@ -105,7 +105,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ apply.memo ?? "" }

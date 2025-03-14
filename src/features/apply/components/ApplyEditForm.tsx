@@ -62,7 +62,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
             <FormTitle>応募編集フォーム</FormTitle>
             <form method="PUT" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="企業" /><RequiredBadge />
+                    <Label>企業</Label><RequiredBadge />
                     <Input
                         type="text"
                         name="name"
@@ -72,7 +72,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                     />
                 </FormItem>
                 <FormItem>
-                    <Label label="ステータス" /><RequiredBadge />
+                    <Label>ステータス</Label><RequiredBadge />
                     <Select
                         name="status"
                         value={ status }
@@ -91,7 +91,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                     { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
                 </FormItem>
                 <FormItem>
-                    <Label label="職種" />
+                    <Label>職種</Label>
                     <Input
                         type="text"
                         name="occupation"
@@ -102,7 +102,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                     { validationErrors.occupation && <p className="text-red-500">{ validationErrors.occupation.join(',') }</p> }
                 </FormItem>
                 <FormItem>
-                    <Label label="応募経路" />
+                    <Label>応募経路</Label>
                     <Input
                         type="text"
                         name="apply_route"
@@ -113,7 +113,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                     { validationErrors.apply_route && <p className="text-red-500">{ validationErrors.apply_route.join(',') }</p> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

@@ -1,11 +1,16 @@
 type LabelProps = {
-    label: string,
+    children: React.ReactNode,
     className?: string,
-}
+} & React.LabelHTMLAttributes<HTMLLabelElement>;
 
-const Label = ({ label, className } : LabelProps) => {
+const Label = ({ children, className, ... props } : LabelProps) => {
     return (
-        <label className={`text-sm font-medium text-left w-32 ${className || ''}`}>{ label }</label>
+        <label
+            className={`text-sm font-medium text-left w-32 ${className || ''}`}
+            { ...props }
+        >
+            { children }
+        </label>
     )
 }
 

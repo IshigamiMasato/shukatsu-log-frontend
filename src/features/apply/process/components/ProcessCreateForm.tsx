@@ -20,7 +20,7 @@ const ProcessCreateForm = ({ applyId } : { applyId : number }) => {
         <FormContainer>
             <FormTitle>選考履歴登録フォーム</FormTitle>
             <FormItem>
-                <Label label="ステータス" />
+                <Label>ステータス</Label>
                 <Select
                     name="status"
                     value={ status }

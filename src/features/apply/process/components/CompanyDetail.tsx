@@ -20,7 +20,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
             </button>
             <div className={`flex flex-wrap justify-center items-center p-5 border border-gray-200 rounded-lg shadow-md bg-white  ${!isOpen && 'hidden'}`}>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="企業名" />
+                    <Label>企業名</Label>
                     <Input
                         type="text"
                         name="name"
@@ -30,7 +30,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="企業URL" />
+                    <Label>企業URL</Label>
                     <Input
                         type="text"
                         name="url"
@@ -40,7 +40,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="社長名" />
+                    <Label>社長名</Label>
                     <Input
                         type="text"
                         name="president"
@@ -50,7 +50,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="住所" />
+                    <Label>住所</Label>
                     <Input
                         type="text"
                         name="address"
@@ -60,7 +60,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="設立年月日" />
+                    <Label>設立年月日</Label>
                     <Input
                         type="date"
                         name="establish_date"
@@ -70,7 +70,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="従業員数" />
+                    <Label>従業員数</Label>
                     <Input
                         type="text"
                         name="employee_number"
@@ -80,7 +80,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="上場区分" />
+                    <Label>上場区分</Label>
                     <Input
                         type="text"
                         name="listing_class"
@@ -93,7 +93,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     <div />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="福利厚生" />
+                    <Label>福利厚生</Label>
                     <Textarea
                         name="benefit"
                         value={ company.benefit ?? "" }
@@ -102,7 +102,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ company.memo ?? "" }

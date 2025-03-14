@@ -109,7 +109,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
 
                 <form onSubmit={onSubmit}>
                     <FormItem>
-                        <Label label="タイトル" /><RequiredBadge />
+                        <Label>タイトル</Label><RequiredBadge />
                         <Input
                             type="text"
                             name="title"
@@ -120,7 +120,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="タイプ" /><RequiredBadge /><br />
+                        <Label>タイプ</Label><RequiredBadge /><br />
                         {
                             EVENT_TYPES.map((value) => {
                                 return (
@@ -139,7 +139,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.type && <ValidationErrorMsg errors={validationErrors.type} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="開始日時" /><RequiredBadge />
+                        <Label>開始</Label><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="start_at"
@@ -150,7 +150,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.start_at && <ValidationErrorMsg errors={validationErrors.start_at} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="終了日時" /><RequiredBadge />
+                        <Label>終了</Label><RequiredBadge />
                         <Input
                             type="datetime-local"
                             name="end_at"
@@ -161,7 +161,7 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
                         { validationErrors.end_at && <ValidationErrorMsg errors={validationErrors.end_at} /> }
                     </FormItem>
                     <FormItem>
-                        <Label label="メモ" />
+                        <Label>メモ</Label>
                         <Textarea
                             name="memo"
                             value={ memo }

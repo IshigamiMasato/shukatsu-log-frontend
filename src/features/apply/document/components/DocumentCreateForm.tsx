@@ -95,7 +95,7 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
             <FormTitle>応募書類登録</FormTitle>
             <form onSubmit={onSubmit} encType="multipart/form-data">
                 <FormItem>
-                    <Label label="応募書類提出日" /><RequiredBadge />
+                    <Label>応募書類提出日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="submission_date"
@@ -111,7 +111,7 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
 
                         return (
                             <FormItem key={`file_${index}`}>
-                                <Label label="応募書類" />
+                                <Label>応募書類</Label>
                                 <Input
                                     type="file"
                                     name={`file_${index}`}
@@ -128,7 +128,7 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
                     })
                 }
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }
