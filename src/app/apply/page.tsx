@@ -1,6 +1,6 @@
 import ActionContainer from "@/components/containers/ActionContainer";
 import TitleContainer from "@/components/containers/TitleContainer";
-import { DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER, UNREGISTERED_SELECTION_PROCESS } from "@/constants/const";
+import { DEFAULT_PAGE, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER, PER_PAGE, UNREGISTERED_SELECTION_PROCESS } from "@/constants/const";
 import { getApplies } from "@/features/apply/api/getApplies";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import ApplySearchForm from "@/features/apply/components/ApplySearchForm";
@@ -12,10 +12,17 @@ import InterviewSelectionStatusBadge from "@/features/apply/components/Interview
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import { Apply } from "@/types";
-import { faBuilding, faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faChevronLeft, faChevronRight, faCirclePlus, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import { JSX } from "react";
+
+const getPageLink = (page: number, params: URLSearchParams) => {
+	params.set('page', String(page));
+    params.set('offset', String((Number(page) - 1) * PER_PAGE));
+    params.set('limit', String(PER_PAGE));
+	return `/apply?${params}`;
+}
 
 const getBadge = (status: number): JSX.Element|null => {
     switch (status) {
@@ -38,14 +45,17 @@ const getBadge = (status: number): JSX.Element|null => {
 
 const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|string[] }> }) => {
     const searchParams = await props.searchParams;
-    let params = new URLSearchParams();;
+    let params = new URLSearchParams();
     if (Object.keys(searchParams).length > 0) {
         Object.keys(searchParams).forEach(key => {
             const value = searchParams[key];
+            // 選考ステータスの検索パラメータの場合 (ex: ?status[]=1&status[]=2...)
             if (Array.isArray(value)) {
                 value.forEach(val => params.append(key, val));
+
+            // 他検索パラメータの場合
             } else {
-                params.append(key, value);
+                params.set(key, value);
             }
         });
     }
@@ -54,8 +64,10 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
     if ( resultGetApplies === null ) return;
     const applies = resultGetApplies.data;
     const total = resultGetApplies.total;
+    const pageCount = Math.ceil(total / PER_PAGE);
+    const currentPage = params.has('page') ? params.get('page') : DEFAULT_PAGE;
 
-    const resultGetCompanies = await getCompanies(params);
+    const resultGetCompanies = await getCompanies(new URLSearchParams());
     // トークンリフレッシュが必要な場合
     if ( resultGetCompanies === null ) return;
     const companies = resultGetCompanies.data;
@@ -66,9 +78,13 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <ApplySearchForm companies={companies} />
 
-                <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
-                    <div className="text-gray-500 text-nowrap">
-                        登録数：<span className="font-semibold text-black">{ total }</span>件
+                <div className="flex items-center justify-between overflow-x-auto space-x-2 mb-3">
+                    <div className="text-nowrap">
+                        <Link href='/apply/create'>
+                            <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white">
+                                <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
+                            </ActionContainer>
+                        </Link>
                     </div>
                     <div className="flex items-center text-xs font-medium text-nowrap">
                         <p>ステータス：</p>
@@ -81,11 +97,37 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                     </div>
                 </div>
 
-                <Link href='/apply/create'>
-                    <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
-                        <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">応募登録</span>
-                    </ActionContainer>
-                </Link>
+                <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
+                    <div className="text-gray-500 text-nowrap">
+                        登録数：<span className="font-semibold text-black">{ total }</span>件
+                    </div>
+                    <nav>
+                        <ul className="flex items-center -space-x-px h-8 text-sm">
+                            <Link
+                                href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
+                                className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+                            >
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </Link>
+                            {Array.from({ length: pageCount }, (_, i) => {
+                                const page = i + 1;
+                                return (
+                                    <Link href={getPageLink(page, params)}>
+                                        <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
+                                            { page }
+                                        </div>
+                                    </Link>
+                                )
+                            })}
+                            <Link
+                                href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
+                                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
+                            >
+                                <FontAwesomeIcon icon={faChevronRight} />
+                            </Link>
+                        </ul>
+                    </nav>
+                </div>
 
                 <div className="overflow-x-auto shadow-md rounded-lg border">
                     <table className="w-full text-sm text-left">
