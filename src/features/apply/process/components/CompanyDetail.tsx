@@ -1,6 +1,6 @@
 "use client";
 
-import FormItem from "@/components/containers/FormItem";
+import FormItem from "@/components/forms/FormItem";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";

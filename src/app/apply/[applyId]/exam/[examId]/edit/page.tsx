@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import { getExam } from "@/features/apply/exam/api/getExam";
 import ExamEditForm from "@/features/apply/exam/components/ExamEditForm";
 

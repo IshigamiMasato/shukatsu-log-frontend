@@ -7,3 +7,4 @@ export * from "./exam";
 export * from "./final_result";
 export * from "./interview";
 export * from "./offer";
+export * from "./file";

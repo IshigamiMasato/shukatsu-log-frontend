@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import { getInterview } from "@/features/apply/interview/api/getInterview";
 import InterviewEditForm from "@/features/apply/interview/components/InterviewEditForm";
 

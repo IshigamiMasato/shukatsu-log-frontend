@@ -1,8 +1,8 @@
 "use client";
 
-import FormContainer from "@/components/containers/FormContainer";
-import FormItem from "@/components/containers/FormItem";
-import FormTitle from "@/components/containers/FormTitle";
+import FormContainer from "@/components/forms/FormContainer";
+import FormItem from "@/components/forms/FormItem";
+import FormTitle from "@/components/forms/FormTitle";
 import Label from "@/components/elements/Label";
 import Select from "@/components/elements/Select";
 import { APPLY_STATUS, DOCUMENT_SELECTION, EXAM_SELECTION, FINAL_RESULT, INTERVIEW_SELECTION, OFFER, UNREGISTERED_SELECTION_PROCESS } from "@/constants/const";

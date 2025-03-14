@@ -1,10 +1,10 @@
 "use client";
 
 import { Provider } from "react-redux";
-import store from ".";
+import store from "@/store";
 import Toast from "@/components/Toast";
 import { usePathname } from "next/navigation";
-import Auth from "@/components/Auth";
+import Auth from "@/components/auth/Auth";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 
@@ -12,7 +12,7 @@ type Props = {
     children: React.ReactNode
 }
 
-const ReduxProvider: React.FC<Props> = ({ children }) => {
+const AppProvider: React.FC<Props> = ({ children }) => {
     const path = usePathname();
 
     return (
@@ -31,4 +31,4 @@ const ReduxProvider: React.FC<Props> = ({ children }) => {
     )
 }
 
-export default ReduxProvider;
+export default AppProvider;

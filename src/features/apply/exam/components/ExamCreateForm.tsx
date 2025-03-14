@@ -4,14 +4,14 @@ import { dispToast } from "@/store/modules/toast";
 import moment from "moment";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormItem from "@/components/containers/FormItem";
+import FormItem from "@/components/forms/FormItem";
 import Label from "@/components/elements/Label";
 import Input from "@/components/elements/Input";
-import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
-import RequiredBadge from "@/components/elements/RequiredBadge";
-import FormTitle from "@/components/containers/FormTitle";
+import RequiredBadge from "@/components/forms/RequiredBadge";
+import FormTitle from "@/components/forms/FormTitle";
 import { useRouter } from "next/navigation";
 
 const ExamCreateForm = ({ applyId } : { applyId : number }) => {

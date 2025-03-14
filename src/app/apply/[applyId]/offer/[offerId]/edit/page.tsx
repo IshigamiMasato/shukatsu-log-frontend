@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import { getOffer } from "@/features/apply/offer/api/getOffer";
 import OfferEditForm from "@/features/apply/offer/components/OfferEditForm";
 

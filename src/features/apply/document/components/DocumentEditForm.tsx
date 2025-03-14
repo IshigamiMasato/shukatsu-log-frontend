@@ -1,14 +1,14 @@
 "use client";
 
 import ActionContainer from "@/components/containers/ActionContainer";
-import FormContainer from "@/components/containers/FormContainer";
-import FormItem from "@/components/containers/FormItem";
-import FormTitle from "@/components/containers/FormTitle";
-import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
+import FormContainer from "@/components/forms/FormContainer";
+import FormItem from "@/components/forms/FormItem";
+import FormTitle from "@/components/forms/FormTitle";
+import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
-import RequiredBadge from "@/components/elements/RequiredBadge";
+import RequiredBadge from "@/components/forms/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
 import { FILE_COUNT, MAX_FILE_SIZE } from "@/constants/const";
 import { dispToast } from "@/store/modules/toast";
