@@ -17,19 +17,28 @@ import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import Input from "@/components/elements/Input";
 import moment from "moment";
+import CompanyDetail from "@/features/apply/components/process/CompanyDetail";
+import { getApply } from "@/features/apply/api/getApply";
+import BackLink from "@/components/BackLink";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
 
-    const process = await getProcess(applyId);
+    const apply = await getApply(applyId);
+    // トークンリフレッシュが必要な場合
+    if ( apply === null ) return;
 
+    const process = await getProcess(applyId);
     // トークンリフレッシュが必要な場合
     if ( process === null ) return;
 
     return (
         <>
+            <BackLink className="!container px-8" />
             <TitleContainer main="選考履歴一覧" />
             <div className="container mx-auto px-8 py-6 rounded-lg">
+                <CompanyDetail company={apply.company} />
+
                 <Link href={`/apply/${applyId}/process/create`}>
                     <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mb-3">
                             <FontAwesomeIcon icon={faCirclePlus}/><span className="ml-1">選考履歴登録</span>
