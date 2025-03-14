@@ -176,6 +176,36 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                         </tbody>
                     </table>
                 </div>
+
+                <div className="flex items-center justify-between overflow-x-auto mt-3 space-x-2">
+                    <div />
+                    <nav>
+                        <ul className="flex items-center -space-x-px h-8 text-sm">
+                            <Link
+                                href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
+                                className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+                            >
+                                <FontAwesomeIcon icon={faChevronLeft} />
+                            </Link>
+                            {Array.from({ length: pageCount }, (_, i) => {
+                                const page = i + 1;
+                                return (
+                                    <Link href={getPageLink(page, params)}>
+                                        <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
+                                            { page }
+                                        </div>
+                                    </Link>
+                                )
+                            })}
+                            <Link
+                                href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
+                                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
+                            >
+                                <FontAwesomeIcon icon={faChevronRight} />
+                            </Link>
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </>
     )
