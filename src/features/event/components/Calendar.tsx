@@ -41,7 +41,7 @@ const Calendar = ({ events } : { events: Event[] }) => {
                 </ModalPortal>
             )}
 
-            <TitleContainer main="予定" />
+            <TitleContainer main="予定一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
                 <Link href='/event/create'>
                     <ActionContainer className="bg-blue-500 hover:bg-blue-600 text-white mx-0 mb-3">
