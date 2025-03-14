@@ -19,6 +19,7 @@ import Input from "@/components/elements/Input";
 import moment from "moment";
 import CompanyDetail from "@/features/apply/components/process/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
+import BackLink from "@/components/BackLink";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;
@@ -33,6 +34,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
 
     return (
         <>
+            <BackLink className="!container px-8" />
             <TitleContainer main="選考履歴一覧" />
             <div className="container mx-auto px-8 py-6 rounded-lg">
                 <CompanyDetail company={apply.company} />
