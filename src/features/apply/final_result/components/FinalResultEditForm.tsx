@@ -1,12 +1,12 @@
 "use client";
 
-import FormContainer from "@/components/containers/FormContainer";
-import FormItem from "@/components/containers/FormItem";
-import FormTitle from "@/components/containers/FormTitle";
-import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
+import FormContainer from "@/components/forms/FormContainer";
+import FormItem from "@/components/forms/FormItem";
+import FormTitle from "@/components/forms/FormTitle";
+import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import Button from "@/components/elements/Button";
 import Label from "@/components/elements/Label";
-import RequiredBadge from "@/components/elements/RequiredBadge";
+import RequiredBadge from "@/components/forms/RequiredBadge";
 import Select from "@/components/elements/Select";
 import Textarea from "@/components/elements/Textarea";
 import { FINAL_RESULT_STATUS } from "@/constants/const";

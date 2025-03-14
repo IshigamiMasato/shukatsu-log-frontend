@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import ApplyCreateForm from "@/features/apply/components/ApplyCreateForm";
 import { getCompanies } from "@/features/company/api/getCompanies";
 

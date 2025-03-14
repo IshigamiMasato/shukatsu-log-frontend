@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ReduxProvider from "@/store/ReduxProvider";
+import AppProvider from "@/components/providers/AppProvider";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
@@ -32,9 +32,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-100`}
       >
         <div className="modal-wrapper"></div>
-          <ReduxProvider>
+          <AppProvider>
             {children}
-          </ReduxProvider>
+          </AppProvider>
       </body>
     </html>
   );

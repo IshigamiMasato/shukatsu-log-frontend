@@ -1,5 +1,5 @@
-import BackLink from "@/components/BackLink";
-import ProcessCreateForm from "@/features/apply/components/process/ProcessCreateForm";
+import BackLink from "@/components/navigations/BackLink";
+import ProcessCreateForm from "@/features/apply/process/components/ProcessCreateForm";
 
 const ProcessCreatePage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;

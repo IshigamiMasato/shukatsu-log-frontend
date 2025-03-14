@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import { getDocument } from "@/features/apply/document/api/getDocument";
 import DocumentEditForm from "@/features/apply/document/components/DocumentEditForm";
 

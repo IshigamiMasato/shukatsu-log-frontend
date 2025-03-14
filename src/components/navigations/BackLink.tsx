@@ -4,7 +4,7 @@ import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 
-const BackLink = ({ className } : { className: string }) => {
+const BackLink = ({ className } : { className?: string }) => {
     const router = useRouter();
 
     return (

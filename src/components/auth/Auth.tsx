@@ -4,7 +4,7 @@ import { loggedIn, loggedOut } from "@/store/modules/auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Loading from "./Loading";
+import Loading from "../Loading";
 
 type Props = {
     children: React.ReactNode,
@@ -93,7 +93,7 @@ const Auth: React.FC<Props> = ({ children, path }) => {
     return (
         isAuthChecked
             ? children
-            : <Loading/>
+            : <Loading />
     )
 }
 

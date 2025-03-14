@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import EventCreateForm from "@/features/event/components/EventCreateForm";
 
 const EventCreatePage = () => {

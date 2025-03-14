@@ -1,12 +1,12 @@
 "use client";
 
-import FormContainer from "@/components/containers/FormContainer";
-import FormItem from "@/components/containers/FormItem";
+import FormContainer from "@/components/forms/FormContainer";
+import FormItem from "@/components/forms/FormItem";
 import Button from "@/components/elements/Button";
-import ErrorMsg from "@/components/containers/ErrorMsg";
+import ErrorMsg from "@/components/forms/ErrorMsg";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
-import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";

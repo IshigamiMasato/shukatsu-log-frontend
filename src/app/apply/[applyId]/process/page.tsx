@@ -10,16 +10,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import ActionContainer from "@/components/containers/ActionContainer";
 import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
-import { getProcess } from "@/features/apply/api/process/getProcess";
+import { getProcess } from "@/features/apply/process/api/getProcess";
 import TitleContainer from "@/components/containers/TitleContainer";
-import FormItem from "@/components/containers/FormItem";
+import FormItem from "@/components/forms/FormItem";
 import Label from "@/components/elements/Label";
 import Textarea from "@/components/elements/Textarea";
 import Input from "@/components/elements/Input";
 import moment from "moment";
-import CompanyDetail from "@/features/apply/components/process/CompanyDetail";
+import CompanyDetail from "@/features/apply/process/components/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
     const applyId = (await params).applyId;

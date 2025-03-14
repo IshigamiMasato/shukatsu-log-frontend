@@ -1,18 +1,18 @@
 "use client";
 
-import FormContainer from "@/components/containers/FormContainer";
-import FormItem from "@/components/containers/FormItem";
+import FormContainer from "@/components/forms/FormContainer";
+import FormItem from "@/components/forms/FormItem";
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
-import RequiredBadge from "@/components/elements/RequiredBadge";
+import RequiredBadge from "@/components/forms/RequiredBadge";
 import Textarea from "@/components/elements/Textarea";
-import ValidationErrorMsg from "@/components/containers/ValidationErrorMsg";
+import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import { dispToast } from "@/store/modules/toast";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import FormTitle from "@/components/containers/FormTitle";
+import FormTitle from "@/components/forms/FormTitle";
 
 const CompanyCreateForm = () => {
     const [name, setName]                     = useState<string>("");

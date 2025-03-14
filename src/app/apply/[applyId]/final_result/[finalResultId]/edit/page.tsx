@@ -1,4 +1,4 @@
-import BackLink from "@/components/BackLink";
+import BackLink from "@/components/navigations/BackLink";
 import { getFinalResult } from "@/features/apply/final_result/api/getFinalResult";
 import FinalResultEditForm from "@/features/apply/final_result/components/FinalResultEditForm";
 
