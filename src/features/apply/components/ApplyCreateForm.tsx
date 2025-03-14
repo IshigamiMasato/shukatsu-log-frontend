@@ -60,7 +60,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
             <FormTitle>応募登録フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="企業" /><RequiredBadge />
+                    <Label>企業</Label><RequiredBadge />
                     <Select
                         name="company_id"
                         value={ companyId ?? "" }
@@ -79,7 +79,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                     { validationErrors.company_id && <ValidationErrorMsg errors={validationErrors.company_id} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="職種" /><RequiredBadge />
+                    <Label>職種</Label><RequiredBadge />
                     <Input
                         type="text"
                         name="occupation"
@@ -90,7 +90,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                     { validationErrors.occupation && <ValidationErrorMsg errors={validationErrors.occupation} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="応募経路" />
+                    <Label>応募経路</Label>
                     <Input
                         type="text"
                         name="apply_route"
@@ -101,7 +101,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                     { validationErrors.apply_route && <ValidationErrorMsg errors={validationErrors.apply_route} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

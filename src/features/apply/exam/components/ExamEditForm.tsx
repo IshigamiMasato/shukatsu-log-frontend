@@ -59,7 +59,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
             <FormTitle>試験情報編集フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="試験日" /><RequiredBadge />
+                    <Label>試験日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="exam_date"
@@ -70,7 +70,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
                     { validationErrors.exam_date && <ValidationErrorMsg errors={validationErrors.exam_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="試験内容" /><RequiredBadge />
+                    <Label>試験内容</Label><RequiredBadge />
                     <Textarea
                         name="content"
                         value={ content }
@@ -80,7 +80,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
                     { validationErrors.content && <ValidationErrorMsg errors={validationErrors.content} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

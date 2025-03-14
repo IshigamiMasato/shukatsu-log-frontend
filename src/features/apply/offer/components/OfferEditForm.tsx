@@ -61,7 +61,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
             <FormTitle>内定情報編集フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="内定通知日" /><RequiredBadge />
+                    <Label>内定通知日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="offer_date"
@@ -72,7 +72,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                     { validationErrors.offer_date && <ValidationErrorMsg errors={validationErrors.offer_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="年収" />
+                    <Label>年収</Label>
                     <Input
                         type="number"
                         name="salary"
@@ -84,7 +84,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                     { validationErrors.salary && <ValidationErrorMsg errors={validationErrors.salary} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="条件" />
+                    <Label>条件</Label>
                     <Textarea
                         name="condition"
                         value={ condition }
@@ -94,7 +94,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                     { validationErrors.condition && <ValidationErrorMsg errors={validationErrors.condition} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

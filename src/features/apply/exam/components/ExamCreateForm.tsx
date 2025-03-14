@@ -55,7 +55,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
             <FormTitle>試験情報登録</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="試験日" /><RequiredBadge />
+                    <Label>試験日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="exam_date"
@@ -66,7 +66,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.exam_date && <ValidationErrorMsg errors={validationErrors.exam_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="試験内容" /><RequiredBadge />
+                    <Label>試験内容</Label><RequiredBadge />
                     <Textarea
                         name="content"
                         value={ content }
@@ -76,7 +76,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.content && <ValidationErrorMsg errors={validationErrors.content} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

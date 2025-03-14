@@ -59,7 +59,7 @@ const LoginForm = () => {
             { loginErrorMsg && <ErrorMsg error={loginErrorMsg} /> }
             <form onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="メールアドレス" />
+                    <Label>メールアドレス</Label>
                     <Input
                         type="text"
                         name="email"
@@ -69,7 +69,7 @@ const LoginForm = () => {
                     { validationErrors.email && <ValidationErrorMsg errors={validationErrors.email} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="パスワード" />
+                    <Label>パスワード</Label>
                     <Input
                         type="text"
                         name="password"

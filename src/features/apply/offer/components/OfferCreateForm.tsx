@@ -56,7 +56,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
             <FormTitle>内定情報登録</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="内定通知日" /><RequiredBadge />
+                    <Label>内定通知日</Label><RequiredBadge />
                     <Input
                         type="date"
                         name="offer_date"
@@ -67,7 +67,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.offer_date && <ValidationErrorMsg errors={validationErrors.offer_date} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="年収" />
+                    <Label>年収</Label>
                     <Input
                         type="number"
                         name="salary"
@@ -79,7 +79,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.salary && <ValidationErrorMsg errors={validationErrors.salary} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="条件" />
+                    <Label>条件</Label>
                     <Textarea
                         name="condition"
                         value={ condition }
@@ -89,7 +89,7 @@ const OfferCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.condition && <ValidationErrorMsg errors={validationErrors.condition} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

@@ -67,7 +67,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                             return (
                                                                 <div key={`file_${file.file_id}`} className="border p-4 rounded-md overflow-x-auto">
                                                                     <FormItem>
-                                                                        <Label label="応募書類" />
+                                                                        <Label>応募書類</Label>
                                                                         <Input
                                                                             type="text"
                                                                             name="name"
@@ -89,7 +89,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     </div>
                                                 )}
                                                 <FormItem>
-                                                    <Label label="メモ" />
+                                                    <Label>メモ</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ document.memo ?? "" }
@@ -123,7 +123,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
                                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">試験情報</h3>
                                                 <FormItem>
-                                                    <Label label="試験内容" />
+                                                    <Label>試験内容</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ exam.content }
@@ -132,7 +132,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     />
                                                 </FormItem>
                                                 <FormItem>
-                                                    <Label label="メモ" />
+                                                    <Label>メモ</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ exam.memo ?? "" }
@@ -166,7 +166,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
                                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">面接情報</h3>
                                                 <FormItem>
-                                                    <Label label="面接官情報" />
+                                                    <Label>面接官情報</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ interview.interviewer_info ?? "" }
@@ -175,7 +175,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     />
                                                 </FormItem>
                                                 <FormItem>
-                                                    <Label label="メモ" />
+                                                    <Label>メモ</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ interview.memo ?? "" }
@@ -209,7 +209,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
                                                 <h3 className="text-lg font-semibold text-gray-900 mb-1">内定情報</h3>
                                                 <FormItem>
-                                                    <Label label="年収" />
+                                                    <Label>年収</Label>
                                                     <Input
                                                         type="text"
                                                         name="name"
@@ -219,7 +219,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     />
                                                 </FormItem>
                                                 <FormItem>
-                                                    <Label label="条件" />
+                                                    <Label>条件</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ offer.condition ?? "" }
@@ -228,7 +228,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     />
                                                 </FormItem>
                                                 <FormItem>
-                                                    <Label label="メモ" />
+                                                    <Label>メモ</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ offer.memo ?? "" }
@@ -265,7 +265,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <span className="ml-1">選考終了</span>
                                                 </h3>
                                                 <FormItem>
-                                                    <Label label="ステータス" />
+                                                    <Label>ステータス</Label>
                                                     <Input
                                                         type="text"
                                                         name="name"
@@ -275,7 +275,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     />
                                                 </FormItem>
                                                 <FormItem>
-                                                    <Label label="メモ" />
+                                                    <Label>メモ</Label>
                                                     <Textarea
                                                         name="memo"
                                                         value={ finalResult.memo ?? "" }

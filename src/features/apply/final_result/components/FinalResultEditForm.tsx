@@ -58,7 +58,7 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
             <FormTitle>選考終了情報編集フォーム</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="ステータス" /><RequiredBadge />
+                    <Label>ステータス</Label><RequiredBadge />
                     <Select
                         name="status"
                         value={ status }
@@ -77,7 +77,7 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
                     { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }

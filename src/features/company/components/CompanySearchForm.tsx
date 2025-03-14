@@ -64,7 +64,7 @@ const CompanySearchForm = () => {
 
             <div className={`flex flex-wrap justify-center items-center p-5 border border-gray-200 rounded-lg shadow-md ${!isOpen && 'hidden'}`}>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="企業名" />
+                    <Label>企業名</Label>
                     <Input
                         type="text"
                         name="name"
@@ -73,7 +73,7 @@ const CompanySearchForm = () => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="企業URL" />
+                    <Label>企業URL</Label>
                     <Input
                         type="text"
                         name="url"
@@ -82,7 +82,7 @@ const CompanySearchForm = () => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="社長名" />
+                    <Label>社長名</Label>
                     <Input
                         type="text"
                         name="president"
@@ -91,7 +91,7 @@ const CompanySearchForm = () => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="住所" />
+                    <Label>住所</Label>
                     <Input
                         type="text"
                         name="address"
@@ -100,7 +100,7 @@ const CompanySearchForm = () => {
                     />
                 </FormItem>
                 <FormItem className="w-full px-2">
-                    <Label label="設立年月日" className="text-nowrap mr-1" />
+                    <Label className="text-nowrap mr-1">設立年月日</Label>
                     <div className="flex items-center w-1/2">
                         <Input
                             type="date"
@@ -118,7 +118,7 @@ const CompanySearchForm = () => {
                     </div>
                 </FormItem>
                 <FormItem className="w-full px-2">
-                    <Label label="従業員数" className="text-nowrap mr-1" />
+                    <Label className="text-nowrap mr-1">従業員数</Label>
                     <div className="flex items-center w-1/2">
                         <Input
                             type="number"
@@ -138,7 +138,7 @@ const CompanySearchForm = () => {
                     </div>
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="福利厚生" />
+                    <Label>福利厚生</Label>
                     <Input
                         type="text"
                         name="benefit"
@@ -147,7 +147,7 @@ const CompanySearchForm = () => {
                     />
                 </FormItem>
                 <FormItem className="w-1/2 px-2">
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Input
                         type="text"
                         name="memo"

@@ -54,7 +54,7 @@ const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
             <FormTitle>試験情報登録</FormTitle>
             <form method="POST" onSubmit={onSubmit}>
                 <FormItem>
-                    <Label label="選考終了ステータス" /><RequiredBadge />
+                    <Label>選考終了ステータス</Label><RequiredBadge />
                     <Select
                         name="status"
                         value={ status }
@@ -73,7 +73,7 @@ const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
                     { validationErrors.status && <ValidationErrorMsg errors={validationErrors.status} /> }
                 </FormItem>
                 <FormItem>
-                    <Label label="メモ" />
+                    <Label>メモ</Label>
                     <Textarea
                         name="memo"
                         value={ memo }
