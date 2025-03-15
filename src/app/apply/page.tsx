@@ -97,7 +97,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                             {Array.from({ length: pageCount }, (_, i) => {
                                 const page = i + 1;
                                 return (
-                                    <Link href={getPageLink(page, params)}>
+                                    <Link key={page} href={getPageLink(page, params)}>
                                         <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
                                             { page }
                                         </div>
@@ -190,7 +190,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                             {Array.from({ length: pageCount }, (_, i) => {
                                 const page = i + 1;
                                 return (
-                                    <Link href={getPageLink(page, params)}>
+                                    <Link key={page} href={getPageLink(page, params)}>
                                         <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
                                             { page }
                                         </div>
