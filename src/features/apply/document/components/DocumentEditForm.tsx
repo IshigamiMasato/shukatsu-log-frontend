@@ -60,7 +60,10 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                     }
 
                     const base64File = await fileToBase64(file);
-                    formData.append(`files[]`, base64File);
+                    const fileName = file.name;
+                    const fileData = JSON.stringify({ name: fileName, base64: base64File });
+
+                    formData.append(`files[]`, fileData);
                 }
 
             } catch ( error ) {
