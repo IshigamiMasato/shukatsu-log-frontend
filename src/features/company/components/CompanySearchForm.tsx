@@ -11,31 +11,21 @@ import { useState } from "react";
 
 const CompanySearchForm = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [name, setName]                             = useState<string>("");
-    const [url, setURL]                               = useState<string>("");
-    const [president, setPresident]                   = useState<string>("");
-    const [address, setAddress]                       = useState<string>("");
+    const [keyword, setKeyword]                       = useState<string>("");
     const [fromEstablishDate, setFromEstablishDate]   = useState<string>("");
     const [toEstablishDate, setToEstablishDate]       = useState<string>("");
     const [fromEmployeeNumber, setFromEmployeeNumber] = useState<number|undefined>(undefined);
     const [toEmployeeNumber, setToEmployeeNumber]     = useState<number|undefined>(undefined);
-    const [benefit, setBenefit]                       = useState<string>("");
-    const [memo, setMemo]                             = useState<string>("");
     const router = useRouter();
 
     const handleSearch = () => {
         const params = new URLSearchParams();
 
-        if (name)               params.set('name', name);
-        if (url)                params.set('url', url);
-        if (president)          params.set('president', president);
-        if (address)            params.set('address', address);
+        if (keyword)            params.set('keyword', keyword);
         if (fromEstablishDate)  params.set('from_establish_date', fromEstablishDate);
         if (toEstablishDate)    params.set('to_establish_date', toEstablishDate);
         if (fromEmployeeNumber) params.set('from_employee_number', fromEmployeeNumber.toString());
         if (toEmployeeNumber)   params.set('to_employee_number', toEmployeeNumber.toString());
-        if (benefit)            params.set('benefit', benefit);
-        if (memo)               params.set('memo', memo);
 
         const searchParams = params.toString();
 
@@ -43,16 +33,11 @@ const CompanySearchForm = () => {
     }
 
     const clear = () => {
-        setName("");
-        setURL("");
-        setPresident("");
-        setAddress("");
+        setKeyword("");
         setFromEstablishDate("");
         setToEstablishDate("");
         setFromEmployeeNumber(undefined);
         setToEmployeeNumber(undefined);
-        setBenefit("");
-        setMemo("");
     }
 
     return (
@@ -63,40 +48,13 @@ const CompanySearchForm = () => {
             </button>
 
             <div className={`flex flex-wrap justify-center items-center p-5 border border-gray-200 rounded-lg shadow-md ${!isOpen && 'hidden'}`}>
-                <FormItem className="w-1/2 px-2">
-                    <Label>企業名</Label>
+                <FormItem className="w-full px-2">
+                    <Label>検索ワード</Label>
                     <Input
                         type="text"
-                        name="name"
-                        value={ name }
-                        onChange={ e => setName(e.target.value) }
-                    />
-                </FormItem>
-                <FormItem className="w-1/2 px-2">
-                    <Label>企業URL</Label>
-                    <Input
-                        type="text"
-                        name="url"
-                        value={ url }
-                        onChange={ e => setURL(e.target.value) }
-                    />
-                </FormItem>
-                <FormItem className="w-1/2 px-2">
-                    <Label>社長名</Label>
-                    <Input
-                        type="text"
-                        name="president"
-                        value={ president }
-                        onChange={ e => setPresident(e.target.value) }
-                    />
-                </FormItem>
-                <FormItem className="w-1/2 px-2">
-                    <Label>住所</Label>
-                    <Input
-                        type="text"
-                        name="address"
-                        value={ address }
-                        onChange={ e => setAddress(e.target.value) }
+                        name="keyword"
+                        value={ keyword }
+                        onChange={ e => setKeyword(e.target.value) }
                     />
                 </FormItem>
                 <FormItem className="w-full px-2">
@@ -136,24 +94,6 @@ const CompanySearchForm = () => {
                             min={1}
                         />
                     </div>
-                </FormItem>
-                <FormItem className="w-1/2 px-2">
-                    <Label>福利厚生</Label>
-                    <Input
-                        type="text"
-                        name="benefit"
-                        value={ benefit }
-                        onChange={ e => setBenefit(e.target.value) }
-                    />
-                </FormItem>
-                <FormItem className="w-1/2 px-2">
-                    <Label>メモ</Label>
-                    <Input
-                        type="text"
-                        name="memo"
-                        value={ memo }
-                        onChange={ e => setMemo(e.target.value) }
-                    />
                 </FormItem>
                 <div className="flex justify-center text-center space-x-1 mt-5">
                     <Button className="bg-white border border-gray-300" onClick={ () => clear() }>
