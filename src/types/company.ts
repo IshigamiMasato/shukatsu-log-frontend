@@ -8,6 +8,7 @@ export type Company = {
     establish_date: string|null,
     employee_number: number|null,
     listing_class: string|null,
+    business_description: string|null,
     benefit: string|null,
     memo: string|null,
     created_at: string|null,

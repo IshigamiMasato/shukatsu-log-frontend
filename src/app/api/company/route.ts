@@ -41,6 +41,7 @@ export async function POST(request: Request) {
     const establishDate  = formData.get('establish_date');
     const employeeNumber = formData.get('employee_number');
     const listingClass   = formData.get('listing_class');
+    const businessDescription = formData.get('business_description');
     const benefit        = formData.get('benefit');
     const memo           = formData.get('memo');
 
@@ -56,6 +57,7 @@ export async function POST(request: Request) {
                 establish_date: establishDate ? establishDate : null,
                 employee_number: employeeNumber ? employeeNumber : null,
                 listing_class: listingClass ? listingClass : null,
+                business_description: businessDescription ? businessDescription : null,
                 benefit: benefit ? benefit : null,
                 memo: memo ? memo : null,
             })

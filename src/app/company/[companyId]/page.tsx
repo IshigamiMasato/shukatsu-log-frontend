@@ -114,6 +114,15 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     />
                 </FormItem>
                 <FormItem>
+                    <Label>事業内容</Label>
+                    <Textarea
+                        name="business_description"
+                        value={ company.business_description ?? "" }
+                        disabled={true}
+                        className="text-gray-500 bg-gray-100"
+                    />
+                </FormItem>
+                <FormItem>
                     <Label>福利厚生</Label>
                     <Textarea
                         name="benefit"
