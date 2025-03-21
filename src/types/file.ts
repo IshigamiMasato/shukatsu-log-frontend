@@ -4,5 +4,4 @@ export type File = {
     name: string,
     path: string,
     created_at: string|null,
-    updated_at: string|null,
 }
