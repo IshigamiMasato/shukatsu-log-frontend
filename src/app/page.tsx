@@ -18,6 +18,7 @@ import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
+import { getCompanies } from "@/features/company/api/getCompanies";
 
 export const metadata = {
 	title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -51,8 +52,45 @@ const Home = async () => {
     const applies = resultGetApplies.data;
     const progressTotal = resultGetApplies.total;
 
+	const resultGetCompanies = await getCompanies(new URLSearchParams());
+	// トークンリフレッシュが必要な場合
+    if ( resultGetCompanies === null ) return;
+	const companiesTotal = resultGetCompanies.total;
+
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
+			{ companiesTotal === 0 && (
+				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-blue-100 rounded-lg">
+					<div className="flex space-x-2">
+						<div className="text-white bg-blue-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
+							<FontAwesomeIcon icon={faVolumeHigh} />
+						</div>
+						<h3 className="text-base font-medium">企業がまだ登録されていません。応募予定の企業を登録して下さい。</h3>
+					</div>
+					<div className="my-1">
+						<Link href='/company/create'>
+							<Button className="bg-blue-500 hover:bg-blue-600 text-white">企業を登録する</Button>
+						</Link>
+					</div>
+				</div>
+			)}
+
+			{ companiesTotal >= 1 && totalApply === 0 && (
+				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-blue-100 rounded-lg">
+					<div className="flex space-x-2">
+						<div className="text-white bg-blue-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
+							<FontAwesomeIcon icon={faVolumeHigh} />
+						</div>
+						<h3 className="text-base font-medium">応募情報がまだ登録されていません。応募情報を登録して下さい。</h3>
+					</div>
+					<div className="my-1">
+						<Link href='/apply/create'>
+							<Button className="bg-blue-500 hover:bg-blue-600 text-white">応募情報を登録する</Button>
+						</Link>
+					</div>
+				</div>
+			)}
+
 			{ Number(applyStatusSummary.unregistered_selection_process_summary) > 0 && (
 				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-red-100 rounded-lg">
 					<div className="flex space-x-2">
