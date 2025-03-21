@@ -22,9 +22,10 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
     const [establishDate, setEstablishDate]   = useState<string>(company.establish_date            ?? "");
     const [employeeNumber, setEmployeeNumber] = useState<number|undefined>(company.employee_number ?? undefined);
     const [listingClass, setListingClass]     = useState<string>(company.listing_class             ?? "");
+    const [businessDescription, setBusinessDescription] = useState<string>(company.business_description ?? "");
     const [benefit, setBenefit]               = useState<string>(company.benefit                   ?? "");
     const [memo, setMemo]                     = useState<string>(company.memo                      ?? "");
-    const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; benefit?: []; memo?: []; }>({});
+    const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; business_description?: []; benefit?: []; memo?: []; }>({});
     const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -58,6 +59,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                 setEstablishDate(newCompany.establish_date   ?? "");
                 setEmployeeNumber(newCompany.employee_number ?? undefined);
                 setListingClass(newCompany.listing_class     ?? "");
+                setBusinessDescription(newCompany.business_description ?? "");
                 setBenefit(newCompany.benefit                ?? "");
                 setMemo(newCompany.memo                      ?? "");
 
@@ -147,6 +149,16 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                         errors={validationErrors.listing_class}
                     />
                     { validationErrors.listing_class && <ValidationErrorMsg errors={validationErrors.listing_class} /> }
+                </FormItem>
+                <FormItem>
+                    <Label>事業内容</Label>
+                    <Textarea
+                        name="business_description"
+                        value={ businessDescription }
+                        onChange={ e => setBusinessDescription(e.target.value) }
+                        errors={validationErrors.business_description}
+                    />
+                    { validationErrors.business_description && <ValidationErrorMsg errors={validationErrors.business_description} /> }
                 </FormItem>
                 <FormItem>
                     <Label>福利厚生</Label>

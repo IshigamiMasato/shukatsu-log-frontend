@@ -22,10 +22,11 @@ const CompanyCreateForm = () => {
     const [establishDate, setEstablishDate]   = useState<string>("");
     const [employeeNumber, setEmployeeNumber] = useState<number|undefined>(undefined);
     const [listingClass, setListingClass]     = useState<string>("");
+    const [businessDescription, setBusinessDescription] = useState<string>("");
     const [benefit, setBenefit]               = useState<string>("");
     const [memo, setMemo]                     = useState<string>("");
 
-    const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; benefit?: []; memo?: []; }>({});
+    const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; business_description?: []; benefit?: []; memo?: []; }>({});
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -141,6 +142,16 @@ const CompanyCreateForm = () => {
                         errors={validationErrors.listing_class}
                     />
                     { validationErrors.listing_class && <ValidationErrorMsg errors={validationErrors.listing_class} /> }
+                </FormItem>
+                <FormItem>
+                    <Label>事業内容</Label>
+                    <Textarea
+                        name="business_description"
+                        value={ businessDescription }
+                        onChange={ e => setBusinessDescription(e.target.value) }
+                        errors={validationErrors.business_description}
+                    />
+                    { validationErrors.business_description && <ValidationErrorMsg errors={validationErrors.business_description} /> }
                 </FormItem>
                 <FormItem>
                     <Label>福利厚生</Label>
