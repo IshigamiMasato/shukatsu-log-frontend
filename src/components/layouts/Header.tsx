@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../elements/Button";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faLayerGroup, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { loggedOut } from "@/store/modules/auth";
 import { useRouter } from "next/navigation";
@@ -34,7 +34,11 @@ const Header = () => {
             <div className="container mx-auto px-8 py-3">
                 <div className="flex justify-between items-center">
                     <div className="text-lg font-bold">
-                        <Link href="/"><span className="text-blue-600">Shukatsu</span><span className="text-red-600">Log</span></Link>
+                        <Link href="/">
+                            <FontAwesomeIcon icon={faLayerGroup} className="mr-1 text-xl" />
+                            <span className="text-blue-600">Shukatsu</span>
+                            <span className="text-red-600">Log</span>
+                        </Link>
                     </div>
                     { isAuthenticated && (
                         <>

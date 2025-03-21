@@ -12,12 +12,13 @@ import InterviewSelectionStatusBadge from "@/features/apply/components/Interview
 import OfferStatusBadge from "@/features/apply/components/OfferStatusBadge";
 import { getEvents } from "@/features/event/api/getEvents";
 import { Apply } from "@/types";
-import { faBuilding, faCheck, faChevronRight, faClockRotateLeft, faEnvelope, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faTrash, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { faBuilding, faCheck, faChevronRight, faClockRotateLeft, faFileLines, faFilePen, faHeart, faPenToSquare, faPeopleArrows, faQuestion, faTrash, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import Link from "next/link";
 import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
+import { getCompanies } from "@/features/company/api/getCompanies";
 
 export const metadata = {
 	title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -51,8 +52,45 @@ const Home = async () => {
     const applies = resultGetApplies.data;
     const progressTotal = resultGetApplies.total;
 
+	const resultGetCompanies = await getCompanies(new URLSearchParams());
+	// トークンリフレッシュが必要な場合
+    if ( resultGetCompanies === null ) return;
+	const companiesTotal = resultGetCompanies.total;
+
   	return (
 	    <div className="container mx-auto px-8 py-6 rounded-lg">
+			{ companiesTotal === 0 && (
+				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-blue-100 rounded-lg">
+					<div className="flex space-x-2">
+						<div className="text-white bg-blue-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
+							<FontAwesomeIcon icon={faVolumeHigh} />
+						</div>
+						<h3 className="text-base font-medium">企業がまだ登録されていません。応募予定の企業を登録して下さい。</h3>
+					</div>
+					<div className="my-1">
+						<Link href='/company/create'>
+							<Button className="bg-blue-500 hover:bg-blue-600 text-white">企業を登録する</Button>
+						</Link>
+					</div>
+				</div>
+			)}
+
+			{ companiesTotal >= 1 && totalApply === 0 && (
+				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-blue-100 rounded-lg">
+					<div className="flex space-x-2">
+						<div className="text-white bg-blue-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
+							<FontAwesomeIcon icon={faVolumeHigh} />
+						</div>
+						<h3 className="text-base font-medium">応募情報がまだ登録されていません。応募情報を登録して下さい。</h3>
+					</div>
+					<div className="my-1">
+						<Link href='/apply/create'>
+							<Button className="bg-blue-500 hover:bg-blue-600 text-white">応募情報を登録する</Button>
+						</Link>
+					</div>
+				</div>
+			)}
+
 			{ Number(applyStatusSummary.unregistered_selection_process_summary) > 0 && (
 				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-red-100 rounded-lg">
 					<div className="flex space-x-2">
@@ -68,83 +106,6 @@ const Home = async () => {
 					</div>
 				</div>
 			)}
-
-			<div className="mb-12">
-				<TitleContainer main="進捗状況" />
-					<div className="flex flex-wrap justify-between">
-						<Link href={'/apply'} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faEnvelope} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">総応募数</h3>
-									<span className="text-3xl font-bold">{ totalApply }</span>
-								</div>
-							</div>
-						</Link>
-
-						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faFileLines} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">書類選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
-								</div>
-							</div>
-						</Link>
-
-						<Link href={getApplyLink(EXAM_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faFilePen} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">筆記試験選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
-								</div>
-							</div>
-						</Link>
-
-						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faPeopleArrows} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">面接選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
-								</div>
-							</div>
-						</Link>
-
-						<Link href={getApplyLink(OFFER)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-red-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faHeart} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">内定</h3>
-									<span className="text-3xl font-bold text-red-500">{ applyStatusSummary.offer_summary }</span>
-								</div>
-							</div>
-						</Link>
-
-						<Link href={getApplyLink(FINAL_RESULT)} className="basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
-								<div className="flex items-center justify-center text-gray-400 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
-									<FontAwesomeIcon icon={faCheck} />
-								</div>
-								<div>
-									<h3 className="text-base md:text-lg">選考終了</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
-								</div>
-							</div>
-						</Link>
-					</div>
-			</div>
 
 			<div className="mb-12">
 				<TitleContainer main="直近の予定" sub="一週間以内の予定を表示" />
@@ -178,6 +139,83 @@ const Home = async () => {
 						)
 					}
 				</div>
+			</div>
+
+			<div className="mb-12">
+				<TitleContainer main="進捗状況" sub={`総応募数：${totalApply}`} />
+					<div className="flex flex-wrap justify-between">
+						<Link href={getApplyLink(UNREGISTERED_SELECTION_PROCESS)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
+									<FontAwesomeIcon icon={faQuestion} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg">選考履歴未登録</h3>
+									<span className="text-3xl font-bold">{ applyStatusSummary.unregistered_selection_process_summary }</span>
+								</div>
+							</div>
+						</Link>
+
+						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-blue-800 bg-blue-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFileLines} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg text-blue-800">書類選考中</h3>
+									<span className="text-3xl font-bold text-blue-800">{ applyStatusSummary.document_selection_summary }</span>
+								</div>
+							</div>
+						</Link>
+
+						<Link href={getApplyLink(EXAM_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-indigo-800 bg-indigo-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faFilePen} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg text-indigo-800">筆記試験選考中</h3>
+									<span className="text-3xl font-bold text-indigo-800">{ applyStatusSummary.exam_selection_summary }</span>
+								</div>
+							</div>
+						</Link>
+
+						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-green-800 bg-green-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faPeopleArrows} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg text-green-800">面接選考中</h3>
+									<span className="text-3xl font-bold text-green-800">{ applyStatusSummary.interview_selection_summary }</span>
+								</div>
+							</div>
+						</Link>
+
+						<Link href={getApplyLink(OFFER)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-red-500 bg-red-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faHeart} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg text-red-500">内定</h3>
+									<span className="text-3xl font-bold text-red-500">{ applyStatusSummary.offer_summary }</span>
+								</div>
+							</div>
+						</Link>
+
+						<Link href={getApplyLink(FINAL_RESULT)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
+							<div className="flex items-center space-x-4">
+								<div className="flex items-center justify-center text-gray-800 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+									<FontAwesomeIcon icon={faCheck} />
+								</div>
+								<div>
+									<h3 className="text-base md:text-lg text-gray-800">選考終了</h3>
+									<span className="text-3xl font-bold text-gray-800">{ applyStatusSummary.final_summary }</span>
+								</div>
+							</div>
+						</Link>
+					</div>
 			</div>
 
 			<div className="">
