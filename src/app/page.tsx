@@ -163,7 +163,7 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg text-blue-800">書類選考中</h3>
-									<span className="text-3xl font-bold text-blue-800">{ applyStatusSummary.document_selection_summary }</span>
+									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
 								</div>
 							</div>
 						</Link>
@@ -175,7 +175,7 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg text-indigo-800">筆記試験選考中</h3>
-									<span className="text-3xl font-bold text-indigo-800">{ applyStatusSummary.exam_selection_summary }</span>
+									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
 								</div>
 							</div>
 						</Link>
@@ -187,7 +187,7 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg text-green-800">面接選考中</h3>
-									<span className="text-3xl font-bold text-green-800">{ applyStatusSummary.interview_selection_summary }</span>
+									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
 								</div>
 							</div>
 						</Link>
@@ -199,7 +199,7 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg text-red-500">内定</h3>
-									<span className="text-3xl font-bold text-red-500">{ applyStatusSummary.offer_summary }</span>
+									<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
 								</div>
 							</div>
 						</Link>
@@ -211,7 +211,7 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg text-gray-800">選考終了</h3>
-									<span className="text-3xl font-bold text-gray-800">{ applyStatusSummary.final_summary }</span>
+									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
 								</div>
 							</div>
 						</Link>

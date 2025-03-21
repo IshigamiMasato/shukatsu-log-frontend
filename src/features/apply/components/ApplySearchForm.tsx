@@ -14,11 +14,9 @@ import { ChangeEvent, useState } from "react";
 
 const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [keyword, setKeyword]             = useState<string>("");
     const [companyId, setCompanyId]         = useState<number|undefined>(undefined);
     const [checkedStatus, setCheckedStatus] = useState<number[]>([]);
-    const [occupation, setOccupation]       = useState<string>("");
-    const [applyRoute, setApplyRoute]       = useState<string>("");
-    const [memo, setMemo]                   = useState<string>("");
     const router = useRouter();
 
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>, statusId: number) => {
@@ -34,15 +32,13 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
     const handleSearch = () => {
         const params = new URLSearchParams();
 
+        if (keyword)   params.set('keyword', keyword);
         if (companyId) params.set('company_id', String(companyId));
         if (checkedStatus.length > 0) {
             checkedStatus.forEach(status => {
                 params.append('status[]', String(status));
             });
         }
-        if (occupation) params.set('occupation', occupation);
-        if (applyRoute) params.set('apply_route', applyRoute);
-        if (memo)       params.set('memo', memo);
 
         const searchParams = params.toString();
 
@@ -50,11 +46,9 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
     }
 
     const clear = () => {
+        setKeyword("");
         setCompanyId(undefined);
         setCheckedStatus([]);
-        setOccupation("");
-        setApplyRoute("");
-        setMemo("");
     }
 
     return (
@@ -66,6 +60,15 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
 
             <div className={`p-5 border border-gray-200 rounded-lg shadow-md ${!isOpen && 'hidden'}`}>
                 <div className="flex flex-wrap justify-start items-center">
+                    <FormItem className="w-full px-2">
+                        <Label>検索ワード</Label>
+                        <Input
+                            type="text"
+                            name="keyword"
+                            value={ keyword }
+                            onChange={ e => setKeyword(e.target.value) }
+                        />
+                    </FormItem>
                     <FormItem className="w-1/2 px-2">
                         <Label>企業</Label>
                         <Select
@@ -87,7 +90,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                         {APPLY_STATUS.map((status) => {
                             return (
                                 <div key={status.id} className="mr-2">
-                                    <label htmlFor={status.name}>{status.name}</label>
+                                    <label htmlFor={status.name} className='mr-1'>{status.name}</label>
                                     <input
                                         id={status.name}
                                         name="status"
@@ -99,33 +102,6 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                                 </div>
                             );
                         })}
-                    </FormItem>
-                    <FormItem className="w-1/2 px-2">
-                        <Label>職種</Label>
-                        <Input
-                            type="text"
-                            name="occupation"
-                            value={ occupation }
-                            onChange={ e => setOccupation(e.target.value) }
-                        />
-                    </FormItem>
-                    <FormItem className="w-1/2 px-2">
-                        <Label>応募経路</Label>
-                        <Input
-                            type="text"
-                            name="apply_route"
-                            value={ applyRoute }
-                            onChange={ e => setApplyRoute(e.target.value) }
-                        />
-                    </FormItem>
-                    <FormItem className="w-1/2 px-2">
-                        <Label>メモ</Label>
-                        <Input
-                            type="text"
-                            name="memo"
-                            value={ memo }
-                            onChange={ e => setMemo(e.target.value) }
-                        />
                     </FormItem>
                 </div>
                 <div className="flex justify-center text-center space-x-1 mt-5">
