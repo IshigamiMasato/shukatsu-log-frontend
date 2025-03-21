@@ -91,7 +91,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                     { validationErrors.status && <p className="text-red-500">{ validationErrors.status.join(',') }</p> }
                 </FormItem>
                 <FormItem>
-                    <Label>職種</Label>
+                    <Label>職種</Label><RequiredBadge />
                     <Input
                         type="text"
                         name="occupation"
