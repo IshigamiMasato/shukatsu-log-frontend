@@ -62,7 +62,8 @@ const Auth: React.FC<Props> = ({ children, path }) => {
             dispatch( loggedIn(userData) );
 
         } catch ( error ) {
-            dispatch( loggedOut({}) );
+            console.log(error);
+            dispatch( loggedOut() );
             return "loggedOut";
 
         }
@@ -88,7 +89,7 @@ const Auth: React.FC<Props> = ({ children, path }) => {
         });
 
     // pathが変更される度に認証状態確認
-    }, [path]);
+    }, [path, router]);
 
     return (
         isAuthChecked

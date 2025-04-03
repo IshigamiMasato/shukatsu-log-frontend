@@ -2,7 +2,7 @@ import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
 import getJWT from "@/server/utils/getJWT";
 import { cookies } from "next/headers";
 
-export async function POST(request: Request) {
+export async function POST() {
     const cookieStore = await cookies();
 
     const jwt = await getJWT();
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
         return Response.json( data, {status: res.status} );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
 
         // CookieからJWTを削除

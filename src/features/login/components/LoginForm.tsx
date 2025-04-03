@@ -23,7 +23,7 @@ const LoginForm = () => {
             router.replace('/');
         }
 
-    }, [isAuthenticated]);
+    }, [isAuthenticated, router]);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

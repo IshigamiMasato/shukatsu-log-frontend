@@ -30,7 +30,7 @@ const getPageLink = (page: number, params: URLSearchParams) => {
 
 const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|string[] }> }) => {
     const searchParams = await props.searchParams;
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     if (Object.keys(searchParams).length > 0) {
         Object.keys(searchParams).forEach(key => {
             const value = searchParams[key];

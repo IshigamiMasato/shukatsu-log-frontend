@@ -1,7 +1,7 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
 import getJWT from "@/server/utils/getJWT";
 
-export async function GET(request: Request) {
+export async function GET() {
     const jwt = await getJWT();
 
     if ( ! jwt ) {
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
         return Response.json( data, {status: res.status} );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
         return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
 
         return Response.json( data, { status: res.status } );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
         return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 

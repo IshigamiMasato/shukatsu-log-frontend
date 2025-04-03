@@ -22,8 +22,8 @@ const Header = () => {
         if ( isConfirmed ) {
             fetch('/api/logout', {
                 method: "POST",
-            }).then(res => {
-                dispatch( loggedOut({}) );
+            }).then(() => {
+                dispatch( loggedOut() );
                 router.replace('/login');
             });
         }
