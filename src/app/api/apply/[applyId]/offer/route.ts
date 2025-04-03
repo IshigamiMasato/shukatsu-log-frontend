@@ -33,7 +33,7 @@ export async function POST(request: Request, { params } : {params: Promise<{ app
 
         return Response.json( data, { status: res.status } );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
         return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 

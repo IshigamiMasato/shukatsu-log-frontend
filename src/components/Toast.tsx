@@ -17,7 +17,7 @@ const Toast = () => {
         if ( isDisp ) {
             intervalId = window.setInterval(() => {
                 console.log('setInterval called.');
-                dispatch( removeToast({}) );
+                dispatch( removeToast() );
             }, 5000); // 5秒後にトーストを削除
         }
 
@@ -29,7 +29,7 @@ const Toast = () => {
         };
 
     // トーストの表示・非表示の状態変化を捕捉
-    }, [isDisp]);
+    }, [isDisp, dispatch]);
 
     return (
         <>

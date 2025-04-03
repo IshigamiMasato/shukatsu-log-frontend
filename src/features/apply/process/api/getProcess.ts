@@ -1,7 +1,8 @@
 import getJWT from "@/server/utils/getJWT";
+import { ProcessItem } from "@/types/ProcessItem";
 import { notFound, redirect } from "next/navigation";
 
-export const getProcess = async (applyId: number): Promise<object[]|null|never> => {
+export const getProcess = async (applyId: number): Promise<ProcessItem[]|null|never> => {
     const jwt = await getJWT();
 
     const res = await fetch(`${process.env.API_URL}/api/apply/${applyId}/process`, {

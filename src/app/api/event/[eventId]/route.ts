@@ -35,7 +35,7 @@ export async function PUT( request: Request, { params } : {params: Promise<{ eve
 
         return Response.json( data, { status: res.status } );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
         return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 
@@ -61,7 +61,7 @@ export async function DELETE( request: Request, { params } : {params: Promise<{ 
 
         return Response.json( data, { status: res.status } );
 
-    } catch ( error: any ) {
+    } catch ( error ) {
         console.error(error);
         return Response.json( { message: SERVER_ERROR }, { status: 500 } );
 

@@ -14,12 +14,12 @@ const toastSlice = createSlice({
     name: 'toast',
     initialState,
     reducers: {
-    dispToast( state, {type, payload} ) {
+    dispToast( state, { payload } ) {
         state.isDisp  = true;
         state.status  = payload.status;
         state.message = payload.message;
     },
-    removeToast( state, {type, payload} ) {
+    removeToast( state ) {
         state.isDisp  = false;
         state.status  = undefined;
         state.message = undefined;
