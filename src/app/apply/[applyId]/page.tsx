@@ -59,7 +59,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                         type="text"
                         name="name"
                         value={ apply.company.name }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -69,7 +69,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                         type="text"
                         name="url"
                         value={ apply.company.url ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -79,7 +79,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                         type="text"
                         name="occupation"
                         value={ apply.occupation ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -89,7 +89,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                         type="text"
                         name="status"
                         value={ APPLY_STATUS.find(status => status.id == apply.status)?.name }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -99,7 +99,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                         type="text"
                         name="apply_route"
                         value={ apply.apply_route ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -108,7 +108,7 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     <Textarea
                         name="memo"
                         value={ apply.memo ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
