@@ -34,10 +34,10 @@ const Toast = () => {
     return (
         <>
             { isDisp && (
-                <div className={ `fixed flex items-center divide-x rtl:divide-x-reverse bottom-5 right-5 w-full max-w-sm sm:max-w-lg mx-auto p-2 rounded-lg shadow-md mb-3 ${ status === "success" ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700" }` }>
+                <div className={ `fixed flex items-center divide-x rtl:divide-x-reverse bottom-5 right-1 mx-auto p-2 rounded-lg shadow-md mb-3 ${ status === "success" ? "bg-green-600 text-white" : "bg-red-600 text-white" }` }>
                     { status === "success"
-                        ? <FontAwesomeIcon icon={faCircleCheck} className="text-green-500 bg-green-100 rounded-lg p-2 m-2" />
-                        : <FontAwesomeIcon icon={faCircleXmark} className="text-red-500 bg-red-100 rounded-lg p-2 m-2" />
+                        ? <FontAwesomeIcon icon={faCircleCheck} className="text-white bg-green-600 rounded-lg m-2" />
+                        : <FontAwesomeIcon icon={faCircleXmark} className="text-white bg-red-600 rounded-lg m-2" />
                     }
                     { message }
                 </div>
