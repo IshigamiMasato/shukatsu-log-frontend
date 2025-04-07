@@ -19,7 +19,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                 { isOpen ? <span className="ml-1">企業詳細を非表示</span> : <span className="ml-1">企業詳細を表示</span> }
             </button>
             <div className={`flex flex-wrap justify-center items-center p-5 border border-gray-200 rounded-lg shadow-md bg-white  ${!isOpen && 'hidden'}`}>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>企業名</Label>
                     <Input
                         type="text"
@@ -29,7 +29,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>企業URL</Label>
                     <Input
                         type="text"
@@ -39,7 +39,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>社長名</Label>
                     <Input
                         type="text"
@@ -49,7 +49,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>住所</Label>
                     <Input
                         type="text"
@@ -59,7 +59,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>設立年月日</Label>
                     <Input
                         type="date"
@@ -69,7 +69,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>従業員数</Label>
                     <Input
                         type="text"
@@ -79,7 +79,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>上場区分</Label>
                     <Input
                         type="text"
@@ -92,7 +92,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                 <FormItem className="w-1/2 px-2">
                     <div />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>福利厚生</Label>
                     <Textarea
                         name="benefit"
@@ -101,7 +101,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
-                <FormItem className="w-1/2 px-2">
+                <FormItem className="sm:basis-1/2 w-full px-2">
                     <Label>メモ</Label>
                     <Textarea
                         name="memo"
