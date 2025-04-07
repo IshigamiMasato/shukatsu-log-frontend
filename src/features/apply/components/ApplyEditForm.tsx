@@ -67,7 +67,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                         type="text"
                         name="name"
                         value={ apply.company.name }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>

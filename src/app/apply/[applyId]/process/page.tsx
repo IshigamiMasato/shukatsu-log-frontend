@@ -70,7 +70,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                                             type="text"
                                                                             name="name"
                                                                             value={ file.name }
-                                                                            disabled={true}
+                                                                            readOnly={true}
                                                                             className="text-gray-500 bg-gray-100"
                                                                         />
                                                                     </FormItem>
@@ -91,7 +91,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ document.memo ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -125,7 +125,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ exam.content }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -134,7 +134,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ exam.memo ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -168,7 +168,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ interview.interviewer_info ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -177,7 +177,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ interview.memo ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -212,7 +212,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                         type="text"
                                                         name="name"
                                                         value={ offer.salary ? offer.salary.toLocaleString() : '' }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -221,7 +221,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ offer.condition ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -230,7 +230,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ offer.memo ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -268,7 +268,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                         type="text"
                                                         name="name"
                                                         value={ FINAL_RESULT_STATUS.find(status => status.id == finalResult.status)?.name }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>
@@ -277,7 +277,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                                     <Textarea
                                                         name="memo"
                                                         value={ finalResult.memo ?? "" }
-                                                        disabled={true}
+                                                        readOnly={true}
                                                         className="text-gray-500 bg-gray-100"
                                                     />
                                                 </FormItem>

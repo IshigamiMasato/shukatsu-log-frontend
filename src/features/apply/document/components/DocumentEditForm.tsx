@@ -130,7 +130,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                                             type="text"
                                             name="name"
                                             value={ file.name }
-                                            disabled={true}
+                                            readOnly={true}
                                             className="text-gray-500 bg-gray-100"
                                         />
                                     </FormItem>

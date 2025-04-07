@@ -25,7 +25,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="name"
                         value={ company.name }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -35,7 +35,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="url"
                         value={ company.url ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -45,7 +45,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="president"
                         value={ company.president ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -55,7 +55,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="address"
                         value={ company.address ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -65,7 +65,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="date"
                         name="establish_date"
                         value={ company.establish_date ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -75,7 +75,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="employee_number"
                         value={ company.employee_number ? company.employee_number.toLocaleString() : '' }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -85,7 +85,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                         type="text"
                         name="listing_class"
                         value={ company.listing_class ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -97,7 +97,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     <Textarea
                         name="benefit"
                         value={ company.benefit ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
@@ -106,7 +106,7 @@ const CompanyDetail = ({company} : {company: Company}) => {
                     <Textarea
                         name="memo"
                         value={ company.memo ?? "" }
-                        disabled={true}
+                        readOnly={true}
                         className="text-gray-500 bg-gray-100"
                     />
                 </FormItem>
