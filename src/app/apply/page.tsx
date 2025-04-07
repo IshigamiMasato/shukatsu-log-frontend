@@ -16,6 +16,7 @@ import { faBuilding, faChevronLeft, faChevronRight, faCirclePlus, faClockRotateL
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import getBadge from "@/features/apply/getBadge";
+import verifyAuth from "@/server/utils/verifyAuth";
 
 export const metadata = {
 	title: `応募一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -29,6 +30,8 @@ const getPageLink = (page: number, params: URLSearchParams) => {
 }
 
 const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|string[] }> }) => {
+    await verifyAuth();
+
     const searchParams = await props.searchParams;
     const params = new URLSearchParams();
     if (Object.keys(searchParams).length > 0) {
@@ -45,16 +48,12 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
         });
     }
     const resultGetApplies = await getApplies(params);
-    // トークンリフレッシュが必要な場合
-    if ( resultGetApplies === null ) return;
     const applies = resultGetApplies.data;
     const total = resultGetApplies.total;
     const pageCount = Math.ceil(total / PER_PAGE);
     const currentPage = params.has('page') ? params.get('page') : DEFAULT_PAGE;
 
     const resultGetCompanies = await getCompanies(new URLSearchParams());
-    // トークンリフレッシュが必要な場合
-    if ( resultGetCompanies === null ) return;
     const companies = resultGetCompanies.data;
 
     return (

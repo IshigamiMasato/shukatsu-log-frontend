@@ -10,18 +10,17 @@ import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { faBuilding, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+import verifyAuth from "@/server/utils/verifyAuth";
 
 export const metadata = {
 	title: `応募詳細 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
 }
 
 const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
+    await verifyAuth();
+
     const applyId = (await params).applyId;
-
     const apply = await getApply(applyId);
-
-    // トークンリフレッシュが必要な場合
-    if ( apply === null ) return;
 
     return (
         <>

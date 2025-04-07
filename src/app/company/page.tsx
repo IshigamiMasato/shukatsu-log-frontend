@@ -4,6 +4,7 @@ import { DEFAULT_PAGE, PER_PAGE } from "@/constants/const";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import CompanySearchForm from "@/features/company/components/CompanySearchForm";
+import verifyAuth from "@/server/utils/verifyAuth";
 import { Company } from "@/types";
 import { faChevronLeft, faChevronRight, faCirclePlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,11 +22,11 @@ const getPageLink = (page: number, params: URLSearchParams) => {
 }
 
 const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: string }> }) => {
+    await verifyAuth();
+
     const searchParams = await props.searchParams;
     const params = new URLSearchParams(searchParams);
     const result = await getCompanies(params);
-    // トークンリフレッシュが必要な場合
-    if ( result === null ) return;
 
     const companies = result.data;
     const total = result.total;

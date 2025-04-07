@@ -19,6 +19,7 @@ import Link from "next/link";
 import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
+import verifyAuth from "@/server/utils/verifyAuth";
 
 export const metadata = {
 	title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -30,16 +31,14 @@ const getApplyLink = (status: number) => {
 }
 
 const Home = async () => {
+	await verifyAuth();
+
 	const applyStatusSummary = await getApplyStatusSummary();
-	// トークンリフレッシュが必要な場合
-	if ( applyStatusSummary === null ) return;
 	const totalApply = Object.values(applyStatusSummary).reduce((sum, num) => sum + Number(num), 0);
 
 	const startAt = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
 	const endAt   = moment().add(1, 'week').endOf('day').format('YYYY-MM-DD HH:mm:ss');
 	const events = await getEvents(new URLSearchParams({ start_at: startAt, end_at: endAt }));
-	// トークンリフレッシュが必要な場合
-	if ( events === null ) return;
 
 	// 選考中の応募を取得
 	const applyParams = new URLSearchParams();
@@ -47,14 +46,10 @@ const Home = async () => {
 		applyParams.append('status[]', String(status));
 	});
 	const resultGetApplies = await getApplies(applyParams);
-    // トークンリフレッシュが必要な場合
-    if ( resultGetApplies === null ) return;
     const applies = resultGetApplies.data;
     const progressTotal = resultGetApplies.total;
 
 	const resultGetCompanies = await getCompanies(new URLSearchParams());
-	// トークンリフレッシュが必要な場合
-    if ( resultGetCompanies === null ) return;
 	const companiesTotal = resultGetCompanies.total;
 
   	return (
