@@ -8,22 +8,12 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { FormEvent, useState } from "react";
 
 const LoginForm = () => {
-    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
     const router = useRouter();
-
-    useEffect(() => {
-        if ( isAuthenticated ) {
-            router.replace('/');
-        }
-
-    }, [isAuthenticated, router]);
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();

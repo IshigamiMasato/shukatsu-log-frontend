@@ -1,14 +1,13 @@
 import { getUser } from "@/features/user/api/getUser";
+import verifyAuth from "@/server/utils/verifyAuth";
 
 export const metadata = {
 	title: `会員情報 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
 }
 
 const UserPage = async () => {
+    await verifyAuth();
     const user = await getUser();
-
-    // トークンリフレッシュが必要な場合
-    if ( user === null ) return;
 
     return (
         <section className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto">
