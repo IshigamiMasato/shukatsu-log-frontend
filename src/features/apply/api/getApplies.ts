@@ -2,7 +2,7 @@ import getJWT from "@/server/utils/getJWT";
 import { Apply } from "@/types";
 import { notFound, redirect } from "next/navigation";
 
-export const getApplies = async (query?: URLSearchParams): Promise<{ data: Apply[], total: number }|null|never> => {
+export const getApplies = async (query?: URLSearchParams): Promise<{ data: Apply[], total: number }|never> => {
     const jwt = await getJWT();
 
     const res = await fetch(`${process.env.API_URL}/api/apply` + ( query ? `?${query}` : '' ), {
@@ -13,18 +13,8 @@ export const getApplies = async (query?: URLSearchParams): Promise<{ data: Apply
     if ( ! res.ok ) {
         const data = await res.json();
 
-        if ( res.status == 401 ) {
-            // トークン有効期限切れはフロントのクライアントコンポーネント側でリフレッシュ処理を実施し、再チャレンジするため特にエラーは返さずNULL返却
-            if ( data.code === "EXPIRED_TOKEN" ) {
-                return null;
-            }
-
-            redirect('/login');
-        }
-
-        if ( res.status == 404 ) {
-            notFound();
-        }
+        if ( res.status == 401 ) redirect('/login');
+        if ( res.status == 404 ) notFound();
 
         throw new Error( `Failed fetch applies. (status=${res.status}, data=${JSON.stringify(data)})` );
     }

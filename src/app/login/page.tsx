@@ -4,7 +4,7 @@ export const metadata = {
 	title: `ログイン | ${process.env.NEXT_PUBLIC_APP_NAME}`,
 }
 
-const LoginPage: React.FC = () => {
+const LoginPage = () => {
     return (
         <LoginForm/>
     );

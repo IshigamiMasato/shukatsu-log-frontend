@@ -20,21 +20,19 @@ import moment from "moment";
 import CompanyDetail from "@/features/apply/process/components/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
 import BackLink from "@/components/navigations/BackLink";
+import verifyAuth from "@/server/utils/verifyAuth";
 
 export const metadata = {
 	title: `選考履歴一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
 }
 
 const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> }) => {
-    const applyId = (await params).applyId;
+    await verifyAuth();
 
+    const applyId = (await params).applyId;
     const apply = await getApply(applyId);
-    // トークンリフレッシュが必要な場合
-    if ( apply === null ) return;
 
     const process = await getProcess(applyId);
-    // トークンリフレッシュが必要な場合
-    if ( process === null ) return;
 
     return (
         <>
