@@ -37,6 +37,11 @@ const Auth = ({ children, path } : { children: React.ReactNode, path: string }) 
 
     const initializeAuth = async () => {
         try {
+            if ( path === '/login' ) {
+                dispatch( loggedOut() );
+                return;
+            }
+
             let userData = await loadToken();
 
             if ( userData === "needRefresh" ) {
