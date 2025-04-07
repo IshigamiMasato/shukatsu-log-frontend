@@ -69,7 +69,7 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                             onChange={ e => setKeyword(e.target.value) }
                         />
                     </FormItem>
-                    <FormItem className="w-1/2 px-2">
+                    <FormItem className="sm:basis-1/2 w-full px-2">
                         <Label>企業</Label>
                         <Select
                             name="company_id"
@@ -86,22 +86,25 @@ const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
                             })}
                         </Select>
                     </FormItem>
-                    <FormItem className="w-full flex flex-wrap px-2">
-                        {APPLY_STATUS.map((status) => {
-                            return (
-                                <div key={status.id} className="mr-2">
-                                    <label htmlFor={status.name} className='mr-1'>{status.name}</label>
-                                    <input
-                                        id={status.name}
-                                        name="status"
-                                        type="checkbox"
-                                        value={status.id}
-                                        checked={checkedStatus.includes(status.id)}
-                                        onChange={ (e) => handleCheckboxChange(e, status.id)}
-                                    />
-                                </div>
-                            );
-                        })}
+                    <FormItem className="w-full px-2">
+                        <Label>ステータス</Label>
+                        <div className="border rounded-lg p-2 flex flex-wrap">
+                            {APPLY_STATUS.map((status) => {
+                                return (
+                                    <div key={status.id} className="mr-2">
+                                        <input
+                                            id={status.name}
+                                            name="status"
+                                            type="checkbox"
+                                            value={status.id}
+                                            checked={checkedStatus.includes(status.id)}
+                                            onChange={ (e) => handleCheckboxChange(e, status.id)}
+                                        />
+                                        <label htmlFor={status.name}>{status.name}</label>
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </FormItem>
                 </div>
                 <div className="flex justify-center text-center space-x-1 mt-5">
