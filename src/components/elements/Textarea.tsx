@@ -13,7 +13,7 @@ const Textarea = ({ name, errors, rows, value, className, ...props } : TextareaP
             value={value}
             rows={rows ? rows : 4}
             { ...props }
-            className={ `bg-gray-50 border border-gray-300 rounded-lg text-sm p-2 w-full ${errors ? 'border-2 border-red-500' : ''} ${className}` }
+            className={ `bg-gray-50 border border-gray-300 rounded-lg p-2 w-full ${errors ? 'border-2 border-red-500' : ''} ${className}` }
         />
     )
 }

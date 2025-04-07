@@ -76,12 +76,12 @@ const EventCreateForm = () => {
                     />
                     { validationErrors.title && <ValidationErrorMsg errors={validationErrors.title} /> }
                 </FormItem>
-                <FormItem>
+                <FormItem className="border rounded-lg p-2">
                     <Label>タイプ</Label><RequiredBadge /><br />
                     {
                         EVENT_TYPES.map(value => {
                             return (
-                                <label key={ value.id }>
+                                <label key={ value.id } className="mr-2 text-nowrap">
                                     <input
                                         type="radio"
                                         name="type"

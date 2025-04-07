@@ -6,7 +6,7 @@ type LabelProps = {
 const Label = ({ children, className, ... props } : LabelProps) => {
     return (
         <label
-            className={`text-sm font-medium text-left w-32 ${className || ''}`}
+            className={`font-medium text-left w-32 ${className || ''}`}
             { ...props }
         >
             { children }

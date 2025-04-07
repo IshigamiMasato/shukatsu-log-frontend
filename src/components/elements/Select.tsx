@@ -11,7 +11,7 @@ const Select = ({ name, value, onChange, children, errors, className, ...props }
             value={ value }
             onChange={ onChange }
             { ...props }
-            className={ `bg-gray-50 border border-gray-300 rounded-lg text-sm p-2 w-full ${errors ? 'border-2 border-red-500' : ''} ${className}` }
+            className={ `bg-gray-50 border border-gray-300 rounded-lg p-2 w-full appearance-none ${errors ? 'border-2 border-red-500' : ''} ${className}` }
         >
             { children }
         </select>
