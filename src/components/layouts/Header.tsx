@@ -24,6 +24,8 @@ const Header = () => {
                 method: "POST",
             }).then(() => {
                 dispatch( loggedOut() );
+                setIsOpen(false);
+
                 router.replace('/login');
             });
         }
