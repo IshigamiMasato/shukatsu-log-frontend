@@ -7,13 +7,11 @@ import ErrorMsg from "@/components/forms/ErrorMsg";
 import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
-import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
 const LoginForm = () => {
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
-    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -40,7 +38,7 @@ const LoginForm = () => {
             }
 
             // ログイン成功時TOP画面へ遷移
-            router.push('/');
+            window.location.href = '/';
         })
     }
 
