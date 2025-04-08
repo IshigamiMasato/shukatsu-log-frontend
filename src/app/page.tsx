@@ -139,9 +139,10 @@ const Home = async () => {
 
 			<div className="mb-12">
 				<TitleContainer main="進捗状況" sub={`総応募数：${totalApply}`} />
-					<div className="flex flex-wrap justify-between">
-						<Link href={getApplyLink(UNREGISTERED_SELECTION_PROCESS)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+					<div className="sm:flex sm:flex-wrap sm:justify-between grid grid-cols-3"> {/* PC用：flex適用 SP用：grid適用 */}
+						<Link href={getApplyLink(UNREGISTERED_SELECTION_PROCESS)} className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md`}>
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faQuestion} />
 								</div>
@@ -150,10 +151,17 @@ const Home = async () => {
 									<span className="text-3xl font-bold">{ applyStatusSummary.unregistered_selection_process_summary }</span>
 								</div>
 							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs">選考履歴無し</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.unregistered_selection_process_summary }</div>
+							</div>
 						</Link>
 
-						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-blue-800 bg-blue-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faFileLines} />
 								</div>
@@ -162,10 +170,17 @@ const Home = async () => {
 									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
 								</div>
 							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs text-blue-800">書類選考中</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</div>
+							</div>
 						</Link>
 
-						<Link href={getApplyLink(EXAM_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+						<Link href={getApplyLink(EXAM_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-indigo-800 bg-indigo-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faFilePen} />
 								</div>
@@ -174,10 +189,17 @@ const Home = async () => {
 									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
 								</div>
 							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs text-indigo-800">筆記選考中</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</div>
+							</div>
 						</Link>
 
-						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-green-800 bg-green-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faPeopleArrows} />
 								</div>
@@ -186,10 +208,17 @@ const Home = async () => {
 									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
 								</div>
 							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs text-green-800">面接選考中</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</div>
+							</div>
 						</Link>
 
-						<Link href={getApplyLink(OFFER)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+						<Link href={getApplyLink(OFFER)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-red-500 bg-red-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faHeart} />
 								</div>
@@ -198,10 +227,17 @@ const Home = async () => {
 									<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
 								</div>
 							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs text-red-500">内定</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</div>
+							</div>
 						</Link>
 
-						<Link href={getApplyLink(FINAL_RESULT)} className="w-full sm:basis-1/2 md:basis-1/3 bg-white p-4 px-8 hover:bg-gray-50 border border-gray-100 rounded-md">
-							<div className="flex items-center space-x-4">
+						<Link href={getApplyLink(FINAL_RESULT)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+							{/* PC用 */}
+							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-gray-800 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
 									<FontAwesomeIcon icon={faCheck} />
 								</div>
@@ -209,6 +245,12 @@ const Home = async () => {
 									<h3 className="text-base md:text-lg text-gray-800">選考終了</h3>
 									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
 								</div>
+							</div>
+
+							{/* SP用 */}
+							<div className="sm:hidden text-center">
+								<h3 className="text-xs text-gray-800">選考終了</h3>
+								<div className="text-3xl font-bold">{ applyStatusSummary.final_summary }</div>
 							</div>
 						</Link>
 					</div>
