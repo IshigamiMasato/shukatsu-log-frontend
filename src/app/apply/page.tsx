@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import getBadge from "@/features/apply/getBadge";
 import verifyAuth from "@/server/utils/verifyAuth";
+import ApplyIndexForSP from "@/features/apply/components/ApplyIndexForSP";
 
 export const metadata = {
 	title: `応募一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -81,130 +82,143 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
                     </div>
                 </div>
 
-                <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
-                    <div className="text-gray-500 text-nowrap">
-                        登録数：<span className="font-semibold text-black">{ total }</span>件
-                    </div>
-                    <nav>
-                        <ul className="flex items-center -space-x-px h-8 text-sm">
-                            <Link
-                                href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
-                                className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
-                            >
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                            </Link>
-                            {Array.from({ length: pageCount }, (_, i) => {
-                                const page = i + 1;
-                                return (
-                                    <Link key={page} href={getPageLink(page, params)}>
-                                        <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
-                                            { page }
-                                        </div>
-                                    </Link>
-                                )
-                            })}
-                            <Link
-                                href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
-                                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
-                            >
-                                <FontAwesomeIcon icon={faChevronRight} />
-                            </Link>
-                        </ul>
-                    </nav>
-                </div>
+                { total > 0
+                    ? (
+                        <>
+                            <div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
+                                <div className="text-gray-500 text-nowrap">
+                                    登録数：<span className="font-semibold text-black">{ total }</span>件
+                                </div>
+                                <nav>
+                                    <ul className="flex items-center -space-x-px h-8 text-sm">
+                                        <Link
+                                            href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
+                                            className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                        >
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </Link>
+                                        {Array.from({ length: pageCount }, (_, i) => {
+                                            const page = i + 1;
+                                            return (
+                                                <Link key={page} href={getPageLink(page, params)}>
+                                                    <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
+                                                        { page }
+                                                    </div>
+                                                </Link>
+                                            )
+                                        })}
+                                        <Link
+                                            href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
+                                            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
+                                        >
+                                            <FontAwesomeIcon icon={faChevronRight} />
+                                        </Link>
+                                    </ul>
+                                </nav>
+                            </div>
 
-                <div className="overflow-x-auto shadow-md rounded-lg border">
-                    <table className="w-full text-sm text-left">
-                        <thead className="text-xs bg-gray-100">
-                            <tr>
-                                <th scope="col" className="px-6 py-3 text-nowrap">企業名 / 職種</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">ステータス</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">編集</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">削除</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
-                                <th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {applies.map((apply: Apply) => {
-                                return (
-                                    <tr key={ apply.apply_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <Link href={`/apply/${apply.apply_id}`} className="text-blue-500 hover:underline">
-                                                { apply.company.name } / { apply.occupation }
-                                            </Link>
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            { getBadge(apply.status) }
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <Link href={`/apply/${apply.apply_id}/process`}>
-                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                    <FontAwesomeIcon icon={faClockRotateLeft} />
-                                                </ActionContainer>
-                                            </Link>
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <Link href={`/company/${apply.company_id}`}>
-                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                    <FontAwesomeIcon icon={faBuilding} />
-                                                </ActionContainer>
-                                            </Link>
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <Link href={`/apply/${apply.apply_id}/edit`}>
-                                                <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                        <FontAwesomeIcon icon={faPenToSquare} />
-                                                </ActionContainer>
-                                            </Link>
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            <ApplyDeleteButton applyId={apply.apply_id}>
-                                                <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-                                                        <FontAwesomeIcon icon={faTrash} />
-                                                </ActionContainer>
-                                            </ApplyDeleteButton>
-                                        </td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
-                                        <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                            {/* PC用 */}
+                            <div className="overflow-x-auto shadow-md rounded-lg border sm:block hidden">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="text-xs bg-gray-100">
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">企業名 / 職種</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">ステータス</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">編集</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">削除</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
+                                            <th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {applies.map((apply: Apply) => {
+                                            return (
+                                                <tr key={ apply.apply_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        <Link href={`/apply/${apply.apply_id}`} className="text-blue-500 hover:underline">
+                                                            { apply.company.name } / { apply.occupation }
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        { getBadge(apply.status) }
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        <Link href={`/apply/${apply.apply_id}/process`}>
+                                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                                <FontAwesomeIcon icon={faClockRotateLeft} />
+                                                            </ActionContainer>
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        <Link href={`/company/${apply.company_id}`}>
+                                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                                <FontAwesomeIcon icon={faBuilding} />
+                                                            </ActionContainer>
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        <Link href={`/apply/${apply.apply_id}/edit`}>
+                                                            <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                                            </ActionContainer>
+                                                        </Link>
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">
+                                                        <ApplyDeleteButton applyId={apply.apply_id}>
+                                                            <ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
+                                                                    <FontAwesomeIcon icon={faTrash} />
+                                                            </ActionContainer>
+                                                        </ApplyDeleteButton>
+                                                    </td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                <div className="flex items-center justify-between overflow-x-auto mt-3 space-x-2">
-                    <div />
-                    <nav>
-                        <ul className="flex items-center -space-x-px h-8 text-sm">
-                            <Link
-                                href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
-                                className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
-                            >
-                                <FontAwesomeIcon icon={faChevronLeft} />
-                            </Link>
-                            {Array.from({ length: pageCount }, (_, i) => {
-                                const page = i + 1;
-                                return (
-                                    <Link key={page} href={getPageLink(page, params)}>
-                                        <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
-                                            { page }
-                                        </div>
-                                    </Link>
-                                )
-                            })}
-                            <Link
-                                href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
-                                className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
-                            >
-                                <FontAwesomeIcon icon={faChevronRight} />
-                            </Link>
-                        </ul>
-                    </nav>
-                </div>
+                            {/* SP用 */}
+                            <ApplyIndexForSP applies={applies} />
+
+                            <div className="flex items-center justify-between overflow-x-auto mt-3 space-x-2">
+                                <div />
+                                <nav>
+                                    <ul className="flex items-center -space-x-px h-8 text-sm">
+                                        <Link
+                                            href={currentPage == 1 ? "#" : getPageLink(Number(currentPage) - 1, params)} aria-disabled={currentPage == 1}
+                                            className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                        >
+                                            <FontAwesomeIcon icon={faChevronLeft} />
+                                        </Link>
+                                        {Array.from({ length: pageCount }, (_, i) => {
+                                            const page = i + 1;
+                                            return (
+                                                <Link key={page} href={getPageLink(page, params)}>
+                                                    <div className={`flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-500 ${page == currentPage ? 'bg-blue-100' : 'bg-white  hover:text-gray-700  hover:bg-gray-100'}`}>
+                                                        { page }
+                                                    </div>
+                                                </Link>
+                                            )
+                                        })}
+                                        <Link
+                                            href={currentPage == pageCount ? "#" : getPageLink(Number(currentPage) + 1, params)} aria-disabled={currentPage === pageCount}
+                                            className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 ${currentPage == pageCount ? 'cursor-not-allowed opacity-50' : ''}`}
+                                        >
+                                            <FontAwesomeIcon icon={faChevronRight} />
+                                        </Link>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </>
+                    )
+                    : (
+                        <h3 className="text-base font-medium mb-2">応募が存在しません。</h3>
+                    )
+                }
             </div>
         </>
     )
