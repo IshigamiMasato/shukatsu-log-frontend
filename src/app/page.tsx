@@ -217,7 +217,7 @@ const Home = async () => {
 			<div className="">
 				<TitleContainer main="選考中の応募" sub={ `選考中件数：${progressTotal}` }/>
 				<div className="rounded-lg">
-					<div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
+					<div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2 px-8">
 						{/* <div className="text-gray-500 text-nowrap">
 							選考中件数：<span className="font-semibold text-black">{ progressTotal }</span>件
 						</div> */}
@@ -304,7 +304,13 @@ const Home = async () => {
 							</>
 						)
 						: (
-							<h3 className="text-base font-medium mb-2">選考中の応募が存在しません。</h3>
+							<div className="rounded-lg p-8 bg-white">
+								<h3 className="text-base font-medium mb-2">選考中の応募が存在しません。</h3>
+								<div className="flex text-sm items-center text-blue-500 hover:underline">
+									<Link href='/apply/create' className="mr-1">応募を登録する</Link>
+									<FontAwesomeIcon icon={faChevronRight} />
+								</div>
+							</div>
 						)
 					}
 				</div>
