@@ -215,12 +215,12 @@ const Home = async () => {
 			</div>
 
 			<div className="">
-				<TitleContainer main="選考中の応募" />
-				<div className="rounded-lg p-8 bg-white">
+				<TitleContainer main="選考中の応募" sub={ `選考中件数：${progressTotal}` }/>
+				<div className="rounded-lg">
 					<div className="flex items-center justify-between overflow-x-auto mb-3 space-x-2">
-						<div className="text-gray-500 text-nowrap">
+						{/* <div className="text-gray-500 text-nowrap">
 							選考中件数：<span className="font-semibold text-black">{ progressTotal }</span>件
-						</div>
+						</div> */}
 						<div className="flex items-center text-xs font-medium text-nowrap">
 							<p>ステータス：</p>
 							<UnregisteredSelectionProcessStatusBadge />

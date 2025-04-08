@@ -20,13 +20,13 @@ const CompanyIndexForSP = ({companies} : {companies : Company[]}) => {
     };
 
     return (
-        <div className="shadow-md rounded-lg border sm:hidden block">
+        <div className="shadow-md rounded-lg border sm:hidden block bg-white">
             {companies.map((company: Company) => {
                 const isOpen = openItems.includes(company.company_id);
 
                 return (
                     <div key={company.company_id} className="border-b border-gray-200">
-                        <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50" onClick={ () => toggleItem(company.company_id) }>
+                        <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50 rounded-lg" onClick={ () => toggleItem(company.company_id) }>
                             <span className={`text-2xl text-blue-500 transform transition-transform mr-2 ${ isOpen ? 'rotate-180' : '' }`}>
                                 <FontAwesomeIcon icon={faChevronCircleUp} />
                             </span>
