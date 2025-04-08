@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Auth from "@/components/auth/Auth";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
+import BottomNav from "@/components/navigations/BottomNav";
 
 type Props = {
     children: React.ReactNode
@@ -25,7 +26,10 @@ const AppProvider: React.FC<Props> = ({ children }) => {
                     </div>
                 </Auth>
                 <Toast />
+                {/* PC用 */}
                 <Footer />
+                {/* SP用 */}
+                <BottomNav />
             </div>
         </Provider>
     )
