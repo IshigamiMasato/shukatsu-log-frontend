@@ -13,6 +13,7 @@ import { dispToast } from "@/store/modules/toast";
 import { Offer } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const OfferEditForm = ({ offer } : { offer: Offer }) => {
     const [offerDate, setOfferDate] = useState<string>(offer.offer_date);
@@ -21,6 +22,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
     const [memo, setMemo]           = useState<string>(offer.memo             ?? "");
     const [validationErrors, setValidationErrors] = useState<{ offer_date?: []; salary?: []; condition?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -52,6 +54,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                 setMemo(newOffer.memo           ?? "");
 
                 dispatch( dispToast({ status: "success", message: `内定情報の更新が完了しました。` }) );
+                router.push(`/apply/${offer.apply_id}/process`);
             });
         })
     }

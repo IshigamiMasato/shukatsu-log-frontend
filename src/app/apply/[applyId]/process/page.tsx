@@ -258,7 +258,7 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-purple-500 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">選考終了情報作成日 { moment(finalResult.created_at).format('YYYY-MM-DD') }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-white bg-purple-500 rounded-3xl p-1.5 mb-1 inline-block">
+                                                <h3 className="text-base font-semibold text-white bg-purple-500 rounded-3xl p-1.5 mb-1 inline-block">
                                                     <FontAwesomeIcon icon={faCircleCheck} />
                                                     <span className="ml-1">選考終了</span>
                                                 </h3>

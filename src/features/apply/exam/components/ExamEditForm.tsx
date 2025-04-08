@@ -13,6 +13,7 @@ import { dispToast } from "@/store/modules/toast";
 import { Exam } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const ExamEditForm = ({ exam } : { exam: Exam }) => {
     const [examDate, setExamDate] = useState<string>(exam.exam_date);
@@ -20,6 +21,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
     const [memo, setMemo]         = useState<string>(exam.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ exam_date?: []; memo?: []; content?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -50,6 +52,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
                 setMemo(newExam.memo ?? "");
 
                 dispatch( dispToast({ status: "success", message: `試験情報の更新が完了しました。` }) );
+                router.push(`/apply/${exam.apply_id}/process`);
             });
         })
     }
