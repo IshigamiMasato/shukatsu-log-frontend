@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const BottomNav = () => {
     return (
-        <div className="mt-32">
+        <div className="sm:mt-0 mt-32">
             <ul className="text-gray-700 bg-white fixed left-0 bottom-0 w-full grid grid-cols-5 text-center px-2 py-4 border-t sm:hidden">
                 <li>
                     <Link href='/event'>
