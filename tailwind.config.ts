@@ -39,6 +39,14 @@ export default {
     'text-nowrap',
     'justify-end',
     'p-5',
+    'sm:hidden',
+    'transition',
+    'rotate-180',
+    'transform',
+    'transition-transform',
+    '!px-3',
+    '!py-2',
+    'space-y-3',
   ],
   theme: {
     extend: {
