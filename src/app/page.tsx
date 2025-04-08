@@ -20,6 +20,7 @@ import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import verifyAuth from "@/server/utils/verifyAuth";
+import ApplyIndexForSP from "@/features/apply/components/ApplyIndexForSP";
 
 export const metadata = {
 	title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -127,8 +128,8 @@ const Home = async () => {
 							<div>
 								<h3 className="text-base font-medium mb-2">直近の予定はありません。</h3>
 								<div className="flex text-sm items-center text-blue-500 hover:underline">
+									<Link href='/event/create' className="mr-1">予定を登録する</Link>
 									<FontAwesomeIcon icon={faChevronRight} />
-									<Link href='/event/create' className="ml-1">予定を登録する</Link>
 								</div>
 							</div>
 						)
@@ -230,68 +231,82 @@ const Home = async () => {
 							<FinalResultStatusBadge />
 						</div>
 					</div>
-					<div className="overflow-x-auto shadow-md rounded-lg border">
-						<table className="w-full text-sm text-left">
-							<thead className="text-xs bg-gray-100">
-								<tr>
-									<th scope="col" className="px-6 py-3 text-nowrap">企業名 / 職種</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">ステータス</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">編集</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">削除</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
-									<th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
-								</tr>
-							</thead>
-							<tbody>
-								{applies.map((apply: Apply) => {
-									return (
-										<tr key={ apply.apply_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            	<Link href={`/apply/${apply.apply_id}`} className="text-blue-500 hover:underline">
-                                                	{ apply.company.name } / { apply.occupation }
-                                            	</Link>
-                                        	</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-                                            	{ getBadge(apply.status) }
-                                        	</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<Link href={`/apply/${apply.apply_id}/process`}>
-													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-														<FontAwesomeIcon icon={faClockRotateLeft} />
-													</ActionContainer>
-												</Link>
-											</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<Link href={`/company/${apply.company_id}`}>
-													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-														<FontAwesomeIcon icon={faBuilding} />
-													</ActionContainer>
-												</Link>
-                                        	</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<Link href={`/apply/${apply.apply_id}/edit`}>
-													<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-														<FontAwesomeIcon icon={faPenToSquare} />
-													</ActionContainer>
-												</Link>
-											</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">
-												<ApplyDeleteButton applyId={apply.apply_id}>
-													<ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
-														<FontAwesomeIcon icon={faTrash} />
-													</ActionContainer>
-												</ApplyDeleteButton>
-											</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
-											<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
-										</tr>
-									);
-								})}
-							</tbody>
-						</table>
-					</div>
+
+					{ applies.length > 0
+						? (
+							<>
+								{/* PC用 */}
+								<div className="overflow-x-auto shadow-md rounded-lg border sm:block hidden">
+									<table className="w-full text-sm text-left">
+										<thead className="text-xs bg-gray-100">
+											<tr>
+												<th scope="col" className="px-6 py-3 text-nowrap">企業名 / 職種</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">ステータス</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">選考履歴</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">企業詳細</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">編集</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">削除</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">登録日時</th>
+												<th scope="col" className="px-6 py-3 text-nowrap">更新日時</th>
+											</tr>
+										</thead>
+										<tbody>
+											{applies.map((apply: Apply) => {
+												return (
+													<tr key={ apply.apply_id } className="bg-white border-b border-gray-200 hover:bg-gray-50">
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															<Link href={`/apply/${apply.apply_id}`} className="text-blue-500 hover:underline">
+																{ apply.company.name } / { apply.occupation }
+															</Link>
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															{ getBadge(apply.status) }
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															<Link href={`/apply/${apply.apply_id}/process`}>
+																<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+																	<FontAwesomeIcon icon={faClockRotateLeft} />
+																</ActionContainer>
+															</Link>
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															<Link href={`/company/${apply.company_id}`}>
+																<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+																	<FontAwesomeIcon icon={faBuilding} />
+																</ActionContainer>
+															</Link>
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															<Link href={`/apply/${apply.apply_id}/edit`}>
+																<ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+																	<FontAwesomeIcon icon={faPenToSquare} />
+																</ActionContainer>
+															</Link>
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">
+															<ApplyDeleteButton applyId={apply.apply_id}>
+																<ActionContainer className="bg-red-600 hover:bg-red-700 text-white">
+																	<FontAwesomeIcon icon={faTrash} />
+																</ActionContainer>
+															</ApplyDeleteButton>
+														</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.created_at }</td>
+														<td className="px-6 py-3 font-medium whitespace-nowrap">{ apply.updated_at }</td>
+													</tr>
+												);
+											})}
+										</tbody>
+									</table>
+								</div>
+
+								{/* SP用 */}
+								<ApplyIndexForSP applies={applies} />
+							</>
+						)
+						: (
+							<h3 className="text-base font-medium mb-2">選考中の応募が存在しません。</h3>
+						)
+					}
 				</div>
 			</div>
 		</div>
