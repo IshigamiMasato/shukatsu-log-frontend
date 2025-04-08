@@ -13,6 +13,7 @@ import { dispToast } from "@/store/modules/toast";
 import { Interview } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const InterviewEditForm = ({ interview } : { interview: Interview }) => {
     const [interviewDate, setInterviewDate]     = useState<string>(interview.interview_date);
@@ -20,6 +21,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
     const [memo, setMemo]                       = useState<string>(interview.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ interview_date?: []; interviewer_info?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -50,6 +52,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
                 setMemo(newInterview.memo ?? "");
 
                 dispatch( dispToast({ status: "success", message: `面接情報の更新が完了しました。` }) );
+                router.push(`/apply/${interview.apply_id}/process`);
             });
         })
     }

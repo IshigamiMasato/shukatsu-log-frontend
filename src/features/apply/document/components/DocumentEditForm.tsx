@@ -98,8 +98,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                 setMemo(newDocument.memo ?? "");
 
                 dispatch( dispToast({ status: "success", message: `提出書類の更新が完了しました。` }) );
-                // ファイル情報を更新したいためリロード
-                router.refresh();
+                router.push(`/apply/${document.apply_id}/process`);
             });
         })
     }

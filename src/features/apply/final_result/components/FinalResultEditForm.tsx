@@ -14,12 +14,14 @@ import { dispToast } from "@/store/modules/toast";
 import { FinalResult } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => {
     const [status, setStatus] = useState<number>(finalResult.status);
     const [memo, setMemo]     = useState<string>(finalResult.memo ?? "");
     const [validationErrors, setValidationErrors] = useState<{ status?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -49,6 +51,7 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
                 setMemo(newFinalResult.memo ?? "");
 
                 dispatch( dispToast({ status: "success", message: `選考終了情報の更新が完了しました。` }) );
+                router.push(`/apply/${finalResult.apply_id}/process`);
             });
         })
     }

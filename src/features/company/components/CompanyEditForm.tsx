@@ -13,6 +13,7 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/forms/FormTitle";
 import { Company } from "@/types";
+import { useRouter } from "next/navigation";
 
 const CompanyEditForm = ({ company } : { company: Company }) => {
     const [name, setName]                     = useState<string>(company.name                      ?? "");
@@ -27,6 +28,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
     const [memo, setMemo]                     = useState<string>(company.memo                      ?? "");
     const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; business_description?: []; benefit?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -64,6 +66,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                 setMemo(newCompany.memo                      ?? "");
 
                 dispatch( dispToast({ status: "success", message: `企業更新が完了しました。` }) );
+                router.push(`/company/${company.company_id}`);
             });
         })
     }

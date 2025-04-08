@@ -14,6 +14,7 @@ import { dispToast } from "@/store/modules/toast";
 import { Apply } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const ApplyEditForm = ({ apply } : { apply: Apply }) => {
     const [status, setStatus]           = useState<number>(apply.status);
@@ -22,6 +23,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
     const [memo, setMemo]               = useState<string>(apply.memo        ?? "");
     const [validationErrors, setValidationErrors] = useState<{ company_id?: []; status?: []; occupation?: []; apply_route?: []; memo?: []; }>({});
     const dispatch = useDispatch();
+    const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -53,6 +55,7 @@ const ApplyEditForm = ({ apply } : { apply: Apply }) => {
                 setMemo(newApply.memo               ?? "");
 
                 dispatch( dispToast({ status: "success", message: `応募更新が完了しました。` }) );
+                router.push(`/apply/${apply.apply_id}`);
             });
         })
     }
