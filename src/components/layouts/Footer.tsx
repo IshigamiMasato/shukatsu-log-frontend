@@ -8,7 +8,7 @@ const Footer = () => {
     const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
     return (
-        <footer className="mt-16 lg:mt-32 bg-gray-50">
+        <footer className="mt-16 lg:mt-32 bg-gray-50 sm:block hidden">
             <div className="container mx-auto px-8 py-12">
                 <div className="flex flex-col items-start">
                     <div className="text-sm font-bold text-gray-500 mb-5">
