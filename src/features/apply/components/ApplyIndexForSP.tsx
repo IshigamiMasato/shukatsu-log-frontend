@@ -21,13 +21,13 @@ const ApplyIndexForSP = ({applies} : {applies : Apply[]}) => {
     };
 
     return (
-        <div className="shadow-md rounded-lg border sm:hidden block">
+        <div className="shadow-md rounded-lg border sm:hidden block bg-white">
             {applies.map((apply: Apply) => {
                 const isOpen = openItems.includes(apply.apply_id);
 
                 return (
                     <div key={apply.apply_id} className="border-b border-gray-200">
-                        <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50" onClick={ () => toggleItem(apply.apply_id) }>
+                        <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50 rounded-lg" onClick={ () => toggleItem(apply.apply_id) }>
                             <span className={`text-2xl text-blue-500 transform transition-transform mr-2 ${ isOpen ? 'rotate-180' : '' }`}>
                                 <FontAwesomeIcon icon={faChevronCircleUp} />
                             </span>
