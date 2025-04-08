@@ -17,7 +17,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
 
     return (
         <Provider store={store}>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen bg-slate-100">
                 <Header />
                 <Auth path={path}>
                     <div className="grow">
