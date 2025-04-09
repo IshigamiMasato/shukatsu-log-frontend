@@ -35,7 +35,13 @@ const Home = async () => {
 	await verifyAuth();
 
 	const applyStatusSummary = await getApplyStatusSummary();
-	const totalApply = Object.values(applyStatusSummary).reduce((sum, num) => sum + Number(num), 0);
+	const totalApply                        = Object.values(applyStatusSummary).reduce((sum, num) => sum + Number(num), 0);
+	const unregisteredSelectionProcessTotal = Number(applyStatusSummary.unregistered_selection_process_summary);
+	const documentSelectionTotal            = Number(applyStatusSummary.document_selection_summary);
+	const examSelectionTotal                = Number(applyStatusSummary.exam_selection_summary);
+	const interviewSelectionTotal           = Number(applyStatusSummary.interview_selection_summary);
+	const offerTotal                        = Number(applyStatusSummary.offer_summary);
+	const finalTotal                        = Number(applyStatusSummary.final_summary);
 
 	const startAt = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
 	const endAt   = moment().add(1, 'week').endOf('day').format('YYYY-MM-DD HH:mm:ss');
@@ -87,7 +93,7 @@ const Home = async () => {
 				</div>
 			)}
 
-			{ Number(applyStatusSummary.unregistered_selection_process_summary) > 0 && (
+			{ unregisteredSelectionProcessTotal > 0 && (
 				<div className="flex flex-wrap justify-between items-center mb-4 p-8 bg-red-100 rounded-lg">
 					<div className="flex space-x-2">
 						<div className="text-white bg-red-500 w-6 h-6 text-center align-middle rounded-full hidden md:block">
@@ -140,7 +146,10 @@ const Home = async () => {
 			<div className="mb-12">
 				<TitleContainer main="進捗状況" sub={`総応募数：${totalApply}`} />
 					<div className="sm:flex sm:flex-wrap sm:justify-between grid grid-cols-3"> {/* PC用：flex適用 SP用：grid適用 */}
-						<Link href={getApplyLink(UNREGISTERED_SELECTION_PROCESS)} className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md`}>
+						<Link
+							href={ unregisteredSelectionProcessTotal == 0 ? "#" : getApplyLink(UNREGISTERED_SELECTION_PROCESS) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ unregisteredSelectionProcessTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
 								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
@@ -148,109 +157,124 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">選考履歴未登録</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.unregistered_selection_process_summary }</span>
+									<span className={`text-3xl font-bold text-blue-500 ${ unregisteredSelectionProcessTotal === 0 ? 'opacity-60' : '' }`}>{ unregisteredSelectionProcessTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">選考履歴無し</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.unregistered_selection_process_summary }</div>
+								<div className={`text-3xl font-bold text-blue-500 ${ unregisteredSelectionProcessTotal === 0 ? 'opacity-60' : '' }`}>{ unregisteredSelectionProcessTotal }</div>
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(DOCUMENT_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+						<Link
+							href={ documentSelectionTotal == 0 ? "#" : getApplyLink(DOCUMENT_SELECTION) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ documentSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
-								<div className="flex items-center justify-center text-blue-800 bg-blue-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faFileLines} />
 								</div>
 								<div>
-									<h3 className="text-base md:text-lg text-blue-800">書類選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</span>
+									<h3 className="text-base md:text-lg">書類選考中</h3>
+									<span className={`text-3xl font-bold text-blue-500 ${ documentSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ documentSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
-								<h3 className="text-xs text-blue-800">書類選考中</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.document_selection_summary }</div>
+								<h3 className="text-xs">書類選考中</h3>
+								<div className={`text-3xl font-bold text-blue-500 ${ documentSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ documentSelectionTotal }</div>
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(EXAM_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+						<Link
+							href={ examSelectionTotal == 0 ? "#" : getApplyLink(EXAM_SELECTION) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ examSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
-								<div className="flex items-center justify-center text-indigo-800 bg-indigo-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faFilePen} />
 								</div>
 								<div>
-									<h3 className="text-base md:text-lg text-indigo-800">筆記試験選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</span>
+									<h3 className="text-base md:text-lg">筆記試験選考中</h3>
+									<span className={`text-3xl font-bold text-blue-500 ${ examSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ examSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
-								<h3 className="text-xs text-indigo-800">筆記選考中</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.exam_selection_summary }</div>
+								<h3 className="text-xs">筆記選考中</h3>
+								<div className={`text-3xl font-bold text-blue-500 ${ examSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ examSelectionTotal }</div>
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(INTERVIEW_SELECTION)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+						<Link
+							href={ interviewSelectionTotal == 0 ? "#" : getApplyLink(INTERVIEW_SELECTION) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ interviewSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
-								<div className="flex items-center justify-center text-green-800 bg-green-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faPeopleArrows} />
 								</div>
 								<div>
-									<h3 className="text-base md:text-lg text-green-800">面接選考中</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</span>
+									<h3 className="text-base md:text-lg">面接選考中</h3>
+									<span className={`text-3xl font-bold text-blue-500 ${ interviewSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ interviewSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
-								<h3 className="text-xs text-green-800">面接選考中</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.interview_selection_summary }</div>
+								<h3 className="text-xs">面接選考中</h3>
+								<div className={`text-3xl font-bold text-blue-500 ${ interviewSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ interviewSelectionTotal }</div>
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(OFFER)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+						<Link
+							href={ offerTotal == 0 ? "#" : getApplyLink(OFFER) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ offerTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
-								<div className="flex items-center justify-center text-red-500 bg-red-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faHeart} />
 								</div>
 								<div>
-									<h3 className="text-base md:text-lg text-red-500">内定</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</span>
+									<h3 className="text-base md:text-lg">内定</h3>
+									<span className={`text-3xl font-bold text-blue-500 ${ offerTotal === 0 ? 'opacity-60' : '' }`}>{ offerTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
-								<h3 className="text-xs text-red-500">内定</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.offer_summary }</div>
+								<h3 className="text-xs">内定</h3>
+								<div className={`text-3xl font-bold text-blue-500 ${ offerTotal === 0 ? 'opacity-60' : '' }`}>{ offerTotal }</div>
 							</div>
 						</Link>
 
-						<Link href={getApplyLink(FINAL_RESULT)} className="w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 bg-white hover:bg-gray-50 border rounded-md">
+						<Link
+							href={ finalTotal == 0 ? "#" : getApplyLink(FINAL_RESULT) }
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ finalTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
-								<div className="flex items-center justify-center text-gray-800 bg-gray-100 p-3 rounded-full w-10 h-10 md:w-12 md:h-12">
+								<div className="flex items-center justify-center text-black bg-white p-3 rounded-full w-10 h-10 md:w-12 md:h-12 border">
 									<FontAwesomeIcon icon={faCheck} />
 								</div>
 								<div>
-									<h3 className="text-base md:text-lg text-gray-800">選考終了</h3>
-									<span className="text-3xl font-bold">{ applyStatusSummary.final_summary }</span>
+									<h3 className="text-base md:text-lg">選考終了</h3>
+									<span className={`text-3xl font-bold text-blue-500 ${ finalTotal === 0 ? 'opacity-60' : '' }`}>{ finalTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
-								<h3 className="text-xs text-gray-800">選考終了</h3>
-								<div className="text-3xl font-bold">{ applyStatusSummary.final_summary }</div>
+								<h3 className="text-xs">選考終了</h3>
+								<div className={`text-3xl font-bold text-blue-500 ${ finalTotal === 0 ? 'opacity-60' : '' }`}>{ finalTotal }</div>
 							</div>
 						</Link>
 					</div>
