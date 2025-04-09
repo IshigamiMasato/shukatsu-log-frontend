@@ -148,7 +148,7 @@ const Home = async () => {
 					<div className="sm:flex sm:flex-wrap sm:justify-between grid grid-cols-3"> {/* PC用：flex適用 SP用：grid適用 */}
 						<Link
 							href={ unregisteredSelectionProcessTotal == 0 ? "#" : getApplyLink(UNREGISTERED_SELECTION_PROCESS) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ unregisteredSelectionProcessTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ unregisteredSelectionProcessTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -170,7 +170,7 @@ const Home = async () => {
 
 						<Link
 							href={ documentSelectionTotal == 0 ? "#" : getApplyLink(DOCUMENT_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ documentSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ documentSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -192,7 +192,7 @@ const Home = async () => {
 
 						<Link
 							href={ examSelectionTotal == 0 ? "#" : getApplyLink(EXAM_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ examSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ examSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -214,7 +214,7 @@ const Home = async () => {
 
 						<Link
 							href={ interviewSelectionTotal == 0 ? "#" : getApplyLink(INTERVIEW_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ interviewSelectionTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ interviewSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -236,7 +236,7 @@ const Home = async () => {
 
 						<Link
 							href={ offerTotal == 0 ? "#" : getApplyLink(OFFER) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ offerTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ offerTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -258,7 +258,7 @@ const Home = async () => {
 
 						<Link
 							href={ finalTotal == 0 ? "#" : getApplyLink(FINAL_RESULT) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ finalTotal === 0 ? 'bg-gray-50 cursor-default' : 'bg-white hover:bg-gray-100' }`}
+							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ finalTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
