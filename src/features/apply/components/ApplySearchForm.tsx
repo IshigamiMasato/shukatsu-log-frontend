@@ -12,11 +12,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useState } from "react";
 
-const ApplySearchForm = ({ companies } : { companies: Company[] }) => {
+const ApplySearchForm = ({ companies, params } : { companies: Company[], params: URLSearchParams  }) => {
+    const initParams = new URLSearchParams(params);
+
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [keyword, setKeyword]             = useState<string>("");
-    const [companyId, setCompanyId]         = useState<number|undefined>(undefined);
-    const [checkedStatus, setCheckedStatus] = useState<number[]>([]);
+    const [keyword, setKeyword]             = useState<string>( initParams.get('keyword') ?? "" );
+    const [companyId, setCompanyId]         = useState<number|undefined>( initParams.get('company_id') ? Number(initParams.get('company_id')) : undefined );
+    const [checkedStatus, setCheckedStatus] = useState<number[]>( initParams.getAll('status[]').map(Number) );
     const router = useRouter();
 
     const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>, statusId: number) => {

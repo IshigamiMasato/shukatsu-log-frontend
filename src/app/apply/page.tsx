@@ -61,7 +61,7 @@ const ApplyPage = async (props: { searchParams: Promise<{ [key: string]: string|
         <>
             <TitleContainer main="応募一覧" />
             <div className="container mx-auto px-8 py-6 bg-white rounded-lg">
-                <ApplySearchForm companies={companies} />
+                <ApplySearchForm companies={companies} params={params} />
 
                 <div className="flex items-center justify-between overflow-x-auto space-x-2 mb-3">
                     <div className="text-nowrap">
