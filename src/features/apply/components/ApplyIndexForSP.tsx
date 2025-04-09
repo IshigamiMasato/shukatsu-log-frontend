@@ -31,14 +31,14 @@ const ApplyIndexForSP = ({applies} : {applies : Apply[]}) => {
                             <span className={`text-2xl text-blue-500 transform transition-transform mr-2 ${ isOpen ? 'rotate-180' : '' }`}>
                                 <FontAwesomeIcon icon={faChevronCircleUp} />
                             </span>
-                            <span className="font-semibold text-sm">{ apply.company.name } / { apply.occupation }</span>
+                            <span className="font-semibold text-sm">{ getBadge(apply.status) } { apply.company.name }</span>
                         </button>
 
                         <div className={`text-sm space-y-3 px-6 py-3 ${ isOpen ? 'display' : 'hidden'}`}>
                             <div className="flex">
-                                <div className="w-32 font-medium">ステータス</div>
+                                <div className="w-32 font-medium">職種</div>
                                 <div>
-                                    { getBadge(apply.status) }
+                                    { apply.occupation }
                                 </div>
                             </div>
                             <div className="flex items-center">
