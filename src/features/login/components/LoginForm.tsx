@@ -42,6 +42,20 @@ const LoginForm = () => {
         })
     }
 
+    const loginAsGuest = () => {
+        fetch('api/guest-login', {
+            method: 'POST'
+        }).then(res => {
+            if ( ! res.ok ) {
+                setLoginErrorMsg("ゲストログインに失敗しました。");
+                return;
+            }
+
+            // ログイン成功時TOP画面へ遷移
+            window.location.href = '/';
+        })
+    }
+
     return (
         <FormContainer>
             { loginErrorMsg && <ErrorMsg error={loginErrorMsg} /> }
@@ -68,6 +82,7 @@ const LoginForm = () => {
                 </FormItem>
                 <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">ログイン</Button>
             </form>
+            <Button onClick={loginAsGuest} className="bg-black text-white mt-3">ゲストログイン</Button>
         </FormContainer>
     )
 }
