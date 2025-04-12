@@ -47,6 +47,7 @@ export default {
     '!px-3',
     '!py-2',
     'space-y-3',
+    'bg-black',
   ],
   theme: {
     extend: {
