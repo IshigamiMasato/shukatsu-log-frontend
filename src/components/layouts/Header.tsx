@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+    const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
     const router = useRouter();
     const dispatch = useDispatch();
 
@@ -41,6 +41,9 @@ const Header = () => {
                             <span className="text-blue-600">Shukatsu</span>
                             <span className="text-red-600">Log</span>
                         </Link>
+                        { user?.email === 'guest@example.com' && (
+                            <div className="inline-block text-sm ml-2 rounded-lg p-1 bg-red-600 text-white">ゲストログイン中</div>
+                        )}
                     </div>
                     { isAuthenticated && (
                         <>
