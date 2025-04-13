@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/forms/FormTitle";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const CompanyCreateForm = () => {
     const [name, setName]                     = useState<string>("");
@@ -25,15 +26,14 @@ const CompanyCreateForm = () => {
     const [businessDescription, setBusinessDescription] = useState<string>("");
     const [benefit, setBenefit]               = useState<string>("");
     const [memo, setMemo]                     = useState<string>("");
-
     const [validationErrors, setValidationErrors] = useState<{ name?: []; url?: []; president?: []; address?: []; establish_date?: []; employee_number?: []; listing_class?: []; business_description?: []; benefit?: []; memo?: []; }>({});
-
     const dispatch = useDispatch();
     const router = useRouter();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -43,9 +43,10 @@ const CompanyCreateForm = () => {
             method: "POST",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }

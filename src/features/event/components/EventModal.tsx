@@ -1,7 +1,6 @@
 "use client";
 
 import { Event } from "@/types";
-import "./EventModal.css";
 import { EVENT_TYPES } from "@/constants/const";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -15,6 +14,7 @@ import Textarea from "@/components/elements/Textarea";
 import Button from "@/components/elements/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 type Props = {
     setModalOpen: (bool: boolean) => void,
@@ -29,14 +29,13 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     const [startAt, setStartAt] = useState<string>(event.start_at);
     const [endAt, setEndAt]     = useState<string>(event.end_at);
     const [memo, setMemo]       = useState<string>(event.memo ? event.memo : "");
-
     const [validationErrors, setValidationErrors] = useState<{ title?: []; type?: []; start_at?: []; end_at?: []; memo?: []; }>({});
-
     const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -46,9 +45,10 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if ( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     } else {
@@ -79,9 +79,13 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
         const isConfirmed = window.confirm("本当に削除しますか？");
 
         if ( isConfirmed ) {
+            dispatch( dispLoading() );
+
             fetch(`/api/event/${eventId}`, {
                 method: "DELETE",
             }).then(res => {
+                dispatch( removeLoading() );
+
                 if ( ! res.ok ) {
                     setModalOpen(false);
                     dispatch( dispToast({ status: "error", message: `予定の削除に失敗しました。もう一度お試しください。` }) );
@@ -99,8 +103,8 @@ const EventModal: React.FC<Props> = ({ setModalOpen, event, events, setEvents })
     }
 
     return (
-        <div className="modal">
-            <div className="modal-content">
+        <div className="fixed inset-0 w-full h-full bg-black/80 flex justify-center items-center z-50">
+            <div className="bg-white p-12 rounded-lg">
                 <div className="flex justify-end">
                     <Button onClick={() => setModalOpen(false)} className="border">
                         <FontAwesomeIcon icon={faXmark} />

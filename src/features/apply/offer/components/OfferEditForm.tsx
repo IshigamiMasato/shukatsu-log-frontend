@@ -14,6 +14,7 @@ import { Offer } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const OfferEditForm = ({ offer } : { offer: Offer }) => {
     const [offerDate, setOfferDate] = useState<string>(offer.offer_date);
@@ -27,6 +28,7 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -36,9 +38,10 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -47,15 +50,8 @@ const OfferEditForm = ({ offer } : { offer: Offer }) => {
                 return;
             }
 
-            res.json().then( (newOffer:Offer) => {
-                setOfferDate(newOffer.offer_date);
-                setSalary(newOffer.salary       ?? undefined);
-                setCondition(newOffer.condition ?? "");
-                setMemo(newOffer.memo           ?? "");
-
-                dispatch( dispToast({ status: "success", message: `内定情報の更新が完了しました。` }) );
-                router.push(`/apply/${offer.apply_id}/process`);
-            });
+            dispatch( dispToast({ status: "success", message: `内定情報の更新が完了しました。` }) );
+            router.push(`/apply/${offer.apply_id}/process`);
         })
     }
 

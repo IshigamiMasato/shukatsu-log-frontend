@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import FormTitle from "@/components/forms/FormTitle";
 import { FILE_COUNT, MAX_FILE_SIZE } from "@/constants/const";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
     const [submissionDate, setSubmissionDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -37,6 +38,7 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
     const onSubmit = async ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -70,6 +72,7 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
 
         // ファイルサイズのバリデーションに引っかかっている場合
         if ( ! isValidFileSize ) {
+            dispatch( removeLoading() );
             return;
         }
 
@@ -77,9 +80,10 @@ const DocumentCreateForm = ({ applyId } : { applyId : number }) => {
             method: "POST",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }

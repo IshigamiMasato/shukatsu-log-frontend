@@ -15,6 +15,7 @@ import { FinalResult } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => {
     const [status, setStatus] = useState<number>(finalResult.status);
@@ -26,6 +27,7 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -35,9 +37,10 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -46,13 +49,8 @@ const FinalResultEditForm = ({ finalResult } : { finalResult: FinalResult }) => 
                 return;
             }
 
-            res.json().then( (newFinalResult:FinalResult) => {
-                setStatus(newFinalResult.status);
-                setMemo(newFinalResult.memo ?? "");
-
-                dispatch( dispToast({ status: "success", message: `選考終了情報の更新が完了しました。` }) );
-                router.push(`/apply/${finalResult.apply_id}/process`);
-            });
+            dispatch( dispToast({ status: "success", message: `選考終了情報の更新が完了しました。` }) );
+            router.push(`/apply/${finalResult.apply_id}/process`);
         })
     }
 

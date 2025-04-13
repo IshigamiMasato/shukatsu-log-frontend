@@ -13,6 +13,7 @@ import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import FormTitle from "@/components/forms/FormTitle";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
     const [status, setStatus] = useState<number>();
@@ -24,6 +25,7 @@ const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -33,9 +35,10 @@ const FinalResultCreateForm = ({ applyId } : { applyId : number }) => {
             method: "POST",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }

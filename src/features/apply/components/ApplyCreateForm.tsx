@@ -15,6 +15,7 @@ import { Apply, Company } from "@/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
     const [companyId, setCompanyId]   = useState<number|undefined>(undefined);
@@ -28,6 +29,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -37,9 +39,10 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
             method: "POST",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -48,7 +51,7 @@ const ApplyCreateForm = ({ companies } : { companies: Company[] }) => {
                 return;
             }
 
-            res.json().then((newApply:Apply) => {
+            res.json().then((newApply : Apply) => {
                 dispatch( dispToast({ status: "success", message: '応募登録が完了しました。引き続き選考履歴を登録してください。' }) );
                 router.push(`/apply/${newApply.apply_id}/process/create`);
             });

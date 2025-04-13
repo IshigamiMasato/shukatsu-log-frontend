@@ -14,6 +14,7 @@ import { Interview } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const InterviewEditForm = ({ interview } : { interview: Interview }) => {
     const [interviewDate, setInterviewDate]     = useState<string>(interview.interview_date);
@@ -26,6 +27,7 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -35,9 +37,10 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -46,14 +49,8 @@ const InterviewEditForm = ({ interview } : { interview: Interview }) => {
                 return;
             }
 
-            res.json().then( (newInterview:Interview) => {
-                setInterviewDate(newInterview.interview_date);
-                setInterviewerInfo(newInterview.interviewer_info ?? "");
-                setMemo(newInterview.memo ?? "");
-
-                dispatch( dispToast({ status: "success", message: `面接情報の更新が完了しました。` }) );
-                router.push(`/apply/${interview.apply_id}/process`);
-            });
+            dispatch( dispToast({ status: "success", message: `面接情報の更新が完了しました。` }) );
+            router.push(`/apply/${interview.apply_id}/process`);
         })
     }
 
