@@ -1,5 +1,5 @@
 import getJWT from "@/server/utils/getJWT";
-import { ProcessItem } from "@/types/ProcessItem";
+import { ProcessItem } from "@/types/process_item";
 import { notFound, redirect } from "next/navigation";
 
 export const getProcess = async (applyId: number): Promise<ProcessItem[]|never> => {
