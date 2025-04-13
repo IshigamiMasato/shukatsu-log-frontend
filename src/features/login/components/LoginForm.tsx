@@ -91,7 +91,7 @@ const LoginForm = () => {
                 </FormItem>
                 <Button className="bg-blue-700 hover:bg-blue-800 text-white mt-3">ログイン</Button>
             </form>
-            <Button onClick={loginAsGuest} className="bg-black text-white mt-3">ゲストログイン</Button>
+            <Button onClick={loginAsGuest} className="bg-green-500 hover:bg-green-600 text-white mt-3">ゲストログイン</Button>
         </FormContainer>
     )
 }
