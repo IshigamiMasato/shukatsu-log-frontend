@@ -8,6 +8,7 @@ import Auth from "@/components/auth/Auth";
 import Header from "@/components/layouts/Header";
 import Footer from "@/components/layouts/Footer";
 import BottomNav from "@/components/navigations/BottomNav";
+import LoadingOverlay from "../LoadingOverlay";
 
 type Props = {
     children: React.ReactNode
@@ -26,6 +27,7 @@ const AppProvider: React.FC<Props> = ({ children }) => {
                     </div>
                 </Auth>
                 <Toast />
+                <LoadingOverlay />
                 {/* PC用 */}
                 <Footer />
                 {/* SP用 */}

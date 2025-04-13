@@ -8,14 +8,18 @@ import Input from "@/components/elements/Input";
 import Label from "@/components/elements/Label";
 import ValidationErrorMsg from "@/components/forms/ValidationErrorMsg";
 import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const LoginForm = () => {
     const [validationErrors, setValidationErrors] = useState<{ email?: []; password?: []; }>({});
     const [loginErrorMsg, setLoginErrorMsg] = useState<string>("");
+    const dispatch = useDispatch();
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setLoginErrorMsg("");
         setValidationErrors({});
 
@@ -26,9 +30,10 @@ const LoginForm = () => {
             method: 'POST',
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if ( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -43,9 +48,13 @@ const LoginForm = () => {
     }
 
     const loginAsGuest = () => {
+        dispatch( dispLoading() );
+
         fetch('api/guest-login', {
             method: 'POST'
         }).then(res => {
+            dispatch( removeLoading() );
+
             if ( ! res.ok ) {
                 setLoginErrorMsg("ゲストログインに失敗しました。");
                 return;

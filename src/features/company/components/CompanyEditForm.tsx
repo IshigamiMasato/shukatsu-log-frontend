@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import FormTitle from "@/components/forms/FormTitle";
 import { Company } from "@/types";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const CompanyEditForm = ({ company } : { company: Company }) => {
     const [name, setName]                     = useState<string>(company.name                      ?? "");
@@ -33,6 +34,7 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -42,9 +44,10 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -53,21 +56,8 @@ const CompanyEditForm = ({ company } : { company: Company }) => {
                 return;
             }
 
-            res.json().then(newCompany => {
-                setName(newCompany.name                      ?? "");
-                setURL(newCompany.url                        ?? "");
-                setPresident(newCompany.president            ?? "");
-                setAddress(newCompany.address                ?? "");
-                setEstablishDate(newCompany.establish_date   ?? "");
-                setEmployeeNumber(newCompany.employee_number ?? undefined);
-                setListingClass(newCompany.listing_class     ?? "");
-                setBusinessDescription(newCompany.business_description ?? "");
-                setBenefit(newCompany.benefit                ?? "");
-                setMemo(newCompany.memo                      ?? "");
-
-                dispatch( dispToast({ status: "success", message: `企業更新が完了しました。` }) );
-                router.push(`/company/${company.company_id}`);
-            });
+            dispatch( dispToast({ status: "success", message: `企業更新が完了しました。` }) );
+            router.push(`/company/${company.company_id}`);
         })
     }
 

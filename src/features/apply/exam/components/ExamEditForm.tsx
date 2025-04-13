@@ -14,6 +14,7 @@ import { Exam } from "@/types";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const ExamEditForm = ({ exam } : { exam: Exam }) => {
     const [examDate, setExamDate] = useState<string>(exam.exam_date);
@@ -26,6 +27,7 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -35,9 +37,10 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -46,14 +49,8 @@ const ExamEditForm = ({ exam } : { exam: Exam }) => {
                 return;
             }
 
-            res.json().then( (newExam:Exam) => {
-                setExamDate(newExam.exam_date);
-                setContent(newExam.content);
-                setMemo(newExam.memo ?? "");
-
-                dispatch( dispToast({ status: "success", message: `試験情報の更新が完了しました。` }) );
-                router.push(`/apply/${exam.apply_id}/process`);
-            });
+            dispatch( dispToast({ status: "success", message: `試験情報の更新が完了しました。` }) );
+            router.push(`/apply/${exam.apply_id}/process`);
         })
     }
 

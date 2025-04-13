@@ -48,6 +48,8 @@ export default {
     '!py-2',
     'space-y-3',
     'bg-black',
+    'bg-black/80',
+    'p-12',
   ],
   theme: {
     extend: {

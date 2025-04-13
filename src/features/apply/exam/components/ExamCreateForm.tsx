@@ -13,6 +13,7 @@ import Button from "@/components/elements/Button";
 import RequiredBadge from "@/components/forms/RequiredBadge";
 import FormTitle from "@/components/forms/FormTitle";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const ExamCreateForm = ({ applyId } : { applyId : number }) => {
     const [examDate, setExamDate] = useState<string>( moment().format("YYYY-MM-DD") );
@@ -25,6 +26,7 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
     const onSubmit = ( e: FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -34,9 +36,10 @@ const ExamCreateForm = ({ applyId } : { applyId : number }) => {
             method: "POST",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }

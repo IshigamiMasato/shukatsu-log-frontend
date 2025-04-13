@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import FileDeleteButton from "../file/components/FileDeleteButton";
 import { useRouter } from "next/navigation";
+import { dispLoading, removeLoading } from "@/store/modules/loading";
 
 const fileToBase64 = async ( file : File ): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -42,6 +43,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
     const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        dispatch( dispLoading() );
         setValidationErrors({});
 
         const form = e.target as HTMLFormElement;
@@ -75,6 +77,7 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
 
         // ファイルサイズのバリデーションに引っかかっている場合
         if ( ! isValidFileSize ) {
+            dispatch( removeLoading() );
             return;
         }
 
@@ -82,9 +85,10 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
             method: "PUT",
             body: formData
         }).then(res => {
+            dispatch( removeLoading() );
+
             if( ! res.ok ) {
                 res.json().then(res => {
-                    // バリデーションエラー
                     if ( res.code == "BAD_REQUEST" ) {
                         setValidationErrors(res.errors);
                     }
@@ -93,13 +97,8 @@ const DocumentEditForm = ({ document } : { document: Document }) => {
                 return;
             }
 
-            res.json().then( (newDocument:Document) => {
-                setSubmissionDate(newDocument.submission_date);
-                setMemo(newDocument.memo ?? "");
-
-                dispatch( dispToast({ status: "success", message: `提出書類の更新が完了しました。` }) );
-                router.push(`/apply/${document.apply_id}/process`);
-            });
+            dispatch( dispToast({ status: "success", message: `提出書類の更新が完了しました。` }) );
+            router.push(`/apply/${document.apply_id}/process`);
         })
     }
 
