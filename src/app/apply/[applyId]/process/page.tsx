@@ -12,15 +12,12 @@ import ActionContainer from "@/components/containers/ActionContainer";
 import FileDownloadButton from "@/features/apply/document/file/components/FileDownloadButton";
 import { getProcess } from "@/features/apply/process/api/getProcess";
 import TitleContainer from "@/components/containers/TitleContainer";
-import FormItem from "@/components/forms/FormItem";
-import Label from "@/components/elements/Label";
-import Textarea from "@/components/elements/Textarea";
-import Input from "@/components/elements/Input";
 import moment from "moment";
 import CompanyDetail from "@/features/apply/process/components/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
 import BackLink from "@/components/navigations/BackLink";
 import verifyAuth from "@/server/utils/verifyAuth";
+import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {
 	title: `選考履歴一覧 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -58,43 +55,24 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">応募書類提出日 { document.submission_date }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">応募書類提出</h3>
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-5">応募書類提出</h3>
                                                 { document.files.length > 0 && (
                                                     <div className="mb-5 space-y-2">
                                                         {document.files.map(file => {
                                                             return (
-                                                                <div key={`file_${file.file_id}`} className="border p-4 rounded-md overflow-x-auto">
-                                                                    <FormItem>
-                                                                        <Label>応募書類</Label>
-                                                                        <Input
-                                                                            type="text"
-                                                                            name="name"
-                                                                            value={ file.name }
-                                                                            readOnly={true}
-                                                                            className="text-gray-500 bg-gray-100"
-                                                                        />
-                                                                    </FormItem>
-                                                                    <div className="flex flex-wrap text-nowrap space-x-1">
-                                                                        <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
-                                                                            <FileDownloadButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
-                                                                                <FontAwesomeIcon icon={faDownload} /><span className="ml-1">ダウンロード</span>
-                                                                            </FileDownloadButton>
-                                                                        </ActionContainer>
-                                                                    </div>
+                                                                <div key={`file_${file.file_id}`}>
+                                                                    <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
+                                                                        <FileDownloadButton applyId={applyId} documentId={document.document_id} fileId={file.file_id}>
+                                                                            <FontAwesomeIcon icon={faDownload} /><span className="ml-1">{ file.name ?? "-" }</span>
+                                                                        </FileDownloadButton>
+                                                                    </ActionContainer>
                                                                 </div>
                                                             )
                                                         })}
                                                     </div>
                                                 )}
-                                                <FormItem>
-                                                    <Label>メモ</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ document.memo ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
+                                                <InfoBlock label="メモ">{ document.memo ?? "-" }</InfoBlock>
+
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/document/${document.document_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -119,25 +97,9 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">試験日 { exam.exam_date }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">試験情報</h3>
-                                                <FormItem>
-                                                    <Label>試験内容</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ exam.content }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
-                                                <FormItem>
-                                                    <Label>メモ</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ exam.memo ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-5">試験情報</h3>
+                                                <InfoBlock label="試験内容">{ exam.content ?? "-" }</InfoBlock>
+                                                <InfoBlock label="メモ">{ exam.memo ?? "-" }</InfoBlock>
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/exam/${exam.exam_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -162,25 +124,9 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">面接日 { interview.interview_date }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">面接情報</h3>
-                                                <FormItem>
-                                                    <Label>面接官情報</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ interview.interviewer_info ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
-                                                <FormItem>
-                                                    <Label>メモ</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ interview.memo ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-5">面接情報</h3>
+                                                <InfoBlock label="面接官情報">{ interview.interviewer_info ?? "-" }</InfoBlock>
+                                                <InfoBlock label="メモ">{ interview.memo ?? "-" }</InfoBlock>
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/interview/${interview.interview_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -205,35 +151,10 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">内定通知日 { offer.offer_date }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-lg font-semibold text-gray-900 mb-1">内定情報</h3>
-                                                <FormItem>
-                                                    <Label>年収</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="name"
-                                                        value={ offer.salary ? offer.salary.toLocaleString() : '' }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
-                                                <FormItem>
-                                                    <Label>条件</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ offer.condition ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
-                                                <FormItem>
-                                                    <Label>メモ</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ offer.memo ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
+                                                <h3 className="text-lg font-semibold text-gray-900 mb-5">内定情報</h3>
+                                                <InfoBlock label="年収">{ offer.salary ? offer.salary.toLocaleString() : "-" }</InfoBlock>
+                                                <InfoBlock label="条件">{ offer.condition ?? "-" }</InfoBlock>
+                                                <InfoBlock label="メモ">{ offer.memo ?? "-" }</InfoBlock>
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/offer/${offer.offer_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
@@ -258,29 +179,12 @@ const ProcessPage = async ({ params } : { params : Promise<{ applyId: number }> 
                                             <div className="absolute w-3 h-3 bg-purple-500 rounded-full mt-1.5 -start-1.5 border border-slate-100" />
                                             <time className="mb-1 text-sm font-normal leading-none text-gray-400">選考終了情報作成日 { moment(finalResult.created_at).format('YYYY-MM-DD') }</time>
                                             <div className="p-4 shadow-sm border border-gray-200 rounded-lg bg-white">
-                                                <h3 className="text-base font-semibold text-white bg-purple-500 rounded-3xl p-1.5 mb-1 inline-block">
+                                                <h3 className="text-base font-semibold text-white bg-purple-500 rounded-3xl p-1.5 mb-5 inline-block">
                                                     <FontAwesomeIcon icon={faCircleCheck} />
                                                     <span className="ml-1">選考終了</span>
                                                 </h3>
-                                                <FormItem>
-                                                    <Label>ステータス</Label>
-                                                    <Input
-                                                        type="text"
-                                                        name="name"
-                                                        value={ FINAL_RESULT_STATUS.find(status => status.id == finalResult.status)?.name }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
-                                                <FormItem>
-                                                    <Label>メモ</Label>
-                                                    <Textarea
-                                                        name="memo"
-                                                        value={ finalResult.memo ?? "" }
-                                                        readOnly={true}
-                                                        className="text-gray-500 bg-gray-100"
-                                                    />
-                                                </FormItem>
+                                                <InfoBlock label="ステータス">{ FINAL_RESULT_STATUS.find(status => status.id == finalResult.status)?.name ?? "-" }</InfoBlock>
+                                                <InfoBlock label="メモ">{ finalResult.memo ?? "-" }</InfoBlock>
                                                 <div className="flex flex-wrap text-nowrap space-x-1">
                                                     <Link href={`/apply/${applyId}/final_result/${finalResult.final_result_id}/edit`}>
                                                         <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
