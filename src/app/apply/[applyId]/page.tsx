@@ -1,9 +1,5 @@
 import BackLink from "@/components/navigations/BackLink";
 import ActionContainer from "@/components/containers/ActionContainer";
-import FormItem from "@/components/forms/FormItem";
-import Input from "@/components/elements/Input";
-import Label from "@/components/elements/Label";
-import Textarea from "@/components/elements/Textarea";
 import { APPLY_STATUS } from "@/constants/const";
 import { getApply } from "@/features/apply/api/getApply";
 import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
@@ -11,6 +7,7 @@ import { faBuilding, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawes
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import verifyAuth from "@/server/utils/verifyAuth";
+import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {
 	title: `応募詳細 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -53,65 +50,12 @@ const ApplyDetailPage = async ({ params } : { params : Promise<{ applyId: number
                     </div>
                 </div>
 
-                <FormItem>
-                    <Label>企業名</Label>
-                    <Input
-                        type="text"
-                        name="name"
-                        value={ apply.company.name }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>企業URL</Label>
-                    <Input
-                        type="text"
-                        name="url"
-                        value={ apply.company.url ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>職種</Label>
-                    <Input
-                        type="text"
-                        name="occupation"
-                        value={ apply.occupation ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>選考ステータス</Label>
-                    <Input
-                        type="text"
-                        name="status"
-                        value={ APPLY_STATUS.find(status => status.id == apply.status)?.name }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>応募経路</Label>
-                    <Input
-                        type="text"
-                        name="apply_route"
-                        value={ apply.apply_route ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>メモ</Label>
-                    <Textarea
-                        name="memo"
-                        value={ apply.memo ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
+                <InfoBlock label="企業名">{ apply.company.name ?? "-" }</InfoBlock>
+                <InfoBlock label="企業URL">{ apply.company.url ?? "-" }</InfoBlock>
+                <InfoBlock label="職種">{ apply.occupation ?? "-" }</InfoBlock>
+                <InfoBlock label="選考ステータス">{ APPLY_STATUS.find(status => status.id == apply.status)?.name ?? "-" }</InfoBlock>
+                <InfoBlock label="応募経路">{ apply.apply_route ?? "-" }</InfoBlock>
+                <InfoBlock label="メモ">{ apply.memo ?? "-" }</InfoBlock>
             </div>
         </>
     );
