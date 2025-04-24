@@ -1,15 +1,12 @@
 import BackLink from "@/components/navigations/BackLink";
 import ActionContainer from "@/components/containers/ActionContainer";
-import FormItem from "@/components/forms/FormItem";
-import Input from "@/components/elements/Input";
-import Label from "@/components/elements/Label";
-import Textarea from "@/components/elements/Textarea";
 import { getCompany } from "@/features/company/api/getCompany";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import verifyAuth from "@/server/utils/verifyAuth";
+import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {
 	title: `企業詳細 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
@@ -42,103 +39,16 @@ const CompanyDetailPage = async ({ params } : { params : Promise<{ companyId: nu
                     </div>
                 </div>
 
-                <FormItem>
-                    <Label>企業名</Label>
-                    <Input
-                        type="text"
-                        name="name"
-                        value={ company.name }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>企業URL</Label>
-                    <Input
-                        type="text"
-                        name="url"
-                        value={ company.url ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>社長名</Label>
-                    <Input
-                        type="text"
-                        name="president"
-                        value={ company.president ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>住所</Label>
-                    <Input
-                        type="text"
-                        name="address"
-                        value={ company.address ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>設立年月日</Label>
-                    <Input
-                        type="date"
-                        name="establish_date"
-                        value={ company.establish_date ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>従業員数</Label>
-                    <Input
-                        type="text"
-                        name="employee_number"
-                        value={ company.employee_number ? company.employee_number.toLocaleString() : '' }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>上場区分</Label>
-                    <Input
-                        type="text"
-                        name="listing_class"
-                        value={ company.listing_class ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>事業内容</Label>
-                    <Textarea
-                        name="business_description"
-                        value={ company.business_description ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>福利厚生</Label>
-                    <Textarea
-                        name="benefit"
-                        value={ company.benefit ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
-                <FormItem>
-                    <Label>メモ</Label>
-                    <Textarea
-                        name="memo"
-                        value={ company.memo ?? "" }
-                        readOnly={true}
-                        className="text-gray-500 bg-gray-100"
-                    />
-                </FormItem>
+                <InfoBlock label="企業名">{ company.name ?? "-" }</InfoBlock>
+                <InfoBlock label="企業URL">{ company.url ?? "-" }</InfoBlock>
+                <InfoBlock label="社長名">{ company.president ?? "-" }</InfoBlock>
+                <InfoBlock label="住所">{ company.address ?? "-" }</InfoBlock>
+                <InfoBlock label="設立年月日">{ company.establish_date ?? "-" }</InfoBlock>
+                <InfoBlock label="従業員数">{ company.employee_number ? company.employee_number.toLocaleString() : "-" }</InfoBlock>
+                <InfoBlock label="上場区分">{ company.listing_class ?? "-" }</InfoBlock>
+                <InfoBlock label="事業内容">{ company.business_description ?? "-" }</InfoBlock>
+                <InfoBlock label="福利厚生">{ company.benefit ?? "-" }</InfoBlock>
+                <InfoBlock label="メモ">{ company.memo ?? "-" }</InfoBlock>
             </div>
         </>
     );
