@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import { getInterview } from "@/features/apply/interview/api/getInterview";
 import InterviewEditForm from "@/features/apply/interview/components/InterviewEditForm";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `面接情報編集 | ${process.env.NEXT_PUBLIC_APP_NAME}`,

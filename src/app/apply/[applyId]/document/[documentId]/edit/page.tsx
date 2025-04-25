@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import { getDocument } from "@/features/apply/document/api/getDocument";
 import DocumentEditForm from "@/features/apply/document/components/DocumentEditForm";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `応募書類編集 | ${process.env.NEXT_PUBLIC_APP_NAME}`,

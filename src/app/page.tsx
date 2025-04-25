@@ -19,7 +19,7 @@ import Link from "next/link";
 import Button from "@/components/elements/Button";
 import getBadge from "@/features/apply/getBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import ApplyIndexForSP from "@/features/apply/components/ApplyIndexForSP";
 
 export const metadata = {

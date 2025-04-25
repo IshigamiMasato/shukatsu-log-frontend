@@ -1,5 +1,5 @@
 import { SERVER_ERROR, UNSET_TOKEN_ERROR } from "@/constants/api";
-import getJWT from "@/server/utils/getJWT";
+import getJWT from "@/utils/server/getJWT";
 
 export async function GET(request: Request, { params } : {params: Promise<{ applyId: number, documentId: number, fileId: number }>}) {
     const { applyId, documentId, fileId } = await params;

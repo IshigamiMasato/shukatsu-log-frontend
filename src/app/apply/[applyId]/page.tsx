@@ -6,7 +6,7 @@ import ApplyDeleteButton from "@/features/apply/components/ApplyDeleteButton";
 import { faBuilding, faClockRotateLeft, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {

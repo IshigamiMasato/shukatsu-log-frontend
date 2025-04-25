@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import { getOffer } from "@/features/apply/offer/api/getOffer";
 import OfferEditForm from "@/features/apply/offer/components/OfferEditForm";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `内定情報編集 | ${process.env.NEXT_PUBLIC_APP_NAME}`,

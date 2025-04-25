@@ -16,7 +16,7 @@ import moment from "moment";
 import CompanyDetail from "@/features/apply/process/components/CompanyDetail";
 import { getApply } from "@/features/apply/api/getApply";
 import BackLink from "@/components/navigations/BackLink";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {

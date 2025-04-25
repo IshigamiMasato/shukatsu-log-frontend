@@ -16,7 +16,7 @@ import { faBuilding, faChevronLeft, faChevronRight, faCirclePlus, faClockRotateL
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import getBadge from "@/features/apply/getBadge";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import ApplyIndexForSP from "@/features/apply/components/ApplyIndexForSP";
 
 export const metadata = {

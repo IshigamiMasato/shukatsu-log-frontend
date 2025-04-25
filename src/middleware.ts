@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import getAuthStatus from "./server/utils/getAuthStatus";
-import refreshToken from "./server/utils/refreshToken";
+import getAuthStatus from "./utils/server/getAuthStatus";
+import refreshToken from "./utils/server/refreshToken";
 
 const unsignedPagePaths = ['/login'];
 

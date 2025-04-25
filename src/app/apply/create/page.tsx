@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import ApplyCreateForm from "@/features/apply/components/ApplyCreateForm";
 import { getCompanies } from "@/features/company/api/getCompanies";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `応募登録 | ${process.env.NEXT_PUBLIC_APP_NAME}`,

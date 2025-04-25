@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import { getExam } from "@/features/apply/exam/api/getExam";
 import ExamEditForm from "@/features/apply/exam/components/ExamEditForm";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `試験情報編集 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
