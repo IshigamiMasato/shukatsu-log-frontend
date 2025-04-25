@@ -5,6 +5,7 @@ import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import InfoBlock from "@/components/InfoBlock";
+import { cn } from "@/utils";
 
 const CompanyDetail = ({company} : {company: Company}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -15,7 +16,10 @@ const CompanyDetail = ({company} : {company: Company}) => {
                 <FontAwesomeIcon icon={faBuilding} />
                 { isOpen ? <span className="ml-1">企業詳細を非表示</span> : <span className="ml-1">企業詳細を表示</span> }
             </button>
-            <div className={`p-5 border border-gray-200 rounded-lg shadow-md bg-white  ${!isOpen && 'hidden'}`}>
+            <div className={cn(
+                'p-5 border border-gray-200 rounded-lg shadow-md bg-white',
+                !isOpen && 'hidden',
+            )}>
                 <InfoBlock label="企業名">{ company.name ?? "-" }</InfoBlock>
                 <InfoBlock label="企業URL">{ company.url ?? "-" }</InfoBlock>
                 <InfoBlock label="社長名">{ company.president ?? "-" }</InfoBlock>

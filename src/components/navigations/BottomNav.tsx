@@ -1,6 +1,7 @@
 "use client";
 
 import { RootState } from "@/store";
+import { cn } from "@/utils";
 import { faBuilding, faUser, faCalendar, faFileLines } from "@fortawesome/free-regular-svg-icons";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,7 +19,10 @@ const BottomNav = () => {
                 <ul className="text-gray-700 bg-white fixed left-0 bottom-0 w-full grid grid-cols-5 text-center p-2 border-t sm:hidden">
                     <li>
                         <Link href='/event' onClick={ () => setActiveLink('event') }>
-                            <div className={`w-full h-full block ${activeLink === 'event' ? 'text-blue-500' : ''}`}>
+                            <div className={cn(
+                                'w-full h-full block',
+                                activeLink === 'event' && 'text-blue-500',
+                            )}>
                                 <FontAwesomeIcon icon={faCalendar} className="text-lg" />
                                 <br />
                                 <span className="text-xs">予定</span>
@@ -27,7 +31,10 @@ const BottomNav = () => {
                     </li>
                     <li>
                         <Link href='/company' onClick={ () => setActiveLink('company') }>
-                            <div className={`w-full h-full block ${activeLink === 'company' ? 'text-blue-500' : ''}`}>
+                            <div className={cn(
+                                'w-full h-full block',
+                                activeLink === 'company' && 'text-blue-500',
+                            )}>
                                 <FontAwesomeIcon icon={faBuilding} className="text-lg" />
                                 <br />
                                 <span className="text-xs">企業</span>
@@ -36,7 +43,10 @@ const BottomNav = () => {
                     </li>
                     <li>
                         <Link href='/' onClick={ () => setActiveLink('home') }>
-                            <div className={`w-full h-full block ${activeLink === 'home' ? 'text-blue-500' : ''}`}>
+                            <div className={cn(
+                                'w-full h-full block',
+                                activeLink === 'home' && 'text-blue-500',
+                            )}>
                                 <FontAwesomeIcon icon={faHouse} className="text-lg" />
                                 <br />
                                 <span className="text-xs">Home</span>
@@ -45,7 +55,10 @@ const BottomNav = () => {
                     </li>
                     <li>
                         <Link href='/apply' onClick={ () => setActiveLink('apply') }>
-                            <div className={`w-full h-full block ${activeLink === 'apply' ? 'text-blue-500' : ''}`}>
+                            <div className={cn(
+                                'w-full h-full block',
+                                activeLink === 'apply' && 'text-blue-500',
+                            )}>
                                 <FontAwesomeIcon icon={faFileLines} className="text-lg" />
                                 <br />
                                 <span className="text-xs">応募</span>
@@ -54,7 +67,10 @@ const BottomNav = () => {
                     </li>
                     <li>
                         <Link href='/user' onClick={ () => setActiveLink('user') }>
-                            <div className={`w-full h-full block ${activeLink === 'user' ? 'text-blue-500' : ''}`}>
+                            <div className={cn(
+                                'w-full h-full block',
+                                activeLink === 'user' && 'text-blue-500',
+                            )}>
                                 <FontAwesomeIcon icon={faUser} className="text-lg" />
                                 <br />
                                 <span className="text-xs">ユーザ</span>

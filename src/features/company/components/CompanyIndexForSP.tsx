@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import CompanyDeleteButton from "./CompanyDeleteButton";
 import { useState } from "react";
+import { cn } from "@/utils";
 
 const CompanyIndexForSP = ({companies} : {companies : Company[]}) => {
     const [openItems, setOpenItems] = useState<number[]>([]);
@@ -27,12 +28,18 @@ const CompanyIndexForSP = ({companies} : {companies : Company[]}) => {
                 return (
                     <div key={company.company_id} className="border-b border-gray-200">
                         <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50 rounded-lg" onClick={ () => toggleItem(company.company_id) }>
-                            <span className={`text-2xl text-blue-500 transform transition-transform mr-2 ${ isOpen ? 'rotate-180' : '' }`}>
+                            <span className={cn(
+                                'text-2xl text-blue-500 transform transition-transform mr-2',
+                                isOpen && 'rotate-180',
+                            )}>
                                 <FontAwesomeIcon icon={faChevronCircleUp} />
                             </span>
                             <span className="font-semibold text-sm">{ company.name }</span>
                         </button>
-                        <div className={`text-sm space-y-3 px-6 py-3 ${ isOpen ? 'display' : 'hidden'}`}>
+                        <div className={cn(
+                            'text-sm space-y-3 px-6 py-3',
+                            isOpen ? 'display' : 'hidden',
+                        )}>
                             <div className="flex">
                                 <div className="w-32 font-medium">企業URL</div>
                                 <div>

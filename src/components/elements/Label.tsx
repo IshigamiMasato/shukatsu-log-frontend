@@ -1,12 +1,16 @@
-type LabelProps = {
+import { cn } from "@/utils";
+
+type Props = {
     children: React.ReactNode,
-    className?: string,
 } & React.LabelHTMLAttributes<HTMLLabelElement>;
 
-const Label = ({ children, className, ... props } : LabelProps) => {
+const Label = ({ className, children, ...props  } : Props) => {
     return (
         <label
-            className={`font-medium text-left w-32 ${className || ''}`}
+            className={cn(
+                'font-medium text-left w-32',
+                className,
+            )}
             { ...props }
         >
             { children }

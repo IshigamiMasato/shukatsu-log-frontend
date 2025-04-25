@@ -1,11 +1,16 @@
+import { cn } from "@/utils";
+
 type Props = {
-    children: React.ReactNode,
     className?: string,
+    children: React.ReactNode,
 }
 
-const FormContainer = ({ children, className } : Props) => {
+const FormContainer = ({ className, children } : Props) => {
     return (
-        <div className={`w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg border ${className}`}>
+        <div className={cn(
+            'w-full sm:max-w-lg max-w-sm p-4 bg-white mx-auto rounded-lg border',
+            className,
+        )}>
             { children }
         </div>
     )
