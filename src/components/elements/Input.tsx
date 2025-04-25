@@ -1,17 +1,18 @@
-type InputProps = {
-    type: string,
-    name: string,
+import { cn } from "@/utils";
+
+type Props = {
     errors?: string[]|undefined,
-    className?: string,
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-const Input = ({ type, name, errors, className, ...props } : InputProps) => {
+const Input = ({ className, errors, ...props } : Props) => {
     return (
         <input
-            type={type}
-            name={name}
+            className={cn(
+                'bg-gray-50 border border-gray-300 rounded-lg p-2 w-full appearance-none min-h-10',
+                errors && 'border-2 border-red-500',
+                className,
+            )}
             { ...props }
-            className={ `bg-gray-50 border border-gray-300 rounded-lg p-2 w-full appearance-none min-h-10 ${errors ? 'border-2 border-red-500' : ''} ${className || ''}` }
         />
     )
 }

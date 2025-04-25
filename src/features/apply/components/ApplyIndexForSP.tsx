@@ -8,6 +8,7 @@ import getBadge from "../getBadge";
 import Link from "next/link";
 import ActionContainer from "@/components/containers/ActionContainer";
 import ApplyDeleteButton from "./ApplyDeleteButton";
+import { cn } from "@/utils";
 
 const ApplyIndexForSP = ({applies} : {applies : Apply[]}) => {
     const [openItems, setOpenItems] = useState<number[]>([]);
@@ -28,13 +29,19 @@ const ApplyIndexForSP = ({applies} : {applies : Apply[]}) => {
                 return (
                     <div key={apply.apply_id} className="border-b border-gray-200">
                         <button className="w-full flex items-center px-6 py-3 hover:bg-gray-50 rounded-lg" onClick={ () => toggleItem(apply.apply_id) }>
-                            <span className={`text-2xl text-blue-500 transform transition-transform mr-2 ${ isOpen ? 'rotate-180' : '' }`}>
+                            <span className={cn(
+                                'text-2xl text-blue-500 transform transition-transform mr-2',
+                                isOpen && 'rotate-180',
+                            )}>
                                 <FontAwesomeIcon icon={faChevronCircleUp} />
                             </span>
                             <span className="font-semibold text-sm">{ getBadge(apply.status) } { apply.company.name }</span>
                         </button>
 
-                        <div className={`text-sm space-y-3 px-6 py-3 ${ isOpen ? 'display' : 'hidden'}`}>
+                        <div className={cn(
+                            'text-sm space-y-3 px-6 py-3',
+                            isOpen ? 'display' : 'hidden',
+                        )}>
                             <div className="flex">
                                 <div className="w-32 font-medium">職種</div>
                                 <div>

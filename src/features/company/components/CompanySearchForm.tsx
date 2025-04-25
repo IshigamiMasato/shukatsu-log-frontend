@@ -8,6 +8,7 @@ import { faCircleXmark, faMagnifyingGlass } from "@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { cn } from "@/utils";
 
 const CompanySearchForm = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -47,7 +48,10 @@ const CompanySearchForm = () => {
                 { isOpen ? <span>検索フォームを非表示</span> : <span>検索フォームを表示</span> }
             </button>
 
-            <div className={`p-5 border border-gray-200 rounded-lg shadow-md ${!isOpen && 'hidden'}`}>
+            <div className={cn(
+                'p-5 border border-gray-200 rounded-lg shadow-md',
+                !isOpen && 'hidden',
+            )}>
                 <div className="flex flex-wrap justify-start items-center">
                     <FormItem className="w-full px-2">
                         <Label>検索ワード</Label>

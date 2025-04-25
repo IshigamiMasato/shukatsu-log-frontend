@@ -1,11 +1,16 @@
-type FormItemProps = {
+import { cn } from "@/utils";
+
+type Props = {
     className?: string,
     children: React.ReactNode
 }
 
-const FormItem = ({ children, className } : FormItemProps) => {
+const FormItem = ({ className, children } : Props) => {
     return (
-        <div className={`mb-5 ${className || ''}`}>
+        <div className={cn(
+            'mb-5',
+            className,
+        )}>
             { children }
         </div>
     )

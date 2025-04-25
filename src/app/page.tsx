@@ -21,6 +21,7 @@ import getBadge from "@/features/apply/getBadge";
 import { getCompanies } from "@/features/company/api/getCompanies";
 import verifyAuth from "@/utils/server/verifyAuth";
 import ApplyIndexForSP from "@/features/apply/components/ApplyIndexForSP";
+import { cn } from "@/utils";
 
 export const metadata = {
 	title: process.env.NEXT_PUBLIC_APP_NAME,
@@ -148,7 +149,10 @@ const Home = async () => {
 					<div className="sm:flex sm:flex-wrap sm:justify-between grid grid-cols-3"> {/* PC用：flex適用 SP用：grid適用 */}
 						<Link
 							href={ unregisteredSelectionProcessTotal == 0 ? "#" : getApplyLink(UNREGISTERED_SELECTION_PROCESS) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ unregisteredSelectionProcessTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								unregisteredSelectionProcessTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -157,20 +161,29 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">選考履歴未登録</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ unregisteredSelectionProcessTotal === 0 ? 'opacity-60' : '' }`}>{ unregisteredSelectionProcessTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										unregisteredSelectionProcessTotal === 0 && 'opacity-60',
+									)}>{ unregisteredSelectionProcessTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">選考履歴無し</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ unregisteredSelectionProcessTotal === 0 ? 'opacity-60' : '' }`}>{ unregisteredSelectionProcessTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									unregisteredSelectionProcessTotal === 0 && 'opacity-60',
+								)}>{ unregisteredSelectionProcessTotal }</div>
 							</div>
 						</Link>
 
 						<Link
 							href={ documentSelectionTotal == 0 ? "#" : getApplyLink(DOCUMENT_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ documentSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								documentSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -179,20 +192,29 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">書類選考中</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ documentSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ documentSelectionTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										documentSelectionTotal === 0 && 'opacity-60',
+									)}>{ documentSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">書類選考中</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ documentSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ documentSelectionTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									documentSelectionTotal === 0 && 'opacity-60',
+								)}>{ documentSelectionTotal }</div>
 							</div>
 						</Link>
 
 						<Link
 							href={ examSelectionTotal == 0 ? "#" : getApplyLink(EXAM_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ examSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								examSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -201,20 +223,29 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">筆記試験選考中</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ examSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ examSelectionTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										examSelectionTotal === 0 && 'opacity-60',
+									)}>{ examSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">筆記選考中</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ examSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ examSelectionTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									examSelectionTotal === 0 && 'opacity-60',
+								)}>{ examSelectionTotal }</div>
 							</div>
 						</Link>
 
 						<Link
 							href={ interviewSelectionTotal == 0 ? "#" : getApplyLink(INTERVIEW_SELECTION) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ interviewSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								interviewSelectionTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -223,20 +254,29 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">面接選考中</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ interviewSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ interviewSelectionTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										interviewSelectionTotal === 0 && 'opacity-60',
+									)}>{ interviewSelectionTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">面接選考中</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ interviewSelectionTotal === 0 ? 'opacity-60' : '' }`}>{ interviewSelectionTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									interviewSelectionTotal === 0 && 'opacity-60',
+								)}>{ interviewSelectionTotal }</div>
 							</div>
 						</Link>
 
 						<Link
 							href={ offerTotal == 0 ? "#" : getApplyLink(OFFER) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ offerTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								offerTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -245,20 +285,29 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">内定</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ offerTotal === 0 ? 'opacity-60' : '' }`}>{ offerTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										offerTotal === 0 && 'opacity-60',
+									)}>{ offerTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">内定</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ offerTotal === 0 ? 'opacity-60' : '' }`}>{ offerTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									offerTotal === 0 && 'opacity-60',
+								)}>{ offerTotal }</div>
 							</div>
 						</Link>
 
 						<Link
 							href={ finalTotal == 0 ? "#" : getApplyLink(FINAL_RESULT) }
-							className={`w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md ${ finalTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100' }`}
+							className={cn(
+								'w-full sm:basis-1/2 md:basis-1/3 p-4 sm:px-8 border rounded-md',
+								finalTotal === 0 ? 'bg-gray-50 pointer-events-none' : 'bg-white hover:bg-gray-100',
+							)}
 						>
 							{/* PC用 */}
 							<div className="hidden sm:flex sm:items-center sm:space-x-4">
@@ -267,14 +316,20 @@ const Home = async () => {
 								</div>
 								<div>
 									<h3 className="text-base md:text-lg">選考終了</h3>
-									<span className={`text-3xl font-bold text-blue-500 ${ finalTotal === 0 ? 'opacity-60' : '' }`}>{ finalTotal }</span>
+									<span className={cn(
+										'text-3xl font-bold text-blue-500',
+										finalTotal === 0 && 'opacity-60',
+									)}>{ finalTotal }</span>
 								</div>
 							</div>
 
 							{/* SP用 */}
 							<div className="sm:hidden text-center">
 								<h3 className="text-xs">選考終了</h3>
-								<div className={`text-3xl font-bold text-blue-500 ${ finalTotal === 0 ? 'opacity-60' : '' }`}>{ finalTotal }</div>
+								<div className={cn(
+									'text-3xl font-bold text-blue-500',
+									finalTotal === 0 && 'opacity-60',
+								)}>{ finalTotal }</div>
 							</div>
 						</Link>
 					</div>

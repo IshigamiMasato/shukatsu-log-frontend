@@ -1,17 +1,19 @@
-type SelectProps = {
+import { cn } from "@/utils";
+
+type Props = {
     errors?: string[]|undefined,
-    className?: string,
     children: React.ReactNode,
 } & React.SelectHTMLAttributes<HTMLSelectElement>;
 
-const Select = ({ name, value, onChange, children, errors, className, ...props } : SelectProps) => {
+const Select = ({ className, errors, children, ...props } : Props) => {
     return (
         <select
-            name={ name }
-            value={ value }
-            onChange={ onChange }
+            className={cn(
+                'bg-gray-50 border border-gray-300 rounded-lg p-2 w-full appearance-none',
+                errors && 'border-2 border-red-500',
+                className,
+            )}
             { ...props }
-            className={ `bg-gray-50 border border-gray-300 rounded-lg p-2 w-full appearance-none ${errors ? 'border-2 border-red-500' : ''} ${className}` }
         >
             { children }
         </select>
