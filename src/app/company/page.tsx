@@ -115,10 +115,10 @@ const CompanyPage = async ( props: { searchParams: Promise<{ [key: string]: stri
                                                     </td>
                                                     <td className="px-6 py-3 font-medium whitespace-nowrap">
                                                         <Link href={company.url ?? "#"} legacyBehavior>
-                                                            <a target="_blank" rel="noopener noreferrer">{ company.url }</a>
+                                                            <a target="_blank" rel="noopener noreferrer" className={cn(company.url && 'text-blue-500 hover:underline')}>{ company.url ?? "-" }</a>
                                                         </Link>
                                                     </td>
-                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.employee_number?.toLocaleString() }</td>
+                                                    <td className="px-6 py-3 font-medium whitespace-nowrap">{ company.employee_number?.toLocaleString() ?? "-"}</td>
                                                     <td className="px-6 py-3 font-medium whitespace-nowrap">
                                                         <Link href={`/company/${company.company_id}/edit`}>
                                                             <ActionContainer className="bg-white hover:bg-gray-100 text-gray-700 border border-gray-300">
