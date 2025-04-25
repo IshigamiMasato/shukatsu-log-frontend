@@ -1,4 +1,4 @@
-import getJWT from "@/server/utils/getJWT";
+import getJWT from "@/utils/server/getJWT";
 import { Document } from "@/types";
 import { notFound, redirect } from "next/navigation";
 

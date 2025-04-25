@@ -1,4 +1,4 @@
-import getJWT from "@/server/utils/getJWT";
+import getJWT from "@/utils/server/getJWT";
 import { ProcessItem } from "@/types/process_item";
 import { notFound, redirect } from "next/navigation";
 

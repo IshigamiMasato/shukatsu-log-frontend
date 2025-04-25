@@ -5,7 +5,7 @@ import { getCompanies } from "@/features/company/api/getCompanies";
 import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButton";
 import CompanySearchForm from "@/features/company/components/CompanySearchForm";
 import CompanyIndexForSP from "@/features/company/components/CompanyIndexForSP";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import { Company } from "@/types";
 import { faChevronLeft, faChevronRight, faCirclePlus, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

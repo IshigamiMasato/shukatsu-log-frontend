@@ -5,7 +5,7 @@ import CompanyDeleteButton from "@/features/company/components/CompanyDeleteButt
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 import InfoBlock from "@/components/InfoBlock";
 
 export const metadata = {

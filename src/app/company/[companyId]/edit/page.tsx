@@ -1,7 +1,7 @@
 import BackLink from "@/components/navigations/BackLink";
 import { getCompany } from "@/features/company/api/getCompany";
 import CompanyEditForm from "@/features/company/components/CompanyEditForm";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `企業編集 | ${process.env.NEXT_PUBLIC_APP_NAME}`,

@@ -1,5 +1,5 @@
 import { getUser } from "@/features/user/api/getUser";
-import verifyAuth from "@/server/utils/verifyAuth";
+import verifyAuth from "@/utils/server/verifyAuth";
 
 export const metadata = {
 	title: `会員情報 | ${process.env.NEXT_PUBLIC_APP_NAME}`,
