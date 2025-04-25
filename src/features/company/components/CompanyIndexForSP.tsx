@@ -44,13 +44,13 @@ const CompanyIndexForSP = ({companies} : {companies : Company[]}) => {
                                 <div className="w-32 font-medium">企業URL</div>
                                 <div>
                                     <Link href={company.url ?? "#"} legacyBehavior>
-                                        <a target="_blank" rel="noopener noreferrer">{ company.url }</a>
+                                        <a target="_blank" rel="noopener noreferrer" className={cn(company.url && 'text-blue-500 hover:underline')}>{ company.url ?? "-" }</a>
                                     </Link>
                                 </div>
                             </div>
                             <div className="flex">
                                 <div className="w-32 font-medium">従業員数</div>
-                                <div>{ company.employee_number?.toLocaleString() }</div>
+                                <div>{ company.employee_number?.toLocaleString() ?? "-" }</div>
                             </div>
                             <div className="flex items-center">
                                 <div className="w-32 font-medium">編集/削除</div>
