@@ -27,6 +27,7 @@ export async function POST() {
                 name: 'jwt',
                 value: data.access_token,
                 httpOnly: true,
+                sameSite: 'strict',
             });
         }
 
