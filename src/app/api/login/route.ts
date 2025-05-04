@@ -23,6 +23,7 @@ export async function POST(request: Request) {
                 name: 'jwt',
                 value: data.access_token,
                 httpOnly: true,
+                sameSite: 'strict',
             });
         }
 

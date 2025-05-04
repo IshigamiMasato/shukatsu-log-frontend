@@ -38,7 +38,7 @@ export default async function middleware(request: NextRequest) {
                 const newAccessToken = await refreshToken();
                 if ( newAccessToken ) {
                     const response = NextResponse.next();
-                    response.cookies.set({ name: 'jwt', value: newAccessToken, httpOnly: true });
+                    response.cookies.set({ name: 'jwt', value: newAccessToken, httpOnly: true, sameSite: 'strict' });
                     return response;
                 }
             } catch ( error ) {
@@ -53,7 +53,7 @@ export default async function middleware(request: NextRequest) {
                 const newAccessToken = await refreshToken();
                 if ( newAccessToken ) {
                     const response = NextResponse.redirect( new URL('/', request.url) );
-                    response.cookies.set({ name: 'jwt', value: newAccessToken, httpOnly: true });
+                    response.cookies.set({ name: 'jwt', value: newAccessToken, httpOnly: true, sameSite: 'strict' });
                     return response;
                 }
             } catch ( error ) {
